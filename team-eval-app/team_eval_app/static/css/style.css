@@ -1,0 +1,43 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.rating-group {
+    display: flex;
+    gap: 4px;
+}
+
+.rating-group .btn-check:checked + .btn {
+    background-color: #0d6efd;
+    color: #fff;
+    border-color: #0d6efd;
+}
+
+.rating-group .btn-sm {
+    width: 36px;
+    height: 36px;
+    font-weight: bold;
+}
+
+.card-header {
+    font-size: 0.95rem;
+}
+
+.display-5 {
+    font-size: 2.5rem;
+}
+
+.badge.bg-Exceptional { background-color: #198754; }
+.badge.bg-Exceeds { background-color: #0d6efd; }
+.badge.bg-Meets { background-color: #ffc107; color: #333; }
+.badge.bg-Below { background-color: #fd7e14; }
+.badge.bg-Well\ Below { background-color: #dc3545; }
+
+.table-responsive {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+tfoot tr {
+    font-size: 0.9rem;
+}

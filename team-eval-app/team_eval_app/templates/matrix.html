@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Balanced Score Matrix{% endblock %}
+{% block content %}
+<h2>Team Membership — Balanced Score Matrix</h2>
+<p class="text-muted">Consolidated view across all four competency pillars for <strong>{{ evaluation.candidate_name }}</strong></p>
+
+<div class="card mb-4">
+    <div class="card-header fw-bold">Balanced Score Matrix</div>
+    <div class="card-body">
+        <table class="table table-bordered align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th><th>Indicator</th><th>Technical<br>(25%)</th><th>Problem<br>Solving (25%)</th>
+                    <th>Interpersonal<br>(25%)</th><th>Organizational<br>(25%)</th><th>Avg<br>(1–5)</th>
+                    <th>Weighted<br>Contribution</th><th>Performance<br>Band</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set indicators = [
+                    ("T1", "Domain Expertise", evaluation.t1),
+                    ("T2", "Applied Technical Skill", evaluation.t2),
+                    ("T3", "Continuous Learning", evaluation.t3),
+                    ("T4", "Quality of Technical Output", evaluation.t4),
+                    ("T5", "Cross-Functional Technical Contribution", evaluation.t5),
+                    ("P1", "Analytical Thinking", evaluation.p1),
+                    ("P2", "Creative Solution Crafting", evaluation.p2),
+                    ("P3", "Decision-Making Under Uncertainty", evaluation.p3),
+                    ("P4", "Resourcefulness", evaluation.p4),
+                    ("P5", "Lessons-Learned Orientation", evaluation.p5),
+                    ("I1", "Collaborative Disposition", evaluation.i1),
+                    ("I2", "Communication Clarity", evaluation.i2),
+                    ("I3", "Active Listening", evaluation.i3),
+                    ("I4", "Conflict Management", evaluation.i4),
+                    ("I5", "Empathy & Trust-Building", evaluation.i5),
+                    ("O1", "Networking Effectiveness", evaluation.o1),
+                    ("O2", "Resource Mobilisation", evaluation.o2),
+                    ("O3", "Stakeholder Navigation", evaluation.o3),
+                    ("O4", "Cross-Unit Communication", evaluation.o4),
+                    ("O5", "Alignment with Organisational Goals", evaluation.o5),
+                ] %}
+                {% for code, name, score in indicators %}
+                <tr>
+                    <td>{{ code }}</td>
+                    <td>{{ name }}</td>
+                    {% if code.startswith("T") %}
+                    <td class="table-primary fw-bold">{{ score or "–" }}</td><td>–</td><td>–</td><td>–</td>
+                    {% elif code.startswith("P") %}
+                    <td>–</td><td class="table-info fw-bold">{{ score or "–" }}</td><td>–</td><td>–</td>
+                    {% elif code.startswith("I") %}
+                    <td>–</td><td>–</td><td class="table-success fw-bold">{{ score or "–" }}</td><td>–</td>
+                    {% elif code.startswith("O") %}
+                    <td>–</td><td>–</td><td>–</td><td class="table-warning fw-bold">{{ score or "–" }}</td>
+                    {% endif %}
+                    <td>{{ score or "–" }}</td>
+                    <td>{{ (score * 0.25)|round(2) if score else "–" }}</td>
+                    <td>–</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot class="table-active fw-bold">
+                <tr>
+                    <td colspan="2">Pillar Average</td>
+                    <td>{{ evaluation.technical_avg or "–" }}</td>
+                    <td>{{ evaluation.problem_solving_avg or "–" }}</td>
+                    <td>{{ evaluation.interpersonal_avg or "–" }}</td>
+                    <td>{{ evaluation.organizational_avg or "–" }}</td>
+                    <td>{{ evaluation.overall_balanced_score or "–" }}</td>
+                    <td>{{ (evaluation.overall_balanced_score * 0.25)|round(2) if evaluation.overall_balanced_score else "–" }}</td>
+                    <td><span class="badge bg-{{ band_color(evaluation.performance_band) }}">{{ evaluation.performance_band }}</span></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header fw-bold">Interpretation Guide</div>
+    <div class="card-body">
+        <table class="table table-sm">
+            <tr><td><strong>4.50–5.00</strong></td><td>Exceptional</td><td>Rare top talent; prioritise for team.</td></tr>
+            <tr><td><strong>3.50–4.49</strong></td><td>Exceeds</td><td>Strong candidate; minor gaps manageable.</td></tr>
+            <tr><td><strong>2.50–3.49</strong></td><td>Meets</td><td>Solid contributor; pair with mentors.</td></tr>
+            <tr><td><strong>1.50–2.49</strong></td><td>Below</td><td>Significant gaps; consider development plan.</td></tr>
+            <tr><td><strong>1.00–1.49</strong></td><td>Well Below</td><td>Not recommended at this time.</td></tr>
+        </table>
+    </div>
+</div>
+
+<div class="d-flex gap-2">
+    <a href="/radar/{{ evaluation.id }}" class="btn btn-success">📊 View Radar Chart</a>
+    <a href="/questionnaire" class="btn btn-outline-primary">📝 New Evaluation</a>
+</div>
+{% endblock %}

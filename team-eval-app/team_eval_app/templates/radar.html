@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Radar Chart — {{ evaluation.candidate_name }}{% endblock %}
+{% block content %}
+<h2>Radar Chart — {{ evaluation.candidate_name }}</h2>
+<p class="text-muted">Skill profile across four competency pillars. Evaluated by {{ evaluation.evaluator }} on {{ evaluation.timestamp }}</p>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header fw-bold">Competency Radar</div>
+            <div class="card-body">
+                <canvas id="radarChart" width="400" height="400"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-header fw-bold">Score Summary</div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <tr><td>Technical Average</td><td class="fw-bold">{{ evaluation.technical_avg or "–" }}</td></tr>
+                    <tr><td>Problem Solving Average</td><td class="fw-bold">{{ evaluation.problem_solving_avg or "–" }}</td></tr>
+                    <tr><td>Interpersonal Average</td><td class="fw-bold">{{ evaluation.interpersonal_avg or "–" }}</td></tr>
+                    <tr><td>Organizational Average</td><td class="fw-bold">{{ evaluation.organizational_avg or "–" }}</td></tr>
+                    <tr class="table-active"><td>Overall Balanced Score</td><td class="fw-bold fs-5">{{ evaluation.overall_balanced_score }}</td></tr>
+                    <tr><td>Performance Band</td><td><span class="badge bg-{{ band_color(evaluation.performance_band) }}">{{ evaluation.performance_band }}</span></td></tr>
+                    <tr><td>Recommendation</td><td>{{ evaluation.recommendation }}</td></tr>
+                </table>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-header fw-bold">Detailed Ratings</div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    {% set items = [
+                        ("T1 Domain Expertise", evaluation.t1), ("T2 Applied Technical", evaluation.t2),
+                        ("T3 Continuous Learning", evaluation.t3), ("T4 Output Quality", evaluation.t4),
+                        ("T5 Cross-Functional", evaluation.t5),
+                        ("P1 Analytical Thinking", evaluation.p1), ("P2 Creative Solutions", evaluation.p2),
+                        ("P3 Decision Under Uncertainty", evaluation.p3), ("P4 Resourcefulness", evaluation.p4),
+                        ("P5 Lessons Learned", evaluation.p5),
+                        ("I1 Collaborative Disposition", evaluation.i1), ("I2 Communication Clarity", evaluation.i2),
+                        ("I3 Active Listening", evaluation.i3), ("I4 Conflict Management", evaluation.i4),
+                        ("I5 Empathy & Trust", evaluation.i5),
+                        ("O1 Networking Effectiveness", evaluation.o1), ("O2 Resource Mobilisation", evaluation.o2),
+                        ("O3 Stakeholder Navigation", evaluation.o3), ("O4 Cross-Unit Comms", evaluation.o4),
+                        ("O5 Strategic Alignment", evaluation.o5),
+                    ] %}
+                    {% for name, val in items %}
+                    <tr><td>{{ name }}</td><td>{{ val or "–" }}</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('radarChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: ['Technical', 'Problem Solving', 'Interpersonal', 'Organizational'],
+            datasets: [{
+                label: '{{ evaluation.candidate_name }}',
+                data: [
+                    {{ evaluation.technical_avg or 0 }},
+                    {{ evaluation.problem_solving_avg or 0 }},
+                    {{ evaluation.interpersonal_avg or 0 }},
+                    {{ evaluation.organizational_avg or 0 }}
+                ],
+                fill: true,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgb(54, 162, 235)',
+                pointBackgroundColor: 'rgb(54, 162, 235)',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            scales: {
+                r: {
+                    min: 0, max: 5,
+                    ticks: { stepSize: 1 },
+                    pointLabels: { font: { size: 14 } }
+                }
+            },
+            plugins: {
+                title: { display: true, text: '{{ evaluation.candidate_name }} — Skill Radar' }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block title %}Questionnaire{% endblock %}
+{% block content %}
+<h2>Team Member Evaluation Questionnaire</h2>
+<p class="text-muted">Project Team Membership Assessment &mdash; Balanced Skill Scorecard</p>
+
+<form method="POST" action="/questionnaire" id="evalForm">
+    <!-- Metadata -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <label class="form-label fw-bold">Candidate Name</label>
+            <input type="text" name="candidate_name" class="form-control" required placeholder="Enter candidate name">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label fw-bold">Evaluator</label>
+            <input type="text" name="evaluator" class="form-control" required placeholder="Enter evaluator name">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label fw-bold">Date</label>
+            <input type="date" name="eval_date" class="form-control" value="{{ today }}" id="evalDate">
+        </div>
+    </div>
+
+    <div class="alert alert-secondary small">
+        Rating Scale: <strong>1</strong> = Well Below &nbsp;|&nbsp; <strong>2</strong> = Below &nbsp;|&nbsp;
+        <strong>3</strong> = Meets &nbsp;|&nbsp; <strong>4</strong> = Exceeds &nbsp;|&nbsp; <strong>5</strong> = Exceptional
+    </div>
+
+    {% set pillars = [
+        ("Technical Skills", "T", [
+            ("t1", "Domain Expertise", "Does the individual demonstrate strong knowledge in their core discipline?"),
+            ("t2", "Applied Technical Skill", "Can they translate technical knowledge into actionable outputs?"),
+            ("t3", "Continuous Learning", "Do they actively update their skills and stay current?"),
+            ("t4", "Quality of Technical Output", "Is the quality, accuracy, and rigour of their work consistently high?"),
+            ("t5", "Cross-Functional Technical Contribution", "Can they apply skills across functions to support the team?"),
+        ], "25%"),
+        ("Problem Solving Skills", "P", [
+            ("p1", "Analytical Thinking", "Does the individual break down complex problems systematically?"),
+            ("p2", "Creative Solution Crafting", "Do they generate innovative solutions at difficult impasses?"),
+            ("p3", "Decision-Making Under Uncertainty", "Can they make sound judgements with incomplete information?"),
+            ("p4", "Resourcefulness", "Do they find ways to progress even when resources are limited?"),
+            ("p5", "Lessons-Learned Orientation", "Do they reflect on past problems and apply those insights?"),
+        ], "25%"),
+        ("Interpersonal Skills", "I", [
+            ("i1", "Collaborative Disposition", "Does the individual actively share knowledge and workload?"),
+            ("i2", "Communication Clarity", "Do they express ideas clearly and adapt style to different audiences?"),
+            ("i3", "Active Listening", "Do they genuinely engage with others' input and incorporate feedback?"),
+            ("i4", "Conflict Management", "When disagreements arise, do they work toward resolution?"),
+            ("i5", "Empathy & Trust-Building", "Do they build psychological safety within the team?"),
+        ], "25%"),
+        ("Organizational Skills", "O", [
+            ("o1", "Networking Effectiveness", "Does the individual cultivate productive cross-organisation relationships?"),
+            ("o2", "Resource Mobilisation", "Can they secure support from operating units when needed?"),
+            ("o3", "Stakeholder Navigation", "Do they understand the political landscape and manage it diplomatically?"),
+            ("o4", "Cross-Unit Communication", "Do they keep relevant parts of the organisation informed and aligned?"),
+            ("o5", "Alignment with Organisational Goals", "Do their actions consistently advance both project and company priorities?"),
+        ], "25%"),
+    ] %}
+
+    {% for pillar_name, prefix, indicators, weight in pillars %}
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between">
+            <strong>{{ pillar_name }}</strong>
+            <span class="badge bg-primary">Weight: {{ weight }}</span>
+        </div>
+        <div class="card-body">
+            <table class="table table-sm align-middle">
+                <thead>
+                    <tr><th style="width:5%">#</th><th style="width:20%">Indicator</th><th style="width:45%">Question</th><th style="width:30%">Rating (1–5)</th></tr>
+                </thead>
+                <tbody>
+                    {% for code, name, question in indicators %}
+                    <tr>
+                        <td>{{ prefix }}{{ loop.index }}</td>
+                        <td><strong>{{ name }}</strong></td>
+                        <td class="text-muted small">{{ question }}</td>
+                        <td>
+                            <div class="rating-group d-flex gap-1">
+                                {% for n in range(1, 6) %}
+                                <label class="rating-btn">
+                                    <input type="radio" name="{{ code }}" value="{{ n }}" class="btn-check" autocomplete="off">
+                                    <span class="btn btn-outline-secondary btn-sm">{{ n }}</span>
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr class="table-active">
+                        <td colspan="3" class="text-end fw-bold">{{ pillar_name }} Sub-Total (avg × weight)</td>
+                        <td class="fw-bold" id="{{ prefix }}Avg">—</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Overall Score (live preview) -->
+    <div class="card mb-4 border-primary">
+        <div class="card-header bg-primary text-white fw-bold">Overall Balanced Score (max 5.00)</div>
+        <div class="card-body text-center">
+            <span class="display-5 fw-bold" id="overallScore">—</span>
+            <span class="badge ms-2" id="overallBand" style="font-size:1rem">—</span>
+        </div>
+    </div>
+
+    <!-- Recommendation -->
+    <div class="card mb-4">
+        <div class="card-header fw-bold">Recommendation</div>
+        <div class="card-body">
+            <div class="mb-3">
+                <select name="recommendation" class="form-select">
+                    <option value="">— Select Recommendation —</option>
+                    <option value="Strong Recommend">Strong Recommend</option>
+                    <option value="Recommend with Conditions">Recommend with Conditions</option>
+                    <option value="Recommend for Mentorship">Recommend for Mentorship</option>
+                    <option value="Do Not Recommend">Do Not Recommend</option>
+                </select>
+            </div>
+            <div>
+                <label class="form-label">Notes / Development Areas</label>
+                <textarea name="notes" class="form-control" rows="3" placeholder="Additional observations, development areas, or context..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary btn-lg">💾 SAVE TO DATABASE</button>
+    </div>
+</form>
+{% endblock %}

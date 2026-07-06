@@ -1,0 +1,6 @@
+{
+  "name": "TRIZ Contradiction Mapper",
+  "description": "An interactive bilingual (English/Chinese) engineering tool mapping the 39 Altshuller Matrix Parameters to the 40 Inventive Principles and the 76 Standard Solutions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

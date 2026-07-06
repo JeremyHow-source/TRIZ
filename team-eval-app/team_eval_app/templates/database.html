@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Member Database{% endblock %}
+{% block content %}
+<h2>Member Evaluation Database</h2>
+<p class="text-muted">Flat table — each row is one completed evaluation. Export-ready.</p>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <input type="text" class="form-control" id="searchInput" placeholder="Search by candidate name..." value="{{ search }}">
+    </div>
+    <div class="col-md-3">
+        <select class="form-select" id="bandFilter">
+            <option value="">All Performance Bands</option>
+            <option value="Exceptional" {% if band == 'Exceptional' %}selected{% endif %}>Exceptional</option>
+            <option value="Exceeds" {% if band == 'Exceeds' %}selected{% endif %}>Exceeds</option>
+            <option value="Meets" {% if band == 'Meets' %}selected{% endif %}>Meets</option>
+            <option value="Below" {% if band == 'Below' %}selected{% endif %}>Below</option>
+            <option value="Well Below" {% if band == 'Well Below' %}selected{% endif %}>Well Below</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <a href="/export/csv" class="btn btn-outline-secondary">⬇ Export CSV</a>
+    </div>
+    <div class="col-md-2">
+        <a href="/heatmap" class="btn btn-outline-danger">🔥 Heatmap</a>
+    </div>
+</div>
+
+{% if evaluations %}
+<div class="table-responsive">
+    <table class="table table-hover table-sm align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th><th>Candidate</th><th>Evaluator</th><th>Date</th>
+                <th>T Avg</th><th>PS Avg</th><th>IP Avg</th><th>Org Avg</th>
+                <th>Overall</th><th>Band</th><th>Recommendation</th><th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ev in evaluations %}
+            <tr class="{{ 'table-striped' if loop.index is even }}">
+                <td>{{ ev.id }}</td>
+                <td>{{ ev.candidate_name }}</td>
+                <td>{{ ev.evaluator }}</td>
+                <td>{{ ev.timestamp }}</td>
+                <td>{{ ev.technical_avg or "–" }}</td>
+                <td>{{ ev.problem_solving_avg or "–" }}</td>
+                <td>{{ ev.interpersonal_avg or "–" }}</td>
+                <td>{{ ev.organizational_avg or "–" }}</td>
+                <td><strong>{{ ev.overall_balanced_score }}</strong></td>
+                <td><span class="badge bg-{{ band_color(ev.performance_band) }}">{{ ev.performance_band }}</span></td>
+                <td class="small">{{ ev.recommendation[:30] }}</td>
+                <td>
+                    <a href="/matrix/{{ ev.id }}" class="btn btn-sm btn-outline-primary">Matrix</a>
+                    <a href="/radar/{{ ev.id }}" class="btn btn-sm btn-outline-success">Radar</a>
+                    <form method="POST" action="/delete/{{ ev.id }}" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this evaluation?')">🗑</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert alert-info">No evaluations found matching your filter.</div>
+{% endif %}
+{% endblock %}
