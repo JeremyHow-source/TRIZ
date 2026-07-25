@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore 4,900+ real-world innovations categorized by TRIZ methodology — Industries, Properties, and Functions. An offline-capable reference for inventive problem solving.">
+    <title>TRIZ Innovation Explorer — MoreInspiration Database</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💡</text></svg>">
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h2 class="loading-title">TRIZ Innovation Explorer</h2>
+            <p class="loading-subtitle">Loading innovation database...</p>
+            <div class="loading-bar-container">
+                <div class="loading-bar" id="loading-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="app" class="app hidden">
+        <!-- Header / Navigation -->
+        <header class="header" id="header">
+            <div class="header-inner">
+                <div class="header-brand">
+                    <div class="brand-icon">💡</div>
+                    <div class="brand-text">
+                        <h1 class="brand-title">TRIZ Innovation Explorer</h1>
+                        <p class="brand-subtitle">Powered by MoreInspiration Database</p>
+                    </div>
+                </div>
+                <div class="header-search">
+                    <div class="search-container">
+                        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.3-4.3"></path>
+                        </svg>
+                        <input type="text" id="search-input" class="search-input" placeholder="Search innovations..." autocomplete="off">
+                        <button id="search-clear" class="search-clear hidden" aria-label="Clear search">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 6L6 18M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-pill" id="total-count">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Innovations</span>
+                    </div>
+                    <div class="stat-pill" id="filtered-count" class="hidden">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Showing</span>
+                    </div>
+                </div>
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle filters">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <div class="main-container">
+            <!-- Sidebar Filters -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <h2 class="sidebar-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                        </svg>
+                        Filters
+                    </h2>
+                    <button id="clear-filters" class="clear-filters-btn hidden">Clear All</button>
+                </div>
+
+                <div class="filter-active-tags" id="active-filters"></div>
+
+                <!-- Industries Filter -->
+                <div class="filter-group" id="filter-industries">
+                    <button class="filter-group-header" data-target="industries-list">
+                        <div class="filter-group-title">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path>
+                            </svg>
+                            Industries
+                        </div>
+                        <span class="filter-count" id="industries-count">0</span>
+                        <svg class="filter-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="m6 9 6 6 6-6"></path>
+                        </svg>
+                    </button>
+                    <div class="filter-group-body expanded" id="industries-list">
+                        <input type="text" class="filter-search" placeholder="Search industries..." data-filter="industries">
+                        <div class="filter-items" id="industries-items"></div>
+                    </div>
+                </div>
+
+                <!-- Properties Filter -->
+                <div class="filter-group" id="filter-properties">
+                    <button class="filter-group-header" data-target="properties-list">
+                        <div class="filter-group-title">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                <path d="M2 17l10 5 10-5"></path>
+                                <path d="M2 12l10 5 10-5"></path>
+                            </svg>
+                            Properties
+                        </div>
+                        <span class="filter-count" id="properties-count">0</span>
+                        <svg class="filter-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="m6 9 6 6 6-6"></path>
+                        </svg>
+                    </button>
+                    <div class="filter-group-body" id="properties-list">
+                        <input type="text" class="filter-search" placeholder="Search properties..." data-filter="properties">
+                        <div class="filter-items" id="properties-items"></div>
+                    </div>
+                </div>
+
+                <!-- Functions Filter -->
+                <div class="filter-group" id="filter-functions">
+                    <button class="filter-group-header" data-target="functions-list">
+                        <div class="filter-group-title">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+                            </svg>
+                            Functions
+                        </div>
+                        <span class="filter-count" id="functions-count">0</span>
+                        <svg class="filter-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="m6 9 6 6 6-6"></path>
+                        </svg>
+                    </button>
+                    <div class="filter-group-body" id="functions-list">
+                        <input type="text" class="filter-search" placeholder="Search functions..." data-filter="functions">
+                        <div class="filter-items" id="functions-items"></div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Content Grid -->
+            <main class="content" id="content">
+                <!-- View Toggle & Sort -->
+                <div class="content-toolbar">
+                    <div class="view-controls">
+                        <button class="view-btn active" id="grid-view-btn" aria-label="Grid view">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
+                        </button>
+                        <button class="view-btn" id="list-view-btn" aria-label="List view">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="8" y1="6" x2="21" y2="6"></line>
+                                <line x1="8" y1="12" x2="21" y2="12"></line>
+                                <line x1="8" y1="18" x2="21" y2="18"></line>
+                                <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                                <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="sort-controls">
+                        <label class="sort-label">Sort by</label>
+                        <select id="sort-select" class="sort-select">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="az">A → Z</option>
+                            <option value="za">Z → A</option>
+                        </select>
+                    </div>
+                    <div class="results-info" id="results-info">
+                        Showing <strong id="showing-count">0</strong> of <strong id="total-innovations">0</strong> innovations
+                    </div>
+                </div>
+
+                <!-- Innovation Grid -->
+                <div class="innovation-grid" id="innovation-grid"></div>
+
+                <!-- Empty State -->
+                <div class="empty-state hidden" id="empty-state">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                        <path d="M8 11h6"></path>
+                    </svg>
+                    <h3>No innovations found</h3>
+                    <p>Try adjusting your search or filters</p>
+                    <button class="btn-reset" id="reset-all">Reset All Filters</button>
+                </div>
+
+                <!-- Load More -->
+                <div class="load-more-container" id="load-more-container">
+                    <button class="load-more-btn" id="load-more-btn">
+                        Load More Innovations
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="m6 9 6 6 6-6"></path>
+                        </svg>
+                    </button>
+                </div>
+            </main>
+        </div>
+
+        <!-- Innovation Detail Modal -->
+        <div class="modal-overlay hidden" id="modal-overlay">
+            <div class="modal" id="modal">
+                <button class="modal-close" id="modal-close" aria-label="Close">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"></path>
+                    </svg>
+                </button>
+                <div class="modal-body" id="modal-body"></div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-inner">
+                <p>Data sourced from <a href="https://www.moreinspiration.com" target="_blank" rel="noopener">MoreInspiration.com</a> by <a href="https://www.aulive.com" target="_blank" rel="noopener">ΔULIVE</a></p>
+                <p class="footer-sub">TRIZ Innovation Explorer — An offline-capable reference for inventive problem solving</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
