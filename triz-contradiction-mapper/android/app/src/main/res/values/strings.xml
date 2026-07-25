@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">SiliconResolve</string>
+    <string name="title_activity_main">SiliconResolve</string>
+    <string name="package_name">com.siliconresolve.triz</string>
+    <string name="custom_url_scheme">com.siliconresolve.triz</string>
+</resources>

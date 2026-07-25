@@ -3,12 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TRIZ Contradiction Mapper & Reference Databank</title>
-    <script type="module" crossorigin src="./assets/index-CMKjI1pt.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-8wWKcPJp.css">
+    <title>SiliconResolve: Semiconductor FA/FI TRIZ Workspace</title>
+    
+    <!-- PWA Settings -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#090b0e" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="apple-touch-icon" href="./favicon.ico">
+    <script type="module" crossorigin src="./assets/index-BrVu2luI.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-B8y1lCCT.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"></div>
+    
+    <!-- PWA Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('PWA Service Worker registered:', reg.scope))
+            .catch(err => console.error('PWA Service Worker registration failed:', err));
+        });
+      }
+    </script>
   </body>
 </html>
-
