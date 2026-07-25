@@ -39,6 +39,7 @@ interface PhysicalConflict {
   strategyZh: string;
   caseStudyEn: string;
   caseStudyZh: string;
+  principles: number[];
 }
 
 const physicalConflicts: PhysicalConflict[] = [
@@ -57,7 +58,8 @@ const physicalConflicts: PhysicalConflict[] = [
     strategyEn: "Separation in Space (Spatial Division)",
     strategyZh: "空间分离策略",
     caseStudyEn: "Locally thin the specific active silicon area inside the die (trench milling using FIB or Laser Chemical Etching) for optical probing access, while leaving a thick support ring of silicon around the perimeter of the die or package to preserve mechanical structural integrity.",
-    caseStudyZh: "在芯片背面局部开槽（使用FIB或激光化学蚀刻），仅将需要光学测试的主动探测区减薄到几十微米，而芯片周边的硅衬底维持原有的厚度，形成一个机械支撑环，以此平衡透光率与机械强度。"
+    caseStudyZh: "在芯片背面局部开槽（使用FIB或激光化学蚀刻），仅将需要光学测试的主动探测区减薄到几十微米，而芯片周边的硅衬底维持原有的厚度，形成一个机械支撑环，以此平衡透光率与机械强度。",
+    principles: [1, 2, 3, 17, 30]
   },
   {
     id: "laser_power",
@@ -74,7 +76,8 @@ const physicalConflicts: PhysicalConflict[] = [
     strategyEn: "Separation in Time (Temporal Division)",
     strategyZh: "时间分离策略",
     caseStudyEn: "Employ pulsed laser probing (Lock-In detection or Time-Resolved Emission). Synchronize high-power short laser pulses to fire only during the precise transient transistor switching intervals, and shut off the laser during steady-state logic periods. This achieves high peak power for detection while keeping the average laser power extremely low to prevent device state disturbance.",
-    caseStudyZh: "采用锁相检测或时间分辨发光（TRE）技术。使高功率激光脉冲与晶体管的瞬态开关电平跳变周期进行皮秒级同步触发，仅在需要采样的瞬态时刻发射高能脉冲，在稳态期间关闭激光，利用高瞬态峰值功率换取信噪比，同时将平均光功率压到最低以消除热载流子电学扰动。"
+    caseStudyZh: "采用锁相检测或时间分辨发光（TRE）技术。使高功率激光脉冲与晶体管的瞬态开关电平跳变周期进行皮秒级同步触发，仅在需要采样的瞬态时刻发射高能脉冲，在稳态期间关闭激光，利用高瞬态峰值功率换取信噪比，同时将平均光功率压到最低以消除热载流子电学扰动。",
+    principles: [9, 10, 15, 19, 21]
   },
   {
     id: "tip_size",
@@ -91,7 +94,8 @@ const physicalConflicts: PhysicalConflict[] = [
     strategyEn: "Separation in System Level (Scale Division)",
     strategyZh: "系统级别分离策略",
     caseStudyEn: "Design a hybrid probe tip system. The probe is engineered as a microscopic tungsten nano-needle at the tip, connected to a micro-cantilever (MEMS), which is then mounted onto a robust macro-manipulator. This separates the requirements: nanometer precision at the sub-system interface, and micro-to-macro structural compliance in the host system.",
-    caseStudyZh: "使用悬臂梁式混合探针系统。探针尖端采用硬度极高、直径仅几十纳米的钨纳米针头（解决纳米接触），而针尾固定在微米级MEMS悬臂梁上，底座则由刚性宏观机械臂驱动，从而将微观的尖锐度与宏观的刚性强度在不同层级上分离。"
+    caseStudyZh: "使用悬臂梁式混合探针系统。探针尖端采用硬度极高、直径仅几十纳米的钨纳米针头（解决纳米接触），而针尾固定在微米级MEMS悬臂梁上，底座则由刚性宏观机械臂驱动，从而将微观 of 尖锐度与宏观 of 刚性强度在不同层级上分离。",
+    principles: [5, 7, 24, 40]
   },
   {
     id: "temperature",
@@ -108,9 +112,10 @@ const physicalConflicts: PhysicalConflict[] = [
     strategyEn: "Separation upon Condition",
     strategyZh: "条件分离策略",
     caseStudyEn: "Place the semiconductor die in a thermoelectric cooler (Peltier cooler) or cryo-chamber at -50°C. Under this cold condition, the global thermal leakage background noise drops near zero, making the sensor highly sensitive. When the device is pulsed with bias voltage under test, the defective leakage paths briefly heat up locally, creating a massive temperature gradient (localized hot state) that is easily detected against the cold background.",
-    caseStudyZh: "将待测芯片置于温控 Peltier 制冷台或 -50°C 的低温气流中。在低温条件下，芯片的全局背景热辐射和暗电流噪声大幅下降。当通电测试时，由于失效点的阻抗异常，高电场导致失效通道发生瞬时局域发热（温升），使其在全局冷态背景中显现出极强的局部热对比度，从而迅速定位。"
+    caseStudyZh: "将待测芯片置于温控 Peltier 制冷台或 -50°C 的低温气流中。在低温条件下，芯片的全局背景热辐射和暗电流噪声大幅下降。当通电测试时，由于失效点的阻抗异常，高电场导致失效通道发生瞬时局域发热（温升），使其在全局冷态背景中显现出极强的局部热对比度，从而迅速定位。",
+    principles: [15, 22, 35, 36]
   }
-];
+];;
 
 export default function ContradictionMapper({ lang }: ContradictionMapperProps) {
   const t = translations[lang];
@@ -385,6 +390,68 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
                 <p className="text-xs text-slate-350 leading-relaxed font-semibold">
                   {lang === 'en' ? activePhysicalConflict.caseStudyEn : activePhysicalConflict.caseStudyZh}
                 </p>
+              </div>
+
+              {/* Recommended Inventive Principles & Standard Solutions Mapped to this Physical Contradiction */}
+              <div className="pt-4 border-t border-silicon-border space-y-3 mt-4">
+                <span className="text-[9px] uppercase tracking-wider text-matrix-green font-bold block">
+                  {lang === 'en' ? "Recommended Inventive Principles & 72 Standard Solutions" : "推荐的发明原理与72标准物场解"}
+                </span>
+
+                <div className="space-y-4 max-h-[380px] overflow-y-auto pr-1">
+                  {activePhysicalConflict.principles.map(pid => {
+                    const principle = principles.find(p => p.id === pid);
+                    if (!principle) return null;
+
+                    const linkedIds = getLinkedStandardSolutions(pid);
+                    const relatedSolutions = linkedIds.map(sid => {
+                      return standardSolutions.find(sol => sol.id === sid);
+                    }).filter((s): s is typeof standardSolutions[0] => !!s);
+
+                    return (
+                      <div key={`phys-p-${pid}`} className="bg-silicon-bg/90 border border-silicon-border rounded-xl p-4 space-y-2.5">
+                        {/* Principle Header */}
+                        <div className="flex items-center justify-between border-b border-silicon-border pb-2">
+                          <span className="px-1.5 py-0.5 bg-matrix-green text-silicon-bg rounded text-[10px] font-mono font-bold">
+                            PRINCIPLE {String(pid).padStart(2, '0')}
+                          </span>
+                          <span className="text-xs font-bold text-white font-sans">
+                            {lang === 'en' ? principle.nameEn : principle.nameZh}
+                          </span>
+                        </div>
+                        
+                        <p className="text-xs text-slate-350 leading-relaxed font-semibold">
+                          {lang === 'en' ? principle.descriptionEn : principle.descriptionZh}
+                        </p>
+
+                        {/* Linked Standard Solutions */}
+                        {relatedSolutions.length > 0 && (
+                          <div className="pl-4 border-l border-matrix-green/30 space-y-2.5 mt-2">
+                            <span className="text-[9px] uppercase tracking-wider text-slate-400 font-bold block">
+                              {lang === 'en' ? "Linked Standard Solutions" : "关联标准物场解"}
+                            </span>
+                            <div className="grid grid-cols-1 gap-2">
+                              {relatedSolutions.map(sol => (
+                                <div key={`phys-sol-${sol.id}`} className="bg-silicon-card/85 border border-silicon-border rounded-lg p-2.5">
+                                  <div className="flex items-center justify-between text-[9px] font-mono text-slate-400 border-b border-silicon-border pb-1">
+                                    <span className="text-matrix-green font-bold">Standard {sol.id}</span>
+                                    <span>{lang === 'en' ? "Class " + sol.classId : "第" + sol.classId + "类"}</span>
+                                  </div>
+                                  <h6 className="text-[11px] font-bold text-white mt-1">
+                                    {lang === 'en' ? sol.nameEn : sol.nameZh}
+                                  </h6>
+                                  <p className="text-[10px] text-slate-400 leading-normal mt-0.5 font-semibold">
+                                    {lang === 'en' ? sol.descriptionEn : sol.descriptionZh}
+                                  </p>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
