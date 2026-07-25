@@ -1,1 +1,55 @@
 @import "tailwindcss";
+
+@theme {
+  --color-silicon-bg: #090b0e;
+  --color-silicon-panel: #111419;
+  --color-silicon-card: #171c23;
+  --color-silicon-card-hover: #1f252f;
+  --color-silicon-border: #26303d;
+  --color-laser-amber: #f59e0b;
+  --color-laser-glow: rgba(245, 158, 11, 0.1);
+  --color-wafer-green: #10b981;
+}
+
+@utility wafer-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(245, 158, 11, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(245, 158, 11, 0.035) 1px, transparent 1px);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-silicon-bg);
+    color: #e2e8f0;
+  }
+}
+
+/* Custom Scrollbar for high-fidelity technical look */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-silicon-panel);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-silicon-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-laser-amber);
+}
+
+/* Wafer wafer-grid animation overlays */
+.wafer-glow-dot {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}

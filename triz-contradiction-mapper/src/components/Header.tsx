@@ -1,4 +1,4 @@
-import { Globe, Cpu, BookOpen } from 'lucide-react';
+import { Globe, Cpu, BookOpen, Layers } from 'lucide-react';
 import { TrizLanguage } from '../types';
 import { translations } from '../data/translations';
 
@@ -13,23 +13,23 @@ export default function Header({ lang, setLang, activeTab, setActiveTab }: Heade
   const t = translations[lang];
 
   return (
-    <header className="border-b border-slate-100 bg-white/80 backdrop-blur-md sticky top-0 z-40" id="app-header">
+    <header className="border-b border-silicon-border bg-silicon-panel/85 backdrop-blur-md sticky top-0 z-40" id="app-header">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           
           {/* Logo & Slogan Column */}
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-gradient-to-tr from-slate-900 to-slate-800 text-white rounded-xl shadow-md shadow-slate-200">
-              <Cpu className="h-6 w-6" id="app-logo-icon" />
+            <div className="p-2.5 bg-gradient-to-tr from-laser-amber to-amber-600 text-silicon-bg rounded-xl shadow-lg shadow-laser-glow select-none">
+              <Cpu className="h-6 w-6 animate-pulse" id="app-logo-icon" />
             </div>
-            <div>
-              <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 font-sans flex items-center gap-2">
+            <div className="text-left">
+              <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white font-sans flex items-center gap-2">
                 {t.appName}
-                <span className="text-xs font-semibold px-2 py-0.5 bg-slate-100 text-slate-700 rounded-full border border-slate-200 uppercase tracking-widest font-mono">
-                  TRIZ v1.2
+                <span className="text-[10px] font-bold px-2 py-0.5 bg-silicon-border text-laser-amber rounded-full border border-silicon-border uppercase tracking-widest font-mono">
+                  FA/FI Engine v2.0
                 </span>
               </h1>
-              <p className="text-xs text-slate-500 font-medium mt-0.5 max-w-xl">
+              <p className="text-xs text-slate-400 font-medium mt-0.5 max-w-xl">
                 {t.tagline}
               </p>
             </div>
@@ -41,22 +41,22 @@ export default function Header({ lang, setLang, activeTab, setActiveTab }: Heade
             {/* Global Language Toggle */}
             <button
               onClick={() => setLang(lang === 'en' ? 'zh' : 'en')}
-              className="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-slate-700 bg-slate-50 hover:bg-slate-100 active:bg-slate-200 rounded-lg border border-slate-200 cursor-pointer transition-colors"
+              className="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-slate-350 bg-silicon-card hover:bg-silicon-card-hover active:bg-silicon-border rounded-lg border border-silicon-border cursor-pointer transition-colors"
               id="lang-toggle-button"
               aria-label="Toggle language"
             >
-              <Globe className="h-3.5 w-3.5 text-slate-500" />
+              <Globe className="h-3.5 w-3.5 text-laser-amber" />
               <span>{lang === 'en' ? "中文 (ZH)" : "English (EN)"}</span>
             </button>
 
             {/* Navigation Tabs */}
-            <div className="flex bg-slate-100 p-1 rounded-xl border border-slate-200" id="header-navigation-tabs">
+            <div className="flex bg-silicon-bg p-1 rounded-xl border border-silicon-border" id="header-navigation-tabs">
               <button
                 onClick={() => setActiveTab('matrix')}
-                className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 text-xs font-semibold rounded-lg transition-all duration-200 ${
+                className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 text-xs font-semibold rounded-lg transition-all duration-200 cursor-pointer ${
                   activeTab === 'matrix'
-                    ? 'bg-white text-slate-900 shadow-sm shadow-slate-200/50'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-laser-amber text-silicon-bg font-bold shadow-md shadow-laser-glow'
+                    : 'text-slate-400 hover:text-slate-200'
                 }`}
                 id="tab-matrix-button"
               >
@@ -66,10 +66,10 @@ export default function Header({ lang, setLang, activeTab, setActiveTab }: Heade
               
               <button
                 onClick={() => setActiveTab('database')}
-                className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 text-xs font-semibold rounded-lg transition-all duration-200 ${
+                className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 text-xs font-semibold rounded-lg transition-all duration-200 cursor-pointer ${
                   activeTab === 'database'
-                    ? 'bg-white text-slate-900 shadow-sm shadow-slate-200/50'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-laser-amber text-silicon-bg font-bold shadow-md shadow-laser-glow'
+                    : 'text-slate-400 hover:text-slate-200'
                 }`}
                 id="tab-database-button"
               >
