@@ -57,6 +57,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
 
   const [selectedEffectItem, setSelectedEffectItem] = useState<any | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedResultType, setSelectedResultType] = useState<string>('all');
 
   // Load effects database on mount
   useEffect(() => {
@@ -91,7 +92,8 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
     selectedOperation,
     selectedParamName,
     selectedFromEnergy,
-    selectedToEnergy
+    selectedToEnergy,
+    selectedResultType
   ]);
 
   // Core mode records mapping
@@ -232,6 +234,11 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
       );
     }
 
+    // Apply the Result Type filter
+    if (selectedResultType !== 'all') {
+      dataList = dataList.filter(item => item['Result Type'] === selectedResultType);
+    }
+
     return dataList;
   }, [
     effectsDb, 
@@ -242,7 +249,8 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
     selectedOperation,
     selectedParamName,
     selectedFromEnergy,
-    selectedToEnergy
+    selectedToEnergy,
+    selectedResultType
   ]);
 
   // Paginated elements
@@ -431,12 +439,12 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                 </div>
 
                 {/* Faceted Selection Filters */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-silicon-bg/90 p-3 rounded-xl border border-silicon-border" id="effects-filters-dropdowns">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-silicon-bg/90 p-3 rounded-xl border border-silicon-border" id="effects-filters-dropdowns">
                   
                   {activeEffectsTab === 'function' && (
                     <>
                       <div className="space-y-1 text-left">
-                        <label className="text-[10px] uppercase font-bold text-slate-450 tracking-wider">Action filter</label>
+                        <label className="text-[10px] uppercase font-bold text-slate-455 tracking-wider">Action filter</label>
                         <select
                           value={selectedAction}
                           onChange={(e) => setSelectedAction(e.target.value)}
@@ -449,7 +457,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                         </select>
                       </div>
                       <div className="space-y-1 text-left">
-                        <label className="text-[10px] uppercase font-bold text-slate-450 tracking-wider">Object filter</label>
+                        <label className="text-[10px] uppercase font-bold text-slate-455 tracking-wider">Object filter</label>
                         <select
                           value={selectedObject}
                           onChange={(e) => setSelectedObject(e.target.value)}
@@ -467,7 +475,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                   {activeEffectsTab === 'parameter' && (
                     <>
                       <div className="space-y-1 text-left">
-                        <label className="text-[10px] uppercase font-bold text-slate-450 tracking-wider">Operation filter</label>
+                        <label className="text-[10px] uppercase font-bold text-slate-455 tracking-wider">Operation filter</label>
                         <select
                           value={selectedOperation}
                           onChange={(e) => setSelectedOperation(e.target.value)}
@@ -480,7 +488,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                         </select>
                       </div>
                       <div className="space-y-1 text-left">
-                        <label className="text-[10px] uppercase font-bold text-slate-450 tracking-wider">Parameter filter</label>
+                        <label className="text-[10px] uppercase font-bold text-slate-455 tracking-wider">Parameter filter</label>
                         <select
                           value={selectedParamName}
                           onChange={(e) => setSelectedParamName(e.target.value)}
@@ -498,7 +506,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                   {activeEffectsTab === 'transform' && (
                     <>
                       <div className="space-y-1 text-left">
-                        <label className="text-[10px] uppercase font-bold text-slate-450 tracking-wider">From energy type</label>
+                        <label className="text-[10px] uppercase font-bold text-slate-455 tracking-wider">From energy type</label>
                         <select
                           value={selectedFromEnergy}
                           onChange={(e) => setSelectedFromEnergy(e.target.value)}
@@ -511,7 +519,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                         </select>
                       </div>
                       <div className="space-y-1 text-left">
-                        <label className="text-[10px] uppercase font-bold text-slate-450 tracking-wider">To energy type</label>
+                        <label className="text-[10px] uppercase font-bold text-slate-455 tracking-wider">To energy type</label>
                         <select
                           value={selectedToEnergy}
                           onChange={(e) => setSelectedToEnergy(e.target.value)}
@@ -525,6 +533,22 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                       </div>
                     </>
                   )}
+
+                  {/* Common Result Type Filter */}
+                  <div className="space-y-1 text-left">
+                    <label className="text-[10px] uppercase font-bold text-slate-455 tracking-wider">
+                      {lang === 'en' ? "Result Type" : "成果类型"}
+                    </label>
+                    <select
+                      value={selectedResultType}
+                      onChange={(e) => setSelectedResultType(e.target.value)}
+                      className="w-full px-3 py-2 bg-silicon-card border border-silicon-border text-xs rounded-lg text-white font-semibold outline-none cursor-pointer"
+                    >
+                      <option value="all">{lang === 'en' ? "All Types (Scientific + Practical)" : "全部类型 (科学 + 实践)"}</option>
+                      <option value="Scientific">{lang === 'en' ? "Scientific Effects" : "科学效应 (Scientific)"}</option>
+                      <option value="Practical">{lang === 'en' ? "Practical Applications" : "实践应用 (Practical)"}</option>
+                    </select>
+                  </div>
 
                 </div>
               </>

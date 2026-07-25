@@ -1,4 +1,4 @@
-const CACHE_NAME = 'siliconresolve-triz-v5';
+const CACHE_NAME = 'siliconresolve-triz-v6';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
