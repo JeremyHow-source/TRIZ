@@ -9,8 +9,7 @@ import {
   AlertTriangle, 
   Bookmark,
   Zap,
-  Activity,
-  Cpu
+  Activity
 } from 'lucide-react';
 import { TrizLanguage } from '../types';
 import { parameters } from '../data/parameters';
@@ -164,9 +163,9 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
     <div className="space-y-8" id="contradiction-mapper-wrapper">
       
       {/* 1. Semiconductor Presets Selector */}
-      <div className="bg-silicon-panel rounded-2xl border border-silicon-border shadow-md p-6 text-left" id="presets-panel">
+      <div className="bg-silicon-panel rounded-2xl border border-silicon-border shadow-md p-6 text-left backdrop-blur-md" id="presets-panel">
         <h2 className="text-base font-bold text-white tracking-tight flex items-center gap-2">
-          <Zap className="h-5 w-5 text-laser-amber" />
+          <Zap className="h-5 w-5 text-matrix-green" />
           <span>{t.semiPresetsTitle}</span>
         </h2>
         <p className="text-xs text-slate-400 mt-1">
@@ -178,7 +177,7 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
             onClick={() => loadPreset(24, 17)}
             className={`p-3 text-left rounded-xl border text-[11px] font-semibold cursor-pointer transition-all ${
               improvingId === 24 && worseningId === 17
-                ? 'bg-laser-amber/10 border-laser-amber text-laser-amber shadow-sm'
+                ? 'bg-matrix-green/10 border-matrix-green text-matrix-green shadow-sm'
                 : 'bg-silicon-card border-silicon-border text-slate-350 hover:border-slate-500 hover:text-white'
             }`}
           >
@@ -188,7 +187,7 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
             onClick={() => loadPreset(28, 17)}
             className={`p-3 text-left rounded-xl border text-[11px] font-semibold cursor-pointer transition-all ${
               improvingId === 28 && worseningId === 17
-                ? 'bg-laser-amber/10 border-laser-amber text-laser-amber shadow-sm'
+                ? 'bg-matrix-green/10 border-matrix-green text-matrix-green shadow-sm'
                 : 'bg-silicon-card border-silicon-border text-slate-350 hover:border-slate-500 hover:text-white'
             }`}
           >
@@ -198,7 +197,7 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
             onClick={() => loadPreset(39, 31)}
             className={`p-3 text-left rounded-xl border text-[11px] font-semibold cursor-pointer transition-all ${
               improvingId === 39 && worseningId === 31
-                ? 'bg-laser-amber/10 border-laser-amber text-laser-amber shadow-sm'
+                ? 'bg-matrix-green/10 border-matrix-green text-matrix-green shadow-sm'
                 : 'bg-silicon-card border-silicon-border text-slate-350 hover:border-slate-500 hover:text-white'
             }`}
           >
@@ -208,7 +207,7 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
             onClick={() => loadPreset(24, 30)}
             className={`p-3 text-left rounded-xl border text-[11px] font-semibold cursor-pointer transition-all ${
               improvingId === 24 && worseningId === 30
-                ? 'bg-laser-amber/10 border-laser-amber text-laser-amber shadow-sm'
+                ? 'bg-matrix-green/10 border-matrix-green text-matrix-green shadow-sm'
                 : 'bg-silicon-card border-silicon-border text-slate-350 hover:border-slate-500 hover:text-white'
             }`}
           >
@@ -218,7 +217,7 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
             onClick={() => loadPreset(4, 14)}
             className={`p-3 text-left rounded-xl border text-[11px] font-semibold cursor-pointer transition-all ${
               improvingId === 4 && worseningId === 14
-                ? 'bg-laser-amber/10 border-laser-amber text-laser-amber shadow-sm'
+                ? 'bg-matrix-green/10 border-matrix-green text-matrix-green shadow-sm'
                 : 'bg-silicon-card border-silicon-border text-slate-350 hover:border-slate-500 hover:text-white'
             }`}
           >
@@ -228,10 +227,10 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
       </div>
 
       {/* 2. Technical Contradiction Workspace Selector */}
-      <div className="bg-silicon-panel rounded-2xl border border-silicon-border shadow-md p-6 lg:p-8 hover:shadow-lg hover:border-slate-700 transition-all duration-300 text-left" id="selector-panel">
+      <div className="bg-silicon-panel rounded-2xl border border-silicon-border shadow-md p-6 lg:p-8 hover:shadow-lg hover:border-slate-700 transition-all duration-300 text-left backdrop-blur-md" id="selector-panel">
         <div className="max-w-3xl">
           <h2 className="text-base font-bold text-white tracking-tight flex items-center gap-2">
-            <span className="flex h-5 w-5 items-center justify-center rounded-md bg-laser-amber text-silicon-bg text-[10px] font-mono font-bold">1</span>
+            <span className="flex h-5 w-5 items-center justify-center rounded-md bg-matrix-green text-silicon-bg text-[10px] font-mono font-bold">1</span>
             <span>{t.workspaceTitle}</span>
           </h2>
           <p className="text-xs text-slate-400 mt-1">
@@ -245,7 +244,7 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
           {/* Improving Parameter */}
           <div className="lg:col-span-5 space-y-2">
             <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5" htmlFor="improving-select">
-              <TrendingUp className="h-4 w-4 text-laser-amber" />
+              <TrendingUp className="h-4 w-4 text-matrix-green" />
               <span>{t.improvingLabel}</span>
             </label>
             <div className="relative">
@@ -253,7 +252,7 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
                 id="improving-select"
                 value={improvingId}
                 onChange={(e) => setImprovingId(Number(e.target.value))}
-                className="w-full px-4 py-3 bg-silicon-card border border-silicon-border focus:border-laser-amber focus:ring-1 focus:ring-laser-amber text-xs sm:text-sm rounded-xl text-white font-semibold transition-all outline-none cursor-pointer appearance-none"
+                className="w-full px-4 py-3 bg-silicon-card border border-silicon-border focus:border-matrix-green focus:ring-1 focus:ring-matrix-green text-xs sm:text-sm rounded-xl text-white font-semibold transition-all outline-none cursor-pointer appearance-none"
               >
                 {parameters.map(p => (
                   <option key={`imp-${p.id}`} value={p.id}>
@@ -288,7 +287,7 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
                 id="worsening-select"
                 value={worseningId}
                 onChange={(e) => setWorseningId(Number(e.target.value))}
-                className="w-full px-4 py-3 bg-silicon-card border border-silicon-border focus:border-laser-amber focus:ring-1 focus:ring-laser-amber text-xs sm:text-sm rounded-xl text-white font-semibold transition-all outline-none cursor-pointer appearance-none"
+                className="w-full px-4 py-3 bg-silicon-card border border-silicon-border focus:border-matrix-green focus:ring-1 focus:ring-matrix-green text-xs sm:text-sm rounded-xl text-white font-semibold transition-all outline-none cursor-pointer appearance-none"
               >
                 {parameters.map(p => (
                   <option key={`wor-${p.id}`} value={p.id}>
@@ -306,11 +305,11 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
         <div className="mt-6 pt-5 border-t border-silicon-border flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-[11px] text-slate-400 font-mono">
           <div className="flex flex-wrap items-center gap-2">
             <span className="font-bold text-slate-300">LOOKUP MATCH:</span>
-            <span className="px-2 py-0.5 bg-laser-amber text-silicon-bg rounded text-[10px] font-bold font-sans">
+            <span className="px-2 py-0.5 bg-matrix-green text-silicon-bg rounded text-[10px] font-bold font-sans">
               (+) {lang === 'en' ? improvingParam?.nameEn : improvingParam?.nameZh}
             </span>
             <span className="text-[10px]">vs</span>
-            <span className="px-2 py-0.5 bg-silicon-card text-white rounded border border-silicon-border text-[10px] font-bold font-sans">
+            <span className="px-2 py-0.5 bg-silicon-card border border-silicon-border text-white rounded text-[10px] font-bold font-sans">
               (-) {lang === 'en' ? worseningParam?.nameEn : worseningParam?.nameZh}
             </span>
           </div>
@@ -321,10 +320,10 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
       </div>
 
       {/* 3. Physical Contradiction Solver Section */}
-      <div className="bg-silicon-panel rounded-2xl border border-silicon-border shadow-md p-6 lg:p-8 hover:shadow-lg hover:border-slate-700 transition-all duration-300 text-left" id="physical-contradiction-panel">
+      <div className="bg-silicon-panel rounded-2xl border border-silicon-border shadow-md p-6 lg:p-8 hover:shadow-lg hover:border-slate-700 transition-all duration-300 text-left backdrop-blur-md" id="physical-contradiction-panel">
         <div className="max-w-3xl">
           <h2 className="text-base font-bold text-white tracking-tight flex items-center gap-2">
-            <span className="flex h-5 w-5 items-center justify-center rounded-md bg-laser-amber text-silicon-bg text-[10px] font-mono font-bold">2</span>
+            <span className="flex h-5 w-5 items-center justify-center rounded-md bg-matrix-green text-silicon-bg text-[10px] font-mono font-bold">2</span>
             <span>{t.physicalContradictionTitle}</span>
           </h2>
           <p className="text-xs text-slate-400 mt-1">
@@ -344,8 +343,8 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
                     onClick={() => setSelectedPhysicalId(c.id)}
                     className={`px-4 py-3 rounded-xl border text-left text-xs font-semibold cursor-pointer transition-all ${
                       selectedPhysicalId === c.id
-                        ? 'bg-laser-amber text-silicon-bg border-laser-amber shadow-md'
-                        : 'bg-silicon-card border-silicon-border text-slate-300 hover:bg-silicon-card-hover'
+                        ? 'bg-matrix-green text-silicon-bg border-matrix-green shadow-md'
+                        : 'bg-silicon-card/85 border-silicon-border text-slate-300 hover:bg-silicon-card-hover'
                     }`}
                   >
                     {lang === 'en' ? c.nameEn : c.nameZh}
@@ -356,11 +355,11 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
           </div>
 
           {/* Right Column Conflict Display */}
-          <div className="lg:col-span-8 space-y-4 bg-silicon-card border border-silicon-border rounded-xl p-5" id="physical-result-display">
+          <div className="lg:col-span-8 space-y-4 bg-silicon-card/80 border border-silicon-border rounded-xl p-5" id="physical-result-display">
             {/* The opposing states */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-b border-silicon-border pb-4">
               <div className="space-y-1">
-                <span className="text-[9px] uppercase tracking-wider text-laser-amber font-bold">{t.stateALabel}</span>
+                <span className="text-[9px] uppercase tracking-wider text-matrix-green font-bold">{t.stateALabel}</span>
                 <p className="text-sm font-bold text-white">{lang === 'en' ? activePhysicalConflict.stateAEn : activePhysicalConflict.stateAZh}</p>
                 <p className="text-xs text-slate-400 leading-relaxed font-semibold mt-1">{lang === 'en' ? activePhysicalConflict.whyAEn : activePhysicalConflict.whyAZh}</p>
               </div>
@@ -374,16 +373,16 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
             {/* Recommended Separation Principle and case study */}
             <div className="space-y-3 pt-2">
               <div>
-                <span className="text-[9px] uppercase tracking-wider text-laser-amber font-bold">{t.separationHeading}</span>
+                <span className="text-[9px] uppercase tracking-wider text-matrix-green font-bold">{t.separationHeading}</span>
                 <h4 className="text-sm font-bold text-white mt-1 flex items-center gap-1.5">
-                  <span className="h-2 w-2 rounded-full bg-laser-amber animate-ping" />
+                  <span className="h-2 w-2 rounded-full bg-matrix-green animate-ping" />
                   {lang === 'en' ? activePhysicalConflict.strategyEn : activePhysicalConflict.strategyZh}
                 </h4>
               </div>
 
-              <div className="bg-silicon-bg p-4 rounded-xl border border-silicon-border mt-2">
+              <div className="bg-silicon-bg/90 p-4 rounded-xl border border-silicon-border mt-2">
                 <span className="text-[9px] uppercase tracking-wider text-slate-400 font-bold block mb-1">{t.caseStudyHeading}</span>
-                <p className="text-xs text-slate-300 leading-relaxed font-semibold">
+                <p className="text-xs text-slate-350 leading-relaxed font-semibold">
                   {lang === 'en' ? activePhysicalConflict.caseStudyEn : activePhysicalConflict.caseStudyZh}
                 </p>
               </div>
@@ -397,8 +396,8 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
         
         {/* Identical Selection Alert */}
         {isSelfContradiction && (
-          <div className="p-4 bg-silicon-panel border border-laser-amber/30 rounded-xl flex items-start gap-3 text-sm text-slate-300 font-medium" id="self-contradiction-alert">
-            <AlertTriangle className="h-5 w-5 text-laser-amber flex-shrink-0 mt-0.5" />
+          <div className="p-4 bg-silicon-panel/80 border border-matrix-green/30 rounded-xl flex items-start gap-3 text-sm text-slate-350 font-medium backdrop-blur-sm" id="self-contradiction-alert">
+            <AlertTriangle className="h-5 w-5 text-matrix-green flex-shrink-0 mt-0.5" />
             <div className="text-left">
               <p className="font-bold text-white">
                 {lang === 'en' ? "Physical Contradiction Detected" : "检测至物理矛盾"}
@@ -411,7 +410,7 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
         )}
 
         <div className="flex items-center gap-3 text-left" id="results-section-header">
-          <div className="h-8 w-8 rounded-lg bg-laser-amber text-silicon-bg flex items-center justify-center font-bold">
+          <div className="h-8 w-8 rounded-lg bg-matrix-green text-silicon-bg flex items-center justify-center font-bold">
             <Sparkles className="h-4 w-4" />
           </div>
           <div>
@@ -441,25 +440,25 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -15 }}
                   transition={{ duration: 0.25, delay: index * 0.05 }}
-                  className="bg-silicon-panel rounded-2xl border border-silicon-border shadow-md overflow-hidden hover:border-slate-650 transition-all duration-350 text-left"
+                  className="bg-silicon-panel/85 border border-silicon-border rounded-2xl shadow-md overflow-hidden hover:border-slate-500 transition-all duration-350 text-left backdrop-blur-md"
                   id={`principle-card-${principle.id}`}
                 >
                   
                   {/* Card Title Banner */}
-                  <div className="bg-silicon-card border-b border-silicon-border p-5 flex items-start justify-between gap-4">
+                  <div className="bg-silicon-card/90 border-b border-silicon-border p-5 flex items-start justify-between gap-4">
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
-                        <span className="px-2 py-0.5 bg-laser-amber text-silicon-bg rounded text-[10px] font-mono font-bold tracking-widest">
+                        <span className="px-2 py-0.5 bg-matrix-green text-silicon-bg rounded text-[10px] font-mono font-bold tracking-widest">
                           PRINCIPLE {String(principle.id).padStart(2, '0')}
                         </span>
-                        <div className="h-1.5 w-1.5 rounded-full bg-laser-amber" />
+                        <div className="h-1.5 w-1.5 rounded-full bg-matrix-green" />
                       </div>
                       <h4 className="text-base font-bold text-white tracking-tight">
                         {lang === 'en' ? principle.nameEn : principle.nameZh}
                       </h4>
                     </div>
 
-                    <span className="text-[10px] font-bold text-laser-amber uppercase font-mono px-2 py-1 bg-silicon-bg border border-silicon-border rounded-md">
+                    <span className="text-[10px] font-bold text-matrix-green uppercase font-mono px-2 py-1 bg-silicon-bg/90 border border-silicon-border rounded-md">
                       TRIZ #{principle.id}
                     </span>
                   </div>
@@ -470,7 +469,7 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
                       <h5 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider font-mono">
                         {t.descriptionLabel}
                       </h5>
-                      <p className="text-xs sm:text-sm font-semibold text-slate-300 leading-relaxed bg-silicon-bg p-4 border border-dashed border-silicon-border rounded-xl">
+                      <p className="text-xs sm:text-sm font-semibold text-slate-300 leading-relaxed bg-silicon-bg/90 p-4 border border-dashed border-silicon-border rounded-xl">
                         {lang === 'en' ? principle.descriptionEn : principle.descriptionZh}
                       </p>
                     </div>
@@ -484,9 +483,9 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
                         {(lang === 'en' ? principle.examplesEn : principle.examplesZh).map((ex, exidx) => (
                           <div 
                             key={`ex-${principle.id}-${exidx}`}
-                            className="flex items-start gap-2.5 p-3.5 bg-silicon-card hover:bg-silicon-card-hover rounded-xl border border-silicon-border text-xs text-slate-300 transition-colors duration-250 cursor-default"
+                            className="flex items-start gap-2.5 p-3.5 bg-silicon-card/80 hover:bg-silicon-card-hover rounded-xl border border-silicon-border text-xs text-slate-350 transition-colors duration-250 cursor-default"
                           >
-                            <Bookmark className="h-4 w-4 text-laser-amber flex-shrink-0 mt-0.5" />
+                            <Bookmark className="h-4 w-4 text-matrix-green flex-shrink-0 mt-0.5" />
                             <span className="leading-relaxed font-semibold">{ex}</span>
                           </div>
                         ))}
@@ -496,7 +495,7 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
                     {/* 76 Standard Solutions Bridge Strategy */}
                     <div className="pt-4 border-t border-silicon-border space-y-3">
                       <h5 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider font-mono flex items-center gap-1.5">
-                        <ArrowRight className="h-3.5 w-3.5 text-laser-amber animate-pulse" />
+                        <ArrowRight className="h-3.5 w-3.5 text-matrix-green animate-pulse" />
                         <span>{t.linkedSolutionsLabel}</span>
                       </h5>
 
@@ -505,10 +504,10 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
                           {relatedSolutions.map(sol => (
                             <div 
                               key={`link-sol-${sol.id}`}
-                              className="bg-silicon-card hover:bg-silicon-card-hover border border-silicon-border rounded-xl p-4 space-y-2 relative overflow-hidden transition-all duration-300 text-left"
+                              className="bg-silicon-card/90 hover:bg-silicon-card-hover border border-silicon-border rounded-xl p-4 space-y-2 relative overflow-hidden transition-all duration-300 text-left"
                             >
                               <div className="flex items-center justify-between gap-2 border-b border-silicon-border pb-2">
-                                <span className="px-1.5 py-0.5 bg-laser-amber text-silicon-bg rounded text-[10px] font-mono font-bold">
+                                <span className="px-1.5 py-0.5 bg-matrix-green text-silicon-bg rounded text-[10px] font-mono font-bold">
                                   STANDARD {sol.id}
                                 </span>
                                 <span className="text-[10px] text-slate-400 font-bold font-mono">
@@ -516,10 +515,10 @@ export default function ContradictionMapper({ lang }: ContradictionMapperProps) 
                                 </span>
                               </div>
                               <h6 className="text-xs font-bold text-white mt-1 flex items-start gap-1">
-                                <CornerDownRight className="h-4 w-4 text-laser-amber flex-shrink-0" />
+                                <CornerDownRight className="h-4 w-4 text-matrix-green flex-shrink-0" />
                                 <span>{lang === 'en' ? sol.nameEn : sol.nameZh}</span>
                               </h6>
-                              <p className="text-[11px] text-slate-400 leading-relaxed font-semibold pl-5">
+                              <p className="text-[11px] text-slate-405 leading-relaxed font-semibold pl-5">
                                 {lang === 'en' ? sol.descriptionEn : sol.descriptionZh}
                               </p>
                             </div>

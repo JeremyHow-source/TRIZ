@@ -3,16 +3,11 @@ import { motion, AnimatePresence } from 'motion/react';
 import { 
   Search, 
   Info, 
-  Layers, 
   BookOpen, 
-  SlidersHorizontal,
   ChevronLeft, 
   ChevronRight,
   ExternalLink,
   Cpu,
-  Zap,
-  Activity,
-  Globe,
   Loader
 } from 'lucide-react';
 import { TrizLanguage } from '../types';
@@ -47,7 +42,6 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
   } | null>(null);
   
   const [loadingEffects, setLoadingEffects] = useState(false);
-  const [effectsLoadProgress, setEffectsLoadProgress] = useState(0);
   const [effectsError, setEffectsError] = useState<string | null>(null);
   
   const [activeEffectsTab, setActiveEffectsTab] = useState<EffectsTab>('function');
@@ -279,26 +273,26 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
     <div className="space-y-6" id="database-browser-wrapper">
       
       {/* Search Header Panel */}
-      <div className="bg-silicon-panel rounded-2xl border border-silicon-border p-6 shadow-md text-left" id="database-search-header-panel">
+      <div className="bg-silicon-panel rounded-2xl border border-silicon-border p-6 shadow-md text-left backdrop-blur-md" id="database-search-header-panel">
         
         {/* Toggle between Core TRIZ reference and 26MB Effects databank */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-silicon-border pb-5 mb-5">
           <div className="text-left">
             <h2 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
-              <BookOpen className="h-5 w-5 text-laser-amber" />
+              <BookOpen className="h-5 w-5 text-matrix-green" />
               {t.dbTitle}
             </h2>
-            <p className="text-xs text-slate-450 mt-1 max-w-xl">
+            <p className="text-xs text-slate-400 mt-1 max-w-xl">
               {t.dbSubtitle}
             </p>
           </div>
 
-          <div className="flex bg-silicon-bg p-1 rounded-xl border border-silicon-border">
+          <div className="flex bg-silicon-bg/95 p-1 rounded-xl border border-silicon-border">
             <button
               onClick={() => setDbMode('core')}
               className={`px-4 py-2 text-xs font-bold rounded-lg cursor-pointer transition-all ${
                 dbMode === 'core' 
-                  ? 'bg-laser-amber text-silicon-bg' 
+                  ? 'bg-matrix-green text-silicon-bg' 
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
@@ -308,12 +302,12 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
               onClick={() => setDbMode('effects')}
               className={`px-4 py-2 text-xs font-bold rounded-lg cursor-pointer transition-all flex items-center gap-2 ${
                 dbMode === 'effects' 
-                  ? 'bg-laser-amber text-silicon-bg' 
+                  ? 'bg-matrix-green text-silicon-bg' 
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
               <span>{lang === 'en' ? "Scientific Effects (26MB)" : "科学效应数据库"}</span>
-              {loadingEffects && <Loader className="h-3 w-3 animate-spin text-laser-amber" />}
+              {loadingEffects && <Loader className="h-3 w-3 animate-spin text-matrix-green" />}
             </button>
           </div>
         </div>
@@ -329,7 +323,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                 value={coreSearchQuery}
                 onChange={(e) => setCoreSearchQuery(e.target.value)}
                 placeholder={t.searchPlaceholder}
-                className="w-full pl-10 pr-4 py-3 bg-silicon-card border border-silicon-border focus:border-laser-amber focus:ring-1 focus:ring-laser-amber rounded-xl text-xs sm:text-sm text-white placeholder:text-slate-500 font-semibold transition-all outline-none"
+                className="w-full pl-10 pr-4 py-3 bg-silicon-card/80 border border-silicon-border focus:border-matrix-green focus:ring-1 focus:ring-matrix-green rounded-xl text-xs sm:text-sm text-white placeholder:text-slate-500 font-semibold transition-all outline-none"
                 id="database-search-input"
               />
             </div>
@@ -340,7 +334,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                 onClick={() => setSelectedCoreCategory('parameters')}
                 className={`px-4 py-2.5 text-xs font-bold rounded-lg transition-all cursor-pointer border ${
                   selectedCoreCategory === 'parameters'
-                    ? 'bg-laser-amber/15 text-laser-amber border-laser-amber'
+                    ? 'bg-matrix-green/15 text-matrix-green border-matrix-green'
                     : 'bg-silicon-card border-silicon-border text-slate-400 hover:text-white'
                 }`}
               >
@@ -350,7 +344,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                 onClick={() => setSelectedCoreCategory('principles')}
                 className={`px-4 py-2.5 text-xs font-bold rounded-lg transition-all cursor-pointer border ${
                   selectedCoreCategory === 'principles'
-                    ? 'bg-laser-amber/15 text-laser-amber border-laser-amber'
+                    ? 'bg-matrix-green/15 text-matrix-green border-matrix-green'
                     : 'bg-silicon-card border-silicon-border text-slate-400 hover:text-white'
                 }`}
               >
@@ -360,7 +354,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                 onClick={() => setSelectedCoreCategory('solutions')}
                 className={`px-4 py-2.5 text-xs font-bold rounded-lg transition-all cursor-pointer border ${
                   selectedCoreCategory === 'solutions'
-                    ? 'bg-laser-amber/15 text-laser-amber border-laser-amber'
+                    ? 'bg-matrix-green/15 text-matrix-green border-matrix-green'
                     : 'bg-silicon-card border-silicon-border text-slate-400 hover:text-white'
                 }`}
               >
@@ -381,7 +375,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
 
             {loadingEffects && (
               <div className="p-8 text-center bg-silicon-card border border-silicon-border rounded-xl space-y-3">
-                <Loader className="h-6 w-6 animate-spin text-laser-amber mx-auto" />
+                <Loader className="h-6 w-6 animate-spin text-matrix-green mx-auto" />
                 <p className="text-xs text-slate-400 font-semibold">
                   {lang === 'en' ? "Downloading 26.5MB Scientific Effects Database..." : "正在载入 26.5MB 物理科学效应数据库，请稍候..."}
                 </p>
@@ -398,7 +392,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                     value={effectsSearchQuery}
                     onChange={(e) => setEffectsSearchQuery(e.target.value)}
                     placeholder={t.searchPlaceholder}
-                    className="w-full pl-10 pr-4 py-3 bg-silicon-card border border-silicon-border focus:border-laser-amber focus:ring-1 focus:ring-laser-amber rounded-xl text-xs sm:text-sm text-white placeholder:text-slate-500 font-semibold transition-all outline-none"
+                    className="w-full pl-10 pr-4 py-3 bg-silicon-card border border-silicon-border focus:border-matrix-green focus:ring-1 focus:ring-matrix-green rounded-xl text-xs sm:text-sm text-white placeholder:text-slate-500 font-semibold transition-all outline-none"
                   />
                 </div>
 
@@ -408,7 +402,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                     onClick={() => setActiveEffectsTab('function')}
                     className={`pb-2 text-xs font-bold border-b-2 cursor-pointer transition-all ${
                       activeEffectsTab === 'function'
-                        ? 'border-laser-amber text-laser-amber'
+                        ? 'border-matrix-green text-matrix-green'
                         : 'border-transparent text-slate-400 hover:text-slate-200'
                     }`}
                   >
@@ -418,7 +412,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                     onClick={() => setActiveEffectsTab('parameter')}
                     className={`pb-2 text-xs font-bold border-b-2 cursor-pointer transition-all ${
                       activeEffectsTab === 'parameter'
-                        ? 'border-laser-amber text-laser-amber'
+                        ? 'border-matrix-green text-matrix-green'
                         : 'border-transparent text-slate-400 hover:text-slate-200'
                     }`}
                   >
@@ -428,7 +422,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                     onClick={() => setActiveEffectsTab('transform')}
                     className={`pb-2 text-xs font-bold border-b-2 cursor-pointer transition-all ${
                       activeEffectsTab === 'transform'
-                        ? 'border-laser-amber text-laser-amber'
+                        ? 'border-matrix-green text-matrix-green'
                         : 'border-transparent text-slate-400 hover:text-slate-200'
                     }`}
                   >
@@ -437,7 +431,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                 </div>
 
                 {/* Faceted Selection Filters */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-silicon-bg p-3 rounded-xl border border-silicon-border" id="effects-filters-dropdowns">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-silicon-bg/90 p-3 rounded-xl border border-silicon-border" id="effects-filters-dropdowns">
                   
                   {activeEffectsTab === 'function' && (
                     <>
@@ -545,15 +539,15 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6" id="browser-split-workspace">
         
         {/* Results List Column */}
-        <div className="lg:col-span-7 space-y-3 text-left" id="database-output-list">
-          <div className="flex items-center justify-between text-xs text-slate-450 font-mono px-1">
+        <div className="lg:col-span-7 space-y-3 text-left animate-fadeIn" id="database-output-list">
+          <div className="flex items-center justify-between text-xs text-slate-400 font-mono px-1">
             <span>
               {dbMode === 'core'
                 ? t.showingResults.replace('{count}', String(coreRecords.length))
                 : t.showingResults.replace('{count}', String(filteredEffectsRecords.length))
               }
             </span>
-            <span className="font-bold text-laser-amber">
+            <span className="font-bold text-matrix-green">
               {dbMode === 'core' ? selectedCoreCategory.toUpperCase() : activeEffectsTab.toUpperCase() + " QUERY"}
             </span>
           </div>
@@ -575,10 +569,10 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                     <div
                       key={item.uid}
                       onClick={() => setSelectedCoreDetailId(isSelected ? null : item.uid)}
-                      className={`p-4 rounded-xl border transition-all cursor-pointer text-left ${
+                      className={`p-4 rounded-xl border transition-all cursor-pointer text-left backdrop-blur-sm ${
                         isSelected
-                          ? 'bg-laser-amber text-silicon-bg border-laser-amber shadow-md'
-                          : 'bg-silicon-panel border-silicon-border hover:border-slate-600'
+                          ? 'bg-matrix-green text-silicon-bg border-matrix-green shadow-md font-semibold'
+                          : 'bg-silicon-panel/85 border-silicon-border hover:border-slate-500'
                       }`}
                       id={`db-item-${item.uid}`}
                     >
@@ -586,7 +580,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                         <div className="space-y-1">
                           <div className="flex items-center gap-2">
                             <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold border ${
-                              isSelected ? 'bg-silicon-bg text-laser-amber border-transparent' : itemBadgeStyle
+                              isSelected ? 'bg-silicon-bg text-matrix-green border-transparent' : itemBadgeStyle
                             }`}>
                               {item.index}
                             </span>
@@ -613,7 +607,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                   );
                 })
               ) : (
-                <div className="p-12 text-center bg-silicon-panel border border-silicon-border rounded-xl">
+                <div className="p-12 text-center bg-silicon-panel/90 border border-silicon-border rounded-xl">
                   <p className="text-sm font-semibold text-slate-350">{t.noResults}</p>
                 </div>
               )
@@ -628,17 +622,17 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                     <div
                       key={`effect-${idx}-${item['Effect Title']}`}
                       onClick={() => setSelectedEffectItem(isSelected ? null : item)}
-                      className={`p-4 rounded-xl border transition-all cursor-pointer text-left ${
+                      className={`p-4 rounded-xl border transition-all cursor-pointer text-left backdrop-blur-sm ${
                         isSelected
-                          ? 'bg-laser-amber text-silicon-bg border-laser-amber shadow-md'
-                          : 'bg-silicon-panel border-silicon-border hover:border-slate-650'
+                          ? 'bg-matrix-green text-silicon-bg border-matrix-green shadow-md'
+                          : 'bg-silicon-panel/85 border-silicon-border hover:border-slate-500'
                       }`}
                     >
                       <div className="flex items-start justify-between gap-3">
                         <div className="space-y-1">
                           <div className="flex items-center gap-2">
                             <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold border ${
-                              isSelected ? 'bg-silicon-bg text-laser-amber border-transparent' : 'bg-laser-amber/10 text-laser-amber border-laser-amber/20'
+                              isSelected ? 'bg-silicon-bg text-matrix-green border-transparent' : 'bg-matrix-green/10 text-matrix-green border-matrix-green/20'
                             }`}>
                               {item['Result Type'] || "Scientific"}
                             </span>
@@ -670,7 +664,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                       </div>
 
                       <p className={`text-xs mt-2 line-clamp-2 leading-relaxed ${
-                        isSelected ? 'text-silicon-bg/90 font-medium' : 'text-slate-450 font-semibold'
+                        isSelected ? 'text-silicon-bg/90 font-medium' : 'text-slate-400 font-semibold'
                       }`}>
                         {item.Description}
                       </p>
@@ -678,7 +672,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                   );
                 })
               ) : (
-                <div className="p-12 text-center bg-silicon-panel border border-silicon-border rounded-xl">
+                <div className="p-12 text-center bg-silicon-panel/90 border border-silicon-border rounded-xl">
                   <p className="text-sm font-semibold text-slate-350">{t.noResults}</p>
                 </div>
               )
@@ -688,7 +682,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
 
           {/* Pagination Toolbar */}
           {totalPages > 1 && (
-            <div className="flex items-center justify-between mt-3 p-3 bg-silicon-panel border border-silicon-border rounded-xl text-xs text-slate-300 font-semibold select-none">
+            <div className="flex items-center justify-between mt-3 p-3 bg-silicon-panel/90 border border-silicon-border rounded-xl text-xs text-slate-300 font-semibold select-none backdrop-blur-sm">
               <button
                 onClick={() => {
                   setCurrentPage(prev => Math.max(1, prev - 1));
@@ -696,7 +690,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                   if (scroller) scroller.scrollTop = 0;
                 }}
                 disabled={currentPage === 1}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-silicon-card border border-silicon-border hover:border-slate-500 disabled:opacity-40 rounded-lg cursor-pointer transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-silicon-card border border-silicon-border hover:border-slate-400 disabled:opacity-40 rounded-lg cursor-pointer transition-colors"
               >
                 <ChevronLeft className="h-4 w-4" />
                 <span>{lang === 'en' ? "Prev" : "上一页"}</span>
@@ -713,7 +707,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                   if (scroller) scroller.scrollTop = 0;
                 }}
                 disabled={currentPage === totalPages}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-silicon-card border border-silicon-border hover:border-slate-500 disabled:opacity-40 rounded-lg cursor-pointer transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-silicon-card border border-silicon-border hover:border-slate-400 disabled:opacity-40 rounded-lg cursor-pointer transition-colors"
               >
                 <span>{lang === 'en' ? "Next" : "下一页"}</span>
                 <ChevronRight className="h-4 w-4" />
@@ -736,11 +730,11 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.98 }}
                     transition={{ duration: 0.2 }}
-                    className="bg-silicon-panel rounded-2xl border border-silicon-border p-6 space-y-5 text-left"
+                    className="bg-silicon-panel/85 border border-silicon-border p-6 space-y-5 text-left backdrop-blur-md"
                     id={`detail-panel-${activeCoreDetail.uid}`}
                   >
                     <div className="flex items-center gap-2 border-b border-silicon-border pb-4">
-                      <span className="px-2.5 py-0.5 bg-silicon-card text-laser-amber border border-silicon-border rounded-md text-xs font-mono font-bold">
+                      <span className="px-2.5 py-0.5 bg-silicon-card text-matrix-green border border-silicon-border rounded-md text-xs font-mono font-bold">
                         {activeCoreDetail.index}
                       </span>
                       <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">
@@ -753,7 +747,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                         {activeCoreDetail.titleEn}
                       </h3>
                       <h4 className="text-sm font-bold text-slate-400 flex items-center gap-1">
-                        <span className="inline-block h-1.5 w-1.5 rounded-full bg-laser-amber" />
+                        <span className="inline-block h-1.5 w-1.5 rounded-full bg-matrix-green" />
                         <span>{activeCoreDetail.titleZh}</span>
                       </h4>
                     </div>
@@ -767,7 +761,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                       </div>
                       <div className="space-y-1 pt-1">
                         <span className="text-[9px] uppercase font-bold text-slate-400 tracking-wider font-mono">中文定义阐述</span>
-                        <p className="text-xs text-slate-350 leading-relaxed font-semibold bg-silicon-bg p-3.5 rounded-lg border border-silicon-border">
+                        <p className="text-xs text-slate-400 leading-relaxed font-semibold bg-silicon-bg p-3.5 rounded-lg border border-silicon-border">
                           {activeCoreDetail.descZh}
                         </p>
                       </div>
@@ -783,7 +777,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                             return (
                               <div key={`core-ex-${exidx}`} className="p-3 bg-silicon-card border border-silicon-border rounded-xl text-xs space-y-1">
                                 <p className="font-bold text-white">{ex}</p>
-                                {exZh && <p className="font-semibold text-slate-400 pl-3 border-l border-laser-amber mt-0.5">{exZh}</p>}
+                                {exZh && <p className="font-semibold text-slate-450 pl-3 border-l border-matrix-green mt-0.5">{exZh}</p>}
                               </div>
                             );
                           })}
@@ -793,11 +787,11 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
 
                   </motion.div>
                 ) : (
-                  <div className="h-72 flex flex-col items-center justify-center bg-silicon-panel rounded-2xl border border-dashed border-silicon-border p-6 text-center">
-                    <div className="p-3 bg-silicon-card text-laser-amber rounded-full mb-3 border border-silicon-border">
+                  <div className="h-72 flex flex-col items-center justify-center bg-silicon-panel/80 rounded-2xl border border-dashed border-silicon-border p-6 text-center backdrop-blur-md">
+                    <div className="p-3 bg-silicon-card text-matrix-green rounded-full mb-3 border border-silicon-border">
                       <Info className="h-5 w-5" />
                     </div>
-                    <p className="text-xs font-bold text-slate-300">
+                    <p className="text-xs font-bold text-slate-350">
                       {lang === 'en' ? "Select an item to view expanded details" : "请选择左侧条目显示双语关联档案"}
                     </p>
                   </div>
@@ -813,10 +807,10 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.98 }}
                     transition={{ duration: 0.2 }}
-                    className="bg-silicon-panel rounded-2xl border border-silicon-border p-6 space-y-5 text-left"
+                    className="bg-silicon-panel/85 border border-silicon-border p-6 space-y-5 text-left backdrop-blur-md"
                   >
                     <div className="flex items-center justify-between border-b border-silicon-border pb-4">
-                      <span className="px-2.5 py-0.5 bg-silicon-card text-laser-amber border border-silicon-border rounded-md text-xs font-mono font-bold">
+                      <span className="px-2.5 py-0.5 bg-silicon-card text-matrix-green border border-silicon-border rounded-md text-xs font-mono font-bold">
                         {selectedEffectItem['Result Type'] || "Scientific"}
                       </span>
                       {selectedEffectItem.Link && (
@@ -824,7 +818,7 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
                           href={selectedEffectItem.Link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-1.5 text-xs text-laser-amber hover:underline font-bold"
+                          className="flex items-center gap-1.5 text-xs text-matrix-green hover:underline font-bold"
                         >
                           <span>Wikipedia</span>
                           <ExternalLink className="h-3 w-3" />
@@ -898,11 +892,11 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
 
                   </motion.div>
                 ) : (
-                  <div className="h-72 flex flex-col items-center justify-center bg-silicon-panel rounded-2xl border border-dashed border-silicon-border p-6 text-center">
-                    <div className="p-3 bg-silicon-card text-laser-amber rounded-full mb-3 border border-silicon-border">
+                  <div className="h-72 flex flex-col items-center justify-center bg-silicon-panel/80 rounded-2xl border border-dashed border-silicon-border p-6 text-center backdrop-blur-md">
+                    <div className="p-3 bg-silicon-card text-matrix-green rounded-full mb-3 border border-silicon-border">
                       <Info className="h-5 w-5" />
                     </div>
-                    <p className="text-xs font-bold text-slate-300">
+                    <p className="text-xs font-bold text-slate-350">
                       {lang === 'en' ? "Select an effect to view full parameters" : "请在左侧选择科学效应查看参数表"}
                     </p>
                   </div>

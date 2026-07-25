@@ -11,13 +11,13 @@
   
   <style>
     :root {
-      --color-bg: #07090c;
-      --color-panel: #0e1115;
-      --color-card: #14191f;
-      --color-card-hover: #1c232c;
-      --color-border: #212a36;
-      --color-amber: #f59e0b;
-      --color-amber-glow: rgba(245, 158, 11, 0.15);
+      --color-bg: #05070a;
+      --color-panel: rgba(14, 17, 21, 0.75);
+      --color-card: rgba(20, 25, 31, 0.65);
+      --color-card-hover: rgba(28, 35, 44, 0.85);
+      --color-border: rgba(33, 42, 54, 0.55);
+      --color-matrix: #00ff66;
+      --color-matrix-glow: rgba(0, 255, 102, 0.15);
       --color-text: #e2e8f0;
       --color-text-muted: #94a3b8;
     }
@@ -40,7 +40,20 @@
       overflow-x: hidden;
     }
 
-    /* Wafer background grid pattern */
+    /* Fixed full screen Matrix rain canvas */
+    #matrix-bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.22;
+      mix-blend-mode: screen;
+    }
+
+    /* Wafer background grid pattern overlaying canvas */
     .wafer-grid {
       position: absolute;
       top: 0;
@@ -49,27 +62,17 @@
       bottom: 0;
       background-size: 36px 36px;
       background-image: 
-        linear-gradient(to right, rgba(245, 158, 11, 0.02) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(245, 158, 11, 0.02) 1px, transparent 1px);
+        linear-gradient(to right, rgba(0, 255, 102, 0.015) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 255, 102, 0.015) 1px, transparent 1px);
       z-index: 1;
       pointer-events: none;
-    }
-
-    .glow-dot {
-      position: absolute;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(245, 158, 11, 0.04) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 1;
     }
 
     .header-bar {
-      border-b: 1px solid var(--color-border);
-      background-color: rgba(14, 17, 21, 0.85);
+      border-bottom: 1px solid var(--color-border);
+      background-color: rgba(14, 17, 21, 0.8);
       backdrop-filter: blur(12px);
       padding: 1.5rem;
-      border-bottom: 1px solid var(--color-border);
       z-index: 10;
       position: relative;
     }
@@ -84,10 +87,10 @@
     }
 
     .logo-container {
-      background: linear-gradient(135deg, var(--color-amber) 0%, #d97706 100%);
+      background: linear-gradient(135deg, var(--color-matrix) 0%, #059669 100%);
       padding: 0.6rem;
       border-radius: 12px;
-      box-shadow: 0 0 15px var(--color-amber-glow);
+      box-shadow: 0 0 15px var(--color-matrix-glow);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -96,7 +99,7 @@
     .logo-container svg {
       width: 24px;
       height: 24px;
-      stroke: #07090c;
+      stroke: #05070a;
     }
 
     .title-h1 {
@@ -130,7 +133,7 @@
     .hero-tagline {
       font-size: 0.75rem;
       font-family: 'JetBrains Mono', monospace;
-      color: var(--color-amber);
+      color: var(--color-matrix);
       font-weight: 800;
       letter-spacing: 0.15em;
       text-transform: uppercase;
@@ -178,6 +181,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      backdrop-filter: blur(8px);
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
       overflow: hidden;
@@ -191,15 +195,15 @@
       left: 0;
       right: 0;
       height: 2px;
-      background: linear-gradient(90deg, transparent, var(--color-amber), transparent);
+      background: linear-gradient(90deg, transparent, var(--color-matrix), transparent);
       opacity: 0;
       transition: opacity 0.3s;
     }
 
     .nav-card:hover {
       transform: translateY(-5px);
-      border-color: rgba(245, 158, 11, 0.4);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 15px var(--color-amber-glow);
+      border-color: rgba(0, 255, 102, 0.4);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px var(--color-matrix-glow);
     }
 
     .nav-card:hover::before {
@@ -221,13 +225,13 @@
     }
 
     .nav-card:hover .card-icon {
-      border-color: var(--color-amber);
+      border-color: var(--color-matrix);
     }
 
     .card-icon svg {
       width: 24px;
       height: 24px;
-      stroke: var(--color-amber);
+      stroke: var(--color-matrix);
       stroke-width: 2;
     }
 
@@ -252,7 +256,7 @@
       font-size: 9px;
       font-weight: 800;
       background-color: var(--color-card);
-      color: var(--color-amber);
+      color: var(--color-matrix);
       border: 1px solid var(--color-border);
       padding: 2px 8px;
       border-radius: 9999px;
@@ -264,7 +268,7 @@
     .card-action-btn {
       font-size: 0.8rem;
       font-weight: 700;
-      color: var(--color-amber);
+      color: var(--color-matrix);
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -277,13 +281,14 @@
     }
 
     .footer-bar {
-      border-t: 1px solid var(--color-border);
+      border-top: 1px solid var(--color-border);
+      background-color: rgba(14, 17, 21, 0.8);
+      backdrop-filter: blur(12px);
       padding: 2rem 1.5rem;
       text-align: center;
       font-size: 0.7rem;
       color: var(--color-text-muted);
       font-family: 'JetBrains Mono', monospace;
-      border-top: 1px solid var(--color-border);
       z-index: 10;
       position: relative;
     }
@@ -302,9 +307,9 @@
 </head>
 <body>
 
+  <!-- Falling Matrix Rain canvas background -->
+  <canvas id="matrix-bg-canvas"></canvas>
   <div class="wafer-grid"></div>
-  <div class="glow-dot" style="top: -100px; left: -100px;"></div>
-  <div class="glow-dot" style="bottom: -100px; right: -100px;"></div>
 
   <!-- Header Section -->
   <header class="header-bar">
@@ -334,7 +339,7 @@
       </p>
     </section>
 
-    <!-- Cards Section -->
+    <!-- Cards Grid -->
     <div class="cards-grid">
       
       <!-- Card 1: Contradiction Mapper -->
@@ -399,5 +404,59 @@
     </div>
   </footer>
 
+  <!-- Matrix falling code animation script -->
+  <script>
+    const canvas = document.getElementById('matrix-bg-canvas');
+    const ctx = canvas.getContext('2d');
+
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const matrixChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ";
+    const charArray = matrixChars.split("");
+
+    const fontSize = 14;
+    const columns = Math.ceil(canvas.width / fontSize);
+
+    const drops = [];
+    for (let i = 0; i < columns; i++) {
+      drops[i] = Math.random() * -100;
+    }
+
+    const draw = () => {
+      ctx.fillStyle = 'rgba(5, 7, 10, 0.08)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.font = `bold ${fontSize}px monospace`;
+
+      for (let i = 0; i < drops.length; i++) {
+        const char = charArray[Math.floor(Math.random() * charArray.length)];
+        const x = i * fontSize;
+        const y = drops[i] * fontSize;
+
+        if (Math.random() > 0.985) {
+          ctx.fillStyle = '#ffffff'; // white head
+        } else if (Math.random() > 0.95) {
+          ctx.fillStyle = '#66ff99';
+        } else {
+          ctx.fillStyle = '#00ff66'; // Matrix green
+        }
+
+        ctx.fillText(char, x, y);
+
+        if (y > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+      requestAnimationFrame(draw);
+    };
+
+    draw();
+  </script>
 </body>
 </html>
