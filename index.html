@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SiliconResolve: Unified TRIZ Innovation Hub</title>
+  <!-- Modern typography from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;650;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --color-bg: #07090c;
+      --color-panel: #0e1115;
+      --color-card: #14191f;
+      --color-card-hover: #1c232c;
+      --color-border: #212a36;
+      --color-amber: #f59e0b;
+      --color-amber-glow: rgba(245, 158, 11, 0.15);
+      --color-text: #e2e8f0;
+      --color-text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: 'Outfit', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Wafer background grid pattern */
+    .wafer-grid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-size: 36px 36px;
+      background-image: 
+        linear-gradient(to right, rgba(245, 158, 11, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(245, 158, 11, 0.02) 1px, transparent 1px);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .glow-dot {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .header-bar {
+      border-b: 1px solid var(--color-border);
+      background-color: rgba(14, 17, 21, 0.85);
+      backdrop-filter: blur(12px);
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--color-border);
+      z-index: 10;
+      position: relative;
+    }
+
+    .header-container {
+      max-w: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-align: left;
+    }
+
+    .logo-container {
+      background: linear-gradient(135deg, var(--color-amber) 0%, #d97706 100%);
+      padding: 0.6rem;
+      border-radius: 12px;
+      box-shadow: 0 0 15px var(--color-amber-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-container svg {
+      width: 24px;
+      height: 24px;
+      stroke: #07090c;
+    }
+
+    .title-h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: #fff;
+    }
+
+    .subtitle {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      margin-top: 0.1rem;
+      font-weight: 500;
+    }
+
+    .main-canvas {
+      max-w: 1200px;
+      width: 100%;
+      margin: auto;
+      padding: 3rem 1.5rem;
+      z-index: 10;
+      position: relative;
+      text-align: center;
+    }
+
+    .hero-section {
+      margin-bottom: 3.5rem;
+    }
+
+    .hero-tagline {
+      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--color-amber);
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: #fff;
+      margin-top: 0.5rem;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-desc {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      max-w: 600px;
+      margin: 0.75rem auto 0 auto;
+      line-height: 1.6;
+      font-weight: 450;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-cols: 1fr;
+      gap: 2rem;
+      max-w: 960px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .cards-grid {
+        grid-template-cols: 1fr 1fr;
+      }
+    }
+
+    .nav-card {
+      background-color: var(--color-panel);
+      border: 1px solid var(--color-border);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      text-align: left;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .nav-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--color-amber), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .nav-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(245, 158, 11, 0.4);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 15px var(--color-amber-glow);
+    }
+
+    .nav-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-top {
+      margin-bottom: 2rem;
+    }
+
+    .card-icon {
+      background-color: var(--color-card);
+      border: 1px solid var(--color-border);
+      padding: 0.8rem;
+      border-radius: 12px;
+      display: inline-flex;
+      margin-bottom: 1.5rem;
+      transition: border-color 0.3s;
+    }
+
+    .nav-card:hover .card-icon {
+      border-color: var(--color-amber);
+    }
+
+    .card-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--color-amber);
+      stroke-width: 2;
+    }
+
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      margin-top: 0.6rem;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    .card-badge {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 800;
+      background-color: var(--color-card);
+      color: var(--color-amber);
+      border: 1px solid var(--color-border);
+      padding: 2px 8px;
+      border-radius: 9999px;
+      margin-top: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .card-action-btn {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--color-amber);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      transition: gap 0.25s;
+    }
+
+    .nav-card:hover .card-action-btn {
+      gap: 0.75rem;
+    }
+
+    .footer-bar {
+      border-t: 1px solid var(--color-border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--color-text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      border-top: 1px solid var(--color-border);
+      z-index: 10;
+      position: relative;
+    }
+
+    .footer-container {
+      max-w: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      sm-flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wafer-grid"></div>
+  <div class="glow-dot" style="top: -100px; left: -100px;"></div>
+  <div class="glow-dot" style="bottom: -100px; right: -100px;"></div>
+
+  <!-- Header Section -->
+  <header class="header-bar">
+    <div class="header-container">
+      <div class="logo-container">
+        <!-- SVG Cpu icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <rect x="4" y="4" width="16" height="16" rx="2" />
+          <path d="M9 9h6v6H9z" />
+          <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3" />
+        </svg>
+      </div>
+      <div>
+        <h1 class="title-h1">SiliconResolve Hub</h1>
+        <p class="subtitle">Systematic Innovation Workspace & Semiconductor Reference Tools</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Content -->
+  <main class="main-canvas">
+    <section class="hero-section">
+      <span class="hero-tagline">Altshuller System Engine</span>
+      <h2 class="hero-title">TRIZ Systematic Engineering Portal</h2>
+      <p class="hero-desc">
+        A localized repository of innovation tools built to resolve complex technical contradictions, map physical compromises, and query scientific physical/chemical effects.
+      </p>
+    </section>
+
+    <!-- Cards Section -->
+    <div class="cards-grid">
+      
+      <!-- Card 1: Contradiction Mapper -->
+      <a href="./triz-contradiction-solver/" class="nav-card">
+        <div class="card-top">
+          <div class="card-icon">
+            <!-- CPU Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <rect x="4" y="4" width="16" height="16" rx="2" />
+              <path d="M12 2v2M12 20v2M2 12h2M20 12h2M6 6l1.5 1.5M16.5 16.5L18 18M18 6l-1.5 1.5M7.5 16.5L6 18" />
+            </svg>
+          </div>
+          <h3 class="card-title">Semiconductor FA/FI Workspace</h3>
+          <p class="card-desc">
+            Resolve technical and physical contradictions in chip failure analysis. Contains built-in hardware testing presets, a separation principle solver, and a 26.5MB Scientific Effects query engine.
+          </p>
+          <span class="card-badge">Contradiction Solver & Effects DB</span>
+        </div>
+        <div class="card-action-btn">
+          <span>Launch Application</span>
+          <!-- Arrow Right SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Card 2: MoreInspiration Database -->
+      <a href="./moreinspiration-explorer/" class="nav-card">
+        <div class="card-top">
+          <div class="card-icon">
+            <!-- Sparkles Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM17 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2h-2zM5 15a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM17 15a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2h-2z" />
+            </svg>
+          </div>
+          <h3 class="card-title">MoreInspiration Explorer</h3>
+          <p class="card-desc">
+            Faceted database search explorer referencing all 4,961 inventions parsed from MoreInspiration.com. Filter innovations by properties, target functions, and industry categories.
+          </p>
+          <span class="card-badge">4,961 Innovation Database</span>
+        </div>
+        <div class="card-action-btn">
+          <span>Launch Explorer</span>
+          <!-- Arrow Right SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <!-- Footer Bar -->
+  <footer class="footer-bar">
+    <div class="footer-container">
+      <span>ALTSHULLER SYSTEM COLLABORATIVE LABS &copy; 2026</span>
+      <span>PLATFORM DEPLOYED VIA GITHUB PAGES</span>
+    </div>
+  </footer>
+
+</body>
+</html>
