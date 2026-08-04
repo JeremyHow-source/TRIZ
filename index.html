@@ -4,29 +4,89 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SiliconResolve: Unified TRIZ Innovation Hub</title>
+  <meta name="description" content="A localized TRIZ workspace with contradiction solvers, scientific effects databases, innovation explorers, and Systemic Innovation newsletter archives.">
   <!-- Modern typography from Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;650;800&display=swap" rel="stylesheet">
   
   <style>
+    /* ─────────────────────────────────────
+       THEME TOKENS  (default: Matrix Green)
+    ───────────────────────────────────── */
     :root {
-      --color-bg: #05070a;
-      --color-panel: rgba(14, 17, 21, 0.75);
-      --color-card: rgba(20, 25, 31, 0.65);
-      --color-card-hover: rgba(28, 35, 44, 0.85);
-      --color-border: rgba(33, 42, 54, 0.55);
-      --color-matrix: #00ff66;
-      --color-matrix-glow: rgba(0, 255, 102, 0.15);
-      --color-text: #e2e8f0;
-      --color-text-muted: #94a3b8;
+      --color-bg:          #05070a;
+      --color-panel:       rgba(14,17,21,0.75);
+      --color-card:        rgba(20,25,31,0.65);
+      --color-card-hover:  rgba(28,35,44,0.85);
+      --color-border:      rgba(33,42,54,0.55);
+      --color-accent:      #00ff66;
+      --color-accent-glow: rgba(0,255,102,0.15);
+      --color-accent-rgb:  0,255,102;
+      --color-text:        #e2e8f0;
+      --color-text-muted:  #94a3b8;
+      --matrix-color-a:    #00ff66;
+      --matrix-color-b:    #66ff99;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    /* Nebula Purple */
+    [data-theme="nebula"] {
+      --color-bg:          #07050f;
+      --color-panel:       rgba(18,14,30,0.78);
+      --color-card:        rgba(24,18,40,0.65);
+      --color-card-hover:  rgba(34,26,56,0.88);
+      --color-border:      rgba(90,60,140,0.4);
+      --color-accent:      #a855f7;
+      --color-accent-glow: rgba(168,85,247,0.2);
+      --color-accent-rgb:  168,85,247;
+      --matrix-color-a:    #a855f7;
+      --matrix-color-b:    #c084fc;
     }
+
+    /* Solar Amber */
+    [data-theme="solar"] {
+      --color-bg:          #0c0800;
+      --color-panel:       rgba(22,16,5,0.78);
+      --color-card:        rgba(30,20,8,0.65);
+      --color-card-hover:  rgba(42,28,10,0.88);
+      --color-border:      rgba(180,120,20,0.35);
+      --color-accent:      #f59e0b;
+      --color-accent-glow: rgba(245,158,11,0.18);
+      --color-accent-rgb:  245,158,11;
+      --matrix-color-a:    #f59e0b;
+      --matrix-color-b:    #fbbf24;
+    }
+
+    /* Arctic Blue */
+    [data-theme="arctic"] {
+      --color-bg:          #020810;
+      --color-panel:       rgba(5,15,28,0.80);
+      --color-card:        rgba(8,20,36,0.65);
+      --color-card-hover:  rgba(12,28,48,0.88);
+      --color-border:      rgba(30,100,200,0.35);
+      --color-accent:      #38bdf8;
+      --color-accent-glow: rgba(56,189,248,0.18);
+      --color-accent-rgb:  56,189,248;
+      --matrix-color-a:    #38bdf8;
+      --matrix-color-b:    #7dd3fc;
+    }
+
+    /* Noir Rose */
+    [data-theme="rose"] {
+      --color-bg:          #0a0508;
+      --color-panel:       rgba(20,10,16,0.80);
+      --color-card:        rgba(28,12,22,0.65);
+      --color-card-hover:  rgba(38,16,30,0.88);
+      --color-border:      rgba(200,50,100,0.35);
+      --color-accent:      #f43f5e;
+      --color-accent-glow: rgba(244,63,94,0.18);
+      --color-accent-rgb:  244,63,94;
+      --matrix-color-a:    #f43f5e;
+      --matrix-color-b:    #fb7185;
+    }
+
+    /* ─── Reset ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background-color: var(--color-bg);
@@ -35,42 +95,38 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       position: relative;
       overflow-x: hidden;
+      transition: background-color 0.5s, color 0.5s;
     }
 
-    /* Fixed full screen Matrix rain canvas */
+    /* ─── Matrix Canvas ─── */
     #matrix-bg-canvas {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
       pointer-events: none;
       z-index: 0;
       opacity: 0.22;
       mix-blend-mode: screen;
     }
 
-    /* Wafer background grid pattern overlaying canvas */
     .wafer-grid {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      position: fixed;
+      inset: 0;
       background-size: 36px 36px;
-      background-image: 
-        linear-gradient(to right, rgba(0, 255, 102, 0.015) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(0, 255, 102, 0.015) 1px, transparent 1px);
+      background-image:
+        linear-gradient(to right, rgba(var(--color-accent-rgb),0.015) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(var(--color-accent-rgb),0.015) 1px, transparent 1px);
       z-index: 1;
       pointer-events: none;
+      transition: background-image 0.5s;
     }
 
+    /* ─── Header ─── */
     .header-bar {
       border-bottom: 1px solid var(--color-border);
-      background-color: rgba(14, 17, 21, 0.8);
+      background-color: rgba(14,17,21,0.8);
       backdrop-filter: blur(12px);
       padding: 1.5rem;
       z-index: 10;
@@ -78,96 +134,66 @@
     }
 
     .header-container {
-      max-w: 1200px;
+      max-width: 1200px;
       margin: 0 auto;
       display: flex;
       align-items: center;
       gap: 1rem;
-      text-align: left;
     }
 
     .logo-container {
-      background: linear-gradient(135deg, var(--color-matrix) 0%, #059669 100%);
+      background: linear-gradient(135deg, var(--color-accent) 0%, rgba(var(--color-accent-rgb),0.5) 100%);
       padding: 0.6rem;
       border-radius: 12px;
-      box-shadow: 0 0 15px var(--color-matrix-glow);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      box-shadow: 0 0 15px var(--color-accent-glow);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.5s, box-shadow 0.5s;
+      flex-shrink: 0;
     }
 
-    .logo-container svg {
-      width: 24px;
-      height: 24px;
-      stroke: #05070a;
-    }
+    .logo-container svg { width: 24px; height: 24px; stroke: #05070a; }
 
-    .title-h1 {
-      font-size: 1.25rem;
-      font-weight: 700;
-      letter-spacing: -0.025em;
-      color: #fff;
-    }
+    .title-h1 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.025em; color: #fff; }
+    .subtitle  { font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.1rem; font-weight: 500; }
 
-    .subtitle {
-      font-size: 0.75rem;
-      color: var(--color-text-muted);
-      margin-top: 0.1rem;
-      font-weight: 500;
-    }
-
+    /* ─── Main ─── */
     .main-canvas {
-      max-w: 1200px;
+      max-width: 1200px;
       width: 100%;
       margin: auto;
-      padding: 3rem 1.5rem;
+      padding: 3rem 1.5rem 4rem;
       z-index: 10;
       position: relative;
       text-align: center;
+      flex: 1;
     }
 
-    .hero-section {
-      margin-bottom: 3.5rem;
-    }
+    .hero-section { margin-bottom: 3.5rem; }
 
     .hero-tagline {
       font-size: 0.75rem;
       font-family: 'JetBrains Mono', monospace;
-      color: var(--color-matrix);
+      color: var(--color-accent);
       font-weight: 800;
       letter-spacing: 0.15em;
       text-transform: uppercase;
+      transition: color 0.5s;
     }
 
-    .hero-title {
-      font-size: 2.25rem;
-      font-weight: 800;
-      color: #fff;
-      margin-top: 0.5rem;
-      letter-spacing: -0.03em;
-    }
+    .hero-title  { font-size: 2.25rem; font-weight: 800; color: #fff; margin-top: 0.5rem; letter-spacing: -0.03em; }
+    .hero-desc   { font-size: 0.95rem; color: var(--color-text-muted); max-width: 600px; margin: 0.75rem auto 0; line-height: 1.6; font-weight: 450; }
 
-    .hero-desc {
-      font-size: 0.95rem;
-      color: var(--color-text-muted);
-      max-w: 600px;
-      margin: 0.75rem auto 0 auto;
-      line-height: 1.6;
-      font-weight: 450;
-    }
-
+    /* ─── Tool Cards Grid ─── */
     .cards-grid {
       display: grid;
-      grid-template-cols: 1fr;
+      grid-template-columns: 1fr;
       gap: 2rem;
-      max-w: 960px;
+      max-width: 960px;
       margin: 0 auto;
     }
 
     @media (min-width: 768px) {
-      .cards-grid {
-        grid-template-cols: 1fr 1fr;
-      }
+      .cards-grid { grid-template-columns: 1fr 1fr; }
     }
 
     .nav-card {
@@ -182,7 +208,7 @@
       flex-direction: column;
       justify-content: space-between;
       backdrop-filter: blur(8px);
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
       position: relative;
       overflow: hidden;
       cursor: pointer;
@@ -191,28 +217,21 @@
     .nav-card::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       height: 2px;
-      background: linear-gradient(90deg, transparent, var(--color-matrix), transparent);
+      background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
       opacity: 0;
       transition: opacity 0.3s;
     }
 
     .nav-card:hover {
       transform: translateY(-5px);
-      border-color: rgba(0, 255, 102, 0.4);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px var(--color-matrix-glow);
+      border-color: rgba(var(--color-accent-rgb),0.4);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 15px var(--color-accent-glow);
     }
+    .nav-card:hover::before { opacity: 1; }
 
-    .nav-card:hover::before {
-      opacity: 1;
-    }
-
-    .card-top {
-      margin-bottom: 2rem;
-    }
+    .card-top   { margin-bottom: 2rem; }
 
     .card-icon {
       background-color: var(--color-card);
@@ -223,66 +242,305 @@
       margin-bottom: 1.5rem;
       transition: border-color 0.3s;
     }
+    .nav-card:hover .card-icon { border-color: var(--color-accent); }
+    .card-icon svg { width: 24px; height: 24px; stroke: var(--color-accent); stroke-width: 2; transition: stroke 0.5s; }
 
-    .nav-card:hover .card-icon {
-      border-color: var(--color-matrix);
-    }
-
-    .card-icon svg {
-      width: 24px;
-      height: 24px;
-      stroke: var(--color-matrix);
-      stroke-width: 2;
-    }
-
-    .card-title {
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: -0.02em;
-    }
-
-    .card-desc {
-      font-size: 0.85rem;
-      color: var(--color-text-muted);
-      margin-top: 0.6rem;
-      line-height: 1.5;
-      font-weight: 500;
-    }
+    .card-title  { font-size: 1.35rem; font-weight: 700; color: #fff; letter-spacing: -0.02em; }
+    .card-desc   { font-size: 0.85rem; color: var(--color-text-muted); margin-top: 0.6rem; line-height: 1.5; font-weight: 500; }
 
     .card-badge {
       display: inline-block;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      font-weight: 800;
+      font-size: 9px; font-weight: 800;
       background-color: var(--color-card);
-      color: var(--color-matrix);
+      color: var(--color-accent);
       border: 1px solid var(--color-border);
       padding: 2px 8px;
       border-radius: 9999px;
       margin-top: 1rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      transition: color 0.5s;
     }
 
     .card-action-btn {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--color-matrix);
+      font-size: 0.8rem; font-weight: 700;
+      color: var(--color-accent);
+      display: flex; align-items: center; gap: 0.5rem;
+      margin-top: 1rem;
+      transition: gap 0.25s, color 0.5s;
+    }
+    .nav-card:hover .card-action-btn { gap: 0.75rem; }
+
+    /* ─────────────────────────────────────
+       SECTION DIVIDER
+    ───────────────────────────────────── */
+    .section-divider {
+      max-width: 960px;
+      margin: 4rem auto 3rem;
+      text-align: left;
+    }
+
+    .section-label {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      margin-top: 1rem;
-      transition: gap 0.25s;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
     }
 
-    .nav-card:hover .card-action-btn {
+    .section-label-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(var(--color-accent-rgb),0.4), transparent);
+      transition: background 0.5s;
+    }
+
+    .section-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      background: rgba(var(--color-accent-rgb),0.08);
+      border: 1px solid rgba(var(--color-accent-rgb),0.25);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      white-space: nowrap;
+      transition: color 0.5s, background 0.5s, border-color 0.5s;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-desc {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      line-height: 1.55;
+    }
+
+    /* ─────────────────────────────────────
+       NEWSLETTER GRID
+    ───────────────────────────────────── */
+    .newsletter-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 600px)  { .newsletter-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 900px)  { .newsletter-grid { grid-template-columns: repeat(4, 1fr); } }
+
+    .issue-card {
+      background: var(--color-panel);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 1.4rem 1.2rem;
+      text-align: left;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
       gap: 0.75rem;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
     }
 
+    .issue-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--color-accent), rgba(var(--color-accent-rgb),0.3));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .issue-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(var(--color-accent-rgb),0.45);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.45), 0 0 14px var(--color-accent-glow);
+    }
+    .issue-card:hover::after { opacity: 1; }
+
+    .issue-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: rgba(var(--color-accent-rgb),0.1);
+      border: 1px solid rgba(var(--color-accent-rgb),0.2);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.5s, border-color 0.5s;
+    }
+
+    .issue-icon svg { width: 20px; height: 20px; stroke: var(--color-accent); stroke-width: 2; transition: stroke 0.5s; }
+
+    .issue-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      transition: color 0.5s;
+    }
+
+    .issue-number {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .issue-period {
+      font-size: 0.78rem;
+      color: var(--color-text-muted);
+      font-weight: 500;
+    }
+
+    .issue-cta {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--color-accent);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-top: auto;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--color-border);
+      transition: gap 0.2s, color 0.5s;
+    }
+
+    .issue-card:hover .issue-cta { gap: 0.55rem; }
+
+    .issue-cta svg { width: 12px; height: 12px; }
+
+    /* ─── New badge on latest issue ─── */
+    .badge-new {
+      position: absolute;
+      top: 10px; right: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.55rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--color-accent);
+      color: var(--color-bg);
+      padding: 2px 7px;
+      border-radius: 9999px;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    /* ─────────────────────────────────────
+       THEME SWITCHER  (floating panel)
+    ───────────────────────────────────── */
+    #theme-switcher {
+      position: fixed;
+      bottom: 2rem;
+      right: 1.5rem;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.6rem;
+    }
+
+    #theme-toggle-btn {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      background: var(--color-panel);
+      border: 1px solid rgba(var(--color-accent-rgb),0.4);
+      color: var(--color-accent);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5), 0 0 12px var(--color-accent-glow);
+      transition: all 0.3s, border-color 0.5s, box-shadow 0.5s;
+    }
+
+    #theme-toggle-btn:hover {
+      transform: rotate(30deg) scale(1.1);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6), 0 0 20px var(--color-accent-glow);
+    }
+
+    #theme-toggle-btn svg { width: 20px; height: 20px; stroke: var(--color-accent); transition: stroke 0.5s; }
+
+    #theme-panel {
+      background: var(--color-panel);
+      border: 1px solid rgba(var(--color-accent-rgb),0.25);
+      border-radius: 16px;
+      padding: 1rem 1rem 0.85rem;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+      display: none;
+      flex-direction: column;
+      gap: 0.5rem;
+      min-width: 180px;
+      animation: slideUp 0.25s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    #theme-panel.open { display: flex; }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+
+    .theme-panel-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 0.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .theme-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      background: none;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      padding: 0.45rem 0.6rem;
+      cursor: pointer;
+      color: var(--color-text);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      text-align: left;
+      width: 100%;
+    }
+
+    .theme-btn:hover { background: rgba(255,255,255,0.06); border-color: var(--color-border); }
+    .theme-btn.active { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); }
+
+    .theme-swatch {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      box-shadow: 0 0 6px currentColor;
+    }
+
+    /* ─── Footer ─── */
     .footer-bar {
       border-top: 1px solid var(--color-border);
-      background-color: rgba(14, 17, 21, 0.8);
+      background-color: rgba(14,17,21,0.8);
       backdrop-filter: blur(12px);
       padding: 2rem 1.5rem;
       text-align: center;
@@ -294,44 +552,58 @@
     }
 
     .footer-container {
-      max-w: 1200px;
+      max-width: 1200px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      sm-flex-direction: row;
-      justify-content: space-between;
       align-items: center;
-      gap: 1rem;
+      gap: 0.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .footer-container { flex-direction: row; justify-content: space-between; }
+    }
+
+    /* ─── Scroll reveal helper ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
 <body>
 
-  <!-- Falling Matrix Rain canvas background -->
+  <!-- Matrix Rain Canvas -->
   <canvas id="matrix-bg-canvas"></canvas>
   <div class="wafer-grid"></div>
 
-  <!-- Header Section -->
+  <!-- ─── Header ─── -->
   <header class="header-bar">
     <div class="header-container">
       <div class="logo-container">
-        <!-- SVG Cpu icon -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-          <rect x="4" y="4" width="16" height="16" rx="2" />
-          <path d="M9 9h6v6H9z" />
-          <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3" />
+          <rect x="4" y="4" width="16" height="16" rx="2"/>
+          <path d="M9 9h6v6H9z"/>
+          <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/>
         </svg>
       </div>
       <div>
         <h1 class="title-h1">SiliconResolve Hub</h1>
-        <p class="subtitle">Systematic Innovation Workspace & Semiconductor Reference Tools</p>
+        <p class="subtitle">Systematic Innovation Workspace &amp; Semiconductor Reference Tools</p>
       </div>
     </div>
   </header>
 
-  <!-- Hero Content -->
+  <!-- ─── Main Content ─── -->
   <main class="main-canvas">
-    <section class="hero-section">
+
+    <!-- Hero -->
+    <section class="hero-section reveal">
       <span class="hero-tagline">Altshuller System Engine</span>
       <h2 class="hero-title">TRIZ Systematic Engineering Portal</h2>
       <p class="hero-desc">
@@ -339,28 +611,26 @@
       </p>
     </section>
 
-    <!-- Cards Grid -->
-    <div class="cards-grid">
-      
-      <!-- Card 1: Contradiction Mapper -->
+    <!-- ─── Tool Cards ─── -->
+    <div class="cards-grid reveal">
+
+      <!-- Card 1: Contradiction Solver -->
       <a href="./triz-contradiction-solver/" class="nav-card">
         <div class="card-top">
           <div class="card-icon">
-            <!-- CPU Icon -->
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <rect x="4" y="4" width="16" height="16" rx="2" />
-              <path d="M12 2v2M12 20v2M2 12h2M20 12h2M6 6l1.5 1.5M16.5 16.5L18 18M18 6l-1.5 1.5M7.5 16.5L6 18" />
+              <rect x="4" y="4" width="16" height="16" rx="2"/>
+              <path d="M12 2v2M12 20v2M2 12h2M20 12h2M6 6l1.5 1.5M16.5 16.5L18 18M18 6l-1.5 1.5M7.5 16.5L6 18"/>
             </svg>
           </div>
           <h3 class="card-title">Semiconductor FA/FI Workspace</h3>
           <p class="card-desc">
             Resolve technical and physical contradictions in chip failure analysis. Contains built-in hardware testing presets, a separation principle solver, and a 26.5MB Scientific Effects query engine.
           </p>
-          <span class="card-badge">Contradiction Solver & Effects DB</span>
+          <span class="card-badge">Contradiction Solver &amp; Effects DB</span>
         </div>
         <div class="card-action-btn">
           <span>Launch Application</span>
-          <!-- Arrow Right SVG -->
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"></line>
             <polyline points="12 5 19 12 12 19"></polyline>
@@ -368,13 +638,12 @@
         </div>
       </a>
 
-      <!-- Card 2: MoreInspiration Database -->
+      <!-- Card 2: MoreInspiration -->
       <a href="./moreinspiration-explorer/" class="nav-card">
         <div class="card-top">
           <div class="card-icon">
-            <!-- Sparkles Icon -->
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM17 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2h-2zM5 15a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM17 15a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2h-2z" />
+              <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM17 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2h-2zM5 15a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM17 15a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2h-2z"/>
             </svg>
           </div>
           <h3 class="card-title">MoreInspiration Explorer</h3>
@@ -385,7 +654,6 @@
         </div>
         <div class="card-action-btn">
           <span>Launch Explorer</span>
-          <!-- Arrow Right SVG -->
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"></line>
             <polyline points="12 5 19 12 12 19"></polyline>
@@ -393,10 +661,282 @@
         </div>
       </a>
 
-    </div>
-  </main>
+    </div><!-- /cards-grid -->
 
-  <!-- Footer Bar -->
+    <!-- ══════════════════════════════════════════
+         SYSTEMIC INNOVATION NEWSLETTER SECTION
+    ══════════════════════════════════════════ -->
+    <div class="section-divider reveal">
+      <div class="section-label">
+        <span class="section-tag">📰 Newsletter Archive</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="section-title">Systemic Innovation E-Zine</h2>
+      <p class="section-desc">
+        Monthly publications covering TRIZ, inventive problem solving, business innovation, and systematic creativity — curated issues from Issue 281 onwards.
+      </p>
+    </div>
+
+    <div class="newsletter-grid reveal">
+
+      <!-- Issue 281 -->
+      <a href="./Systemic%20innovation/si_ezine_issue281_2025_8.pdf"
+         target="_blank" rel="noopener" class="issue-card" id="issue-281">
+        <div class="issue-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+          </svg>
+        </div>
+        <div>
+          <div class="issue-meta">Issue 281</div>
+          <div class="issue-number">August 2025</div>
+          <div class="issue-period">Vol. 2025 · No. 8</div>
+        </div>
+        <div class="issue-cta">
+          Read PDF
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Issue 282 -->
+      <a href="./Systemic%20innovation/si_ezine_issue282_2025_9.pdf"
+         target="_blank" rel="noopener" class="issue-card">
+        <div class="issue-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+          </svg>
+        </div>
+        <div>
+          <div class="issue-meta">Issue 282</div>
+          <div class="issue-number">September 2025</div>
+          <div class="issue-period">Vol. 2025 · No. 9</div>
+        </div>
+        <div class="issue-cta">
+          Read PDF
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Issue 283 -->
+      <a href="./Systemic%20innovation/si_ezine_issue283_2025_10.pdf"
+         target="_blank" rel="noopener" class="issue-card">
+        <div class="issue-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+          </svg>
+        </div>
+        <div>
+          <div class="issue-meta">Issue 283</div>
+          <div class="issue-number">October 2025</div>
+          <div class="issue-period">Vol. 2025 · No. 10</div>
+        </div>
+        <div class="issue-cta">
+          Read PDF
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Issue 284 -->
+      <a href="./Systemic%20innovation/si_ezine_issue284_2025_11.pdf"
+         target="_blank" rel="noopener" class="issue-card">
+        <div class="issue-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+          </svg>
+        </div>
+        <div>
+          <div class="issue-meta">Issue 284</div>
+          <div class="issue-number">November 2025</div>
+          <div class="issue-period">Vol. 2025 · No. 11</div>
+        </div>
+        <div class="issue-cta">
+          Read PDF
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Issue 285 -->
+      <a href="./Systemic%20innovation/si_ezine_issue285_2025_12.pdf"
+         target="_blank" rel="noopener" class="issue-card">
+        <div class="issue-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+          </svg>
+        </div>
+        <div>
+          <div class="issue-meta">Issue 285</div>
+          <div class="issue-number">December 2025</div>
+          <div class="issue-period">Vol. 2025 · No. 12</div>
+        </div>
+        <div class="issue-cta">
+          Read PDF
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Issue 286 -->
+      <a href="./Systemic%20innovation/si_ezine_issue286_2026_1.pdf"
+         target="_blank" rel="noopener" class="issue-card">
+        <div class="issue-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+          </svg>
+        </div>
+        <div>
+          <div class="issue-meta">Issue 286</div>
+          <div class="issue-number">January 2026</div>
+          <div class="issue-period">Vol. 2026 · No. 1</div>
+        </div>
+        <div class="issue-cta">
+          Read PDF
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Issue 287 -->
+      <a href="./Systemic%20innovation/si_ezine_issue287_2026_2.pdf"
+         target="_blank" rel="noopener" class="issue-card">
+        <div class="issue-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+          </svg>
+        </div>
+        <div>
+          <div class="issue-meta">Issue 287</div>
+          <div class="issue-number">February 2026</div>
+          <div class="issue-period">Vol. 2026 · No. 2</div>
+        </div>
+        <div class="issue-cta">
+          Read PDF
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Issue 288 -->
+      <a href="./Systemic%20innovation/si_ezine_issue288_2026_3.pdf"
+         target="_blank" rel="noopener" class="issue-card">
+        <div class="issue-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+          </svg>
+        </div>
+        <div>
+          <div class="issue-meta">Issue 288</div>
+          <div class="issue-number">March 2026</div>
+          <div class="issue-period">Vol. 2026 · No. 3</div>
+        </div>
+        <div class="issue-cta">
+          Read PDF
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Issue 289 -->
+      <a href="./Systemic%20innovation/si_ezine_issue289_2026_4.pdf"
+         target="_blank" rel="noopener" class="issue-card">
+        <div class="issue-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+          </svg>
+        </div>
+        <div>
+          <div class="issue-meta">Issue 289</div>
+          <div class="issue-number">April 2026</div>
+          <div class="issue-period">Vol. 2026 · No. 4</div>
+        </div>
+        <div class="issue-cta">
+          Read PDF
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Issue 290 -->
+      <a href="./Systemic%20innovation/si_ezine_issue290_2026_5.pdf"
+         target="_blank" rel="noopener" class="issue-card">
+        <div class="issue-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+          </svg>
+        </div>
+        <div>
+          <div class="issue-meta">Issue 290</div>
+          <div class="issue-number">May 2026</div>
+          <div class="issue-period">Vol. 2026 · No. 5</div>
+        </div>
+        <div class="issue-cta">
+          Read PDF
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Issue 291 -->
+      <a href="./Systemic%20innovation/si_ezine_issue291_2026_6.pdf"
+         target="_blank" rel="noopener" class="issue-card">
+        <div class="issue-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+          </svg>
+        </div>
+        <div>
+          <div class="issue-meta">Issue 291</div>
+          <div class="issue-number">June 2026</div>
+          <div class="issue-period">Vol. 2026 · No. 6</div>
+        </div>
+        <div class="issue-cta">
+          Read PDF
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Issue 292 — LATEST -->
+      <a href="./Systemic%20innovation/si_ezine_issue292_2026_7.pdf"
+         target="_blank" rel="noopener" class="issue-card">
+        <span class="badge-new">Latest</span>
+        <div class="issue-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+          </svg>
+        </div>
+        <div>
+          <div class="issue-meta">Issue 292</div>
+          <div class="issue-number">July 2026</div>
+          <div class="issue-period">Vol. 2026 · No. 7</div>
+        </div>
+        <div class="issue-cta">
+          Read PDF
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
+          </svg>
+        </div>
+      </a>
+
+    </div><!-- /newsletter-grid -->
+
+  </main><!-- /main-canvas -->
+
+  <!-- ─── Footer ─── -->
   <footer class="footer-bar">
     <div class="footer-container">
       <span>ALTSHULLER SYSTEM COLLABORATIVE LABS &copy; 2026</span>
@@ -404,33 +944,79 @@
     </div>
   </footer>
 
-  <!-- Matrix falling code animation script -->
-  <script>
-    const canvas = document.getElementById('matrix-bg-canvas');
-    const ctx = canvas.getContext('2d');
+  <!-- ══════════════════════════════════════════
+       FLOATING THEME SWITCHER
+  ══════════════════════════════════════════ -->
+  <div id="theme-switcher">
+    <!-- Theme panel (hidden by default) -->
+    <div id="theme-panel" role="dialog" aria-label="Theme selector">
+      <div class="theme-panel-label">Choose Theme</div>
 
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
+      <button class="theme-btn active" data-theme="matrix" id="btn-matrix" onclick="setTheme('matrix', this)">
+        <span class="theme-swatch" style="background:#00ff66; color:#00ff66;"></span>
+        Matrix Green
+      </button>
+
+      <button class="theme-btn" data-theme="nebula" id="btn-nebula" onclick="setTheme('nebula', this)">
+        <span class="theme-swatch" style="background:#a855f7; color:#a855f7;"></span>
+        Nebula Purple
+      </button>
+
+      <button class="theme-btn" data-theme="solar" id="btn-solar" onclick="setTheme('solar', this)">
+        <span class="theme-swatch" style="background:#f59e0b; color:#f59e0b;"></span>
+        Solar Amber
+      </button>
+
+      <button class="theme-btn" data-theme="arctic" id="btn-arctic" onclick="setTheme('arctic', this)">
+        <span class="theme-swatch" style="background:#38bdf8; color:#38bdf8;"></span>
+        Arctic Blue
+      </button>
+
+      <button class="theme-btn" data-theme="rose" id="btn-rose" onclick="setTheme('rose', this)">
+        <span class="theme-swatch" style="background:#f43f5e; color:#f43f5e;"></span>
+        Noir Rose
+      </button>
+    </div>
+
+    <!-- Toggle button -->
+    <button id="theme-toggle-btn" aria-label="Open theme switcher" onclick="toggleThemePanel()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SCRIPTS
+  ══════════════════════════════════════════ -->
+  <script>
+    /* ── Matrix Rain ── */
+    const canvas = document.getElementById('matrix-bg-canvas');
+    const ctx    = canvas.getContext('2d');
+
+    const resizeCanvas = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
     const matrixChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ";
     const charArray = matrixChars.split("");
+    const fontSize  = 14;
 
-    const fontSize = 14;
-    const columns = Math.ceil(canvas.width / fontSize);
+    let drops = [];
+    const initDrops = () => {
+      const cols = Math.ceil(canvas.width / fontSize);
+      drops = Array.from({ length: cols }, () => Math.random() * -100);
+    };
+    initDrops();
+    window.addEventListener('resize', initDrops);
 
-    const drops = [];
-    for (let i = 0; i < columns; i++) {
-      drops[i] = Math.random() * -100;
-    }
+    // Read accent color from CSS vars for matrix rain
+    let matrixColorA = '#00ff66', matrixColorB = '#66ff99';
 
     const draw = () => {
       ctx.fillStyle = 'rgba(5, 7, 10, 0.08)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-
       ctx.font = `bold ${fontSize}px monospace`;
 
       for (let i = 0; i < drops.length; i++) {
@@ -438,25 +1024,79 @@
         const x = i * fontSize;
         const y = drops[i] * fontSize;
 
-        if (Math.random() > 0.985) {
-          ctx.fillStyle = '#ffffff'; // white head
-        } else if (Math.random() > 0.95) {
-          ctx.fillStyle = '#66ff99';
-        } else {
-          ctx.fillStyle = '#00ff66'; // Matrix green
-        }
+        if (Math.random() > 0.985)      ctx.fillStyle = '#ffffff';
+        else if (Math.random() > 0.95)  ctx.fillStyle = matrixColorB;
+        else                            ctx.fillStyle = matrixColorA;
 
         ctx.fillText(char, x, y);
-
-        if (y > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
+        if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
         drops[i]++;
       }
       requestAnimationFrame(draw);
     };
-
     draw();
+
+    /* ── Theme Switcher ── */
+    const THEME_COLORS = {
+      matrix: { a: '#00ff66', b: '#66ff99' },
+      nebula: { a: '#a855f7', b: '#c084fc' },
+      solar:  { a: '#f59e0b', b: '#fbbf24' },
+      arctic: { a: '#38bdf8', b: '#7dd3fc' },
+      rose:   { a: '#f43f5e', b: '#fb7185' },
+    };
+
+    let currentTheme = localStorage.getItem('si-hub-theme') || 'matrix';
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme === 'matrix' ? '' : theme);
+      matrixColorA = THEME_COLORS[theme].a;
+      matrixColorB = THEME_COLORS[theme].b;
+      localStorage.setItem('si-hub-theme', theme);
+      currentTheme = theme;
+    }
+
+    function setTheme(theme, btn) {
+      applyTheme(theme);
+      document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      // brief close delay for UX feedback
+      setTimeout(() => { document.getElementById('theme-panel').classList.remove('open'); }, 220);
+    }
+
+    function toggleThemePanel() {
+      document.getElementById('theme-panel').classList.toggle('open');
+    }
+
+    // Close panel on outside click
+    document.addEventListener('click', (e) => {
+      const switcher = document.getElementById('theme-switcher');
+      if (!switcher.contains(e.target)) {
+        document.getElementById('theme-panel').classList.remove('open');
+      }
+    });
+
+    // Restore saved theme on load
+    (function() {
+      applyTheme(currentTheme);
+      const savedBtn = document.getElementById('btn-' + currentTheme);
+      if (savedBtn) {
+        document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+        savedBtn.classList.add('active');
+      }
+    })();
+
+    /* ── Scroll Reveal ── */
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => observer.observe(el));
   </script>
+
 </body>
 </html>
