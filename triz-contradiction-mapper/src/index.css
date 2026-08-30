@@ -19,16 +19,39 @@
 }
 
 @layer base {
+  html {
+    font-size: 15px;
+  }
   body {
     background-color: var(--color-silicon-bg);
     color: #e2e8f0;
+    line-height: 1.65;
   }
+}
+
+/* Native HTML <ruby> & <rt> styling for Hanyu Pinyin */
+ruby {
+  ruby-position: over;
+  display: inline-ruby;
+  vertical-align: baseline;
+  padding: 0 1px;
+}
+
+rt {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.62em;
+  font-weight: 600;
+  color: var(--color-matrix-green);
+  line-height: 1;
+  user-select: none;
+  text-align: center;
+  display: block;
 }
 
 /* Custom Scrollbar for high-fidelity Matrix look */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-track {
@@ -37,9 +60,10 @@
 
 ::-webkit-scrollbar-thumb {
   background: var(--color-silicon-border);
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-matrix-green);
 }
+

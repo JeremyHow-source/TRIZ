@@ -2,6 +2,7 @@ export interface TrizParameter {
   id: number;
   nameEn: string;
   nameZh: string;
+  pinyinZh?: string;
 }
 
 export interface TrizPrinciple {

@@ -43,6 +43,16 @@ export const translations = {
     emptyStateDesc: "Select an improving parameter and a worsening parameter from the dropdown lists above to map the technical conflict to the TRIZ matrix.",
     equalParamsWarning: "Identical parameter selected! Because there is no external conflict, you have a physical self-contradiction. Try these structural principles to solve localized physical trade-offs:",
     
+    // Macro actions & matrix selector
+    btnClearNavigator: "Reset All Fields (ClearNavigator)",
+    btnLogToHistory: "Log Session to History (LogToHistory)",
+    btnViewHistory: "Problem History Log",
+    btnOpenMatrixModal: "39x39 Contradiction Matrix Grid Selector",
+    matrixModalTitle: "39 x 39 Technical Contradiction Matrix",
+    matrixModalSub: "Click any cell to pick Improving (Row) vs Worsening (Column) parameters.",
+    historyLogTitle: "Problem History & Solution Session Log",
+    historyLogEmpty: "No sessions logged yet. Click 'Log Session to History' above to record your active session.",
+
     // Principles & Solutions detail
     principleHeading: "Inventive Principle {id}: {name}",
     descriptionLabel: "Description & Core Concept",
@@ -84,6 +94,16 @@ export const translations = {
     selectPlaceholder: "请选择技术参数...",
     solveBtn: "映射冲突原理",
     autoSolveTip: "更改上方参数时，系统将自动重算并渲染最匹配的 TRIZ 策略。",
+
+    // Macro actions & matrix selector
+    btnClearNavigator: "一键重置清空 (ClearNavigator)",
+    btnLogToHistory: "记录至历史日志 (LogToHistory)",
+    btnViewHistory: "查看历史日志",
+    btnOpenMatrixModal: "39x39技术矛盾矩阵图选择器",
+    matrixModalTitle: "39 x 39 阿奇舒勒技术矛盾矩阵图",
+    matrixModalSub: "点击任意交叉单元格可同时选定改进参数（行）与恶化参数（列）。",
+    historyLogTitle: "工程问题分析与解法历史日志",
+    historyLogEmpty: "暂无保存的日志记录。点击上方的“记录至历史日志”即可归档当前会话。",
     
     // Semiconductor presets
     semiPresetsTitle: "半导体 FA/FI 常见工程瓶颈预设",

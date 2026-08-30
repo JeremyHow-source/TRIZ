@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Mindset &amp; Intrinsic Values Decoder | SiliconResolve</title>
+  <meta name="description" content="Decode customer mindsets, analyze intrinsic values with interactive radar charts, explore generational turning phase shifts, and generate high-converting product positioning strategies.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --color-bg:          #05070a;
+      --color-panel:       rgba(14,17,21,0.85);
+      --color-card:        rgba(20,25,31,0.75);
+      --color-card-hover:  rgba(28,35,44,0.9);
+      --color-border:      rgba(33,42,54,0.65);
+      --color-accent:      #00ff66;
+      --color-accent-glow: rgba(0,255,102,0.18);
+      --color-accent-rgb:  0,255,102;
+      --color-text:        #e2e8f0;
+      --color-text-muted:  #94a3b8;
+    }
+
+    [data-theme="nebula"] {
+      --color-bg:          #07050f;
+      --color-panel:       rgba(18,14,30,0.85);
+      --color-card:        rgba(24,18,40,0.75);
+      --color-card-hover:  rgba(34,26,56,0.9);
+      --color-border:      rgba(90,60,140,0.5);
+      --color-accent:      #a855f7;
+      --color-accent-glow: rgba(168,85,247,0.22);
+      --color-accent-rgb:  168,85,247;
+    }
+
+    [data-theme="solar"] {
+      --color-bg:          #0c0800;
+      --color-panel:       rgba(22,16,5,0.85);
+      --color-card:        rgba(30,20,8,0.75);
+      --color-card-hover:  rgba(42,28,10,0.9);
+      --color-border:      rgba(180,120,20,0.45);
+      --color-accent:      #f59e0b;
+      --color-accent-glow: rgba(245,158,11,0.2);
+      --color-accent-rgb:  245,158,11;
+    }
+
+    [data-theme="arctic"] {
+      --color-bg:          #020810;
+      --color-panel:       rgba(5,15,28,0.85);
+      --color-card:        rgba(8,20,36,0.75);
+      --color-card-hover:  rgba(12,28,48,0.9);
+      --color-border:      rgba(30,100,200,0.45);
+      --color-accent:      #38bdf8;
+      --color-accent-glow: rgba(56,189,248,0.2);
+      --color-accent-rgb:  56,189,248;
+    }
+
+    [data-theme="rose"] {
+      --color-bg:          #0a0508;
+      --color-panel:       rgba(20,10,16,0.85);
+      --color-card:        rgba(28,12,22,0.75);
+      --color-card-hover:  rgba(38,16,30,0.9);
+      --color-border:      rgba(200,50,100,0.45);
+      --color-accent:      #f43f5e;
+      --color-accent-glow: rgba(244,63,94,0.2);
+      --color-accent-rgb:  244,63,94;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: 'Outfit', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      transition: background-color 0.4s, color 0.4s;
+    }
+
+    .header-bar {
+      border-bottom: 1px solid var(--color-border);
+      background-color: rgba(14,17,21,0.85);
+      backdrop-filter: blur(12px);
+      padding: 1.2rem 1.5rem;
+      position: sticky; top: 0; z-index: 50;
+    }
+
+    .header-container {
+      max-width: 1380px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand-link {
+      display: flex; align-items: center; gap: 0.75rem;
+      text-decoration: none; color: #fff;
+    }
+
+    .logo-box {
+      background: linear-gradient(135deg, var(--color-accent) 0%, rgba(var(--color-accent-rgb),0.5) 100%);
+      padding: 0.5rem; border-radius: 10px;
+      box-shadow: 0 0 15px var(--color-accent-glow);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .logo-box svg { width: 22px; height: 22px; stroke: #05070a; }
+
+    .header-title { font-size: 1.15rem; font-weight: 700; }
+    .header-sub { font-size: 0.72rem; color: var(--color-text-muted); font-weight: 500; }
+
+    .nav-actions { display: flex; align-items: center; gap: 1rem; }
+
+    .btn-back {
+      font-size: 0.8rem; font-weight: 600; font-family: 'JetBrains Mono', monospace;
+      color: var(--color-accent); border: 1px solid var(--color-border);
+      background: var(--color-panel); padding: 0.4rem 0.9rem; border-radius: 8px;
+      text-decoration: none; display: flex; align-items: center; gap: 0.4rem;
+      transition: all 0.25s;
+    }
+    .btn-back:hover { border-color: var(--color-accent); background: var(--color-accent-glow); }
+
+    .main-layout {
+      max-width: 1380px; width: 100%; margin: 0 auto;
+      padding: 2rem 1.5rem 4rem; flex: 1;
+      display: grid; grid-template-columns: 1fr; gap: 2rem;
+    }
+
+    @media (min-width: 1080px) {
+      .main-layout { grid-template-columns: 460px 1fr; }
+    }
+
+    .panel-card {
+      background-color: var(--color-panel);
+      border: 1px solid var(--color-border);
+      border-radius: 20px; padding: 1.75rem;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .section-tag {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent);
+      background: rgba(var(--color-accent-rgb),0.1); border: 1px solid rgba(var(--color-accent-rgb),0.25);
+      padding: 3px 9px; border-radius: 9999px; display: inline-block; margin-bottom: 0.75rem;
+    }
+
+    .panel-title { font-size: 1.35rem; font-weight: 700; color: #fff; margin-bottom: 0.4rem; }
+    .panel-desc { font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.5; margin-bottom: 1.5rem; }
+
+    /* Generational Turning Selector */
+    .turning-box {
+      background: var(--color-card); border: 1px solid var(--color-border);
+      border-radius: 16px; padding: 1.2rem; margin-bottom: 1.5rem;
+    }
+
+    .turning-header {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 800;
+      color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.08em;
+      margin-bottom: 0.8rem; display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .gen-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-bottom: 1rem; }
+
+    .gen-btn {
+      background: rgba(255,255,255,0.03); border: 1px solid var(--color-border);
+      border-radius: 10px; padding: 0.55rem 0.65rem; text-align: left;
+      cursor: pointer; color: var(--color-text); font-family: 'Outfit', sans-serif;
+      transition: all 0.25s;
+    }
+    .gen-btn:hover { border-color: var(--color-accent); background: var(--color-card-hover); }
+    .gen-btn.active { border-color: var(--color-accent); background: rgba(var(--color-accent-rgb),0.15); box-shadow: 0 0 10px var(--color-accent-glow); }
+    .gen-title { font-size: 0.8rem; font-weight: 700; color: #fff; }
+    .gen-sub { font-size: 0.66rem; color: var(--color-text-muted); font-family: 'JetBrains Mono', monospace; margin-top: 0.15rem; }
+
+    .turning-chart-container { width: 100%; height: 130px; }
+    .turning-svg { width: 100%; height: 100%; }
+
+    /* Archetype Preset Buttons */
+    .archetype-presets {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-bottom: 1.5rem;
+    }
+
+    .preset-btn {
+      background: var(--color-card); border: 1px solid var(--color-border);
+      border-radius: 12px; padding: 0.6rem 0.75rem; text-align: left;
+      cursor: pointer; color: var(--color-text); font-family: 'Outfit', sans-serif;
+      transition: all 0.25s;
+    }
+
+    .preset-btn:hover { border-color: var(--color-accent); background: var(--color-card-hover); }
+    .preset-btn.active { border-color: var(--color-accent); background: rgba(var(--color-accent-rgb),0.12); box-shadow: 0 0 12px var(--color-accent-glow); }
+
+    .preset-name { font-size: 0.82rem; font-weight: 700; color: #fff; }
+    .preset-tag { font-size: 0.68rem; color: var(--color-text-muted); font-family: 'JetBrains Mono', monospace; margin-top: 0.15rem; }
+
+    /* Value Sliders */
+    .slider-group { display: flex; flex-direction: column; gap: 1rem; }
+
+    .slider-item { display: flex; flex-direction: column; gap: 0.3rem; }
+
+    .slider-header { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; }
+    .slider-title { font-weight: 600; color: #e2e8f0; }
+    .slider-val { font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--color-accent); font-size: 0.78rem; }
+
+    input[type="range"] {
+      -webkit-appearance: none; appearance: none; width: 100%; height: 6px;
+      border-radius: 3px; background: rgba(255,255,255,0.1); outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none; width: 16px; height: 16px; border-radius: 50%;
+      background: var(--color-accent); cursor: pointer; box-shadow: 0 0 8px var(--color-accent-glow);
+      transition: transform 0.15s;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.25); }
+
+    /* Product Input */
+    .product-input-box {
+      margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--color-border);
+      display: flex; flex-direction: column; gap: 0.6rem;
+    }
+
+    .product-input-box label { font-size: 0.8rem; font-weight: 600; color: #fff; }
+    .product-input-box input {
+      width: 100%; background: var(--color-card); border: 1px solid var(--color-border);
+      border-radius: 10px; padding: 0.65rem 0.9rem; color: #fff; font-family: 'Outfit', sans-serif;
+      font-size: 0.88rem; outline: none; transition: border-color 0.25s;
+    }
+    .product-input-box input:focus { border-color: var(--color-accent); box-shadow: 0 0 10px var(--color-accent-glow); }
+
+    /* Output Section */
+    .output-container { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .chart-box {
+      background: var(--color-card); border: 1px solid var(--color-border);
+      border-radius: 16px; padding: 1.5rem; text-align: center;
+      position: relative; display: flex; flex-direction: column; align-items: center;
+    }
+
+    .radar-svg { width: 100%; max-width: 420px; height: auto; max-height: 380px; overflow: visible; }
+
+    /* Positioning Cards */
+    .positioning-cards { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+    @media (min-width: 640px) { .positioning-cards { grid-template-columns: 1fr 1fr; } }
+
+    .info-card {
+      background: var(--color-card); border: 1px solid var(--color-border);
+      border-radius: 14px; padding: 1.2rem; display: flex; flex-direction: column; gap: 0.5rem;
+    }
+
+    .info-card.full-width { grid-column: 1 / -1; }
+
+    .info-card-title {
+      font-size: 0.82rem; font-family: 'JetBrains Mono', monospace; font-weight: 800;
+      color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.08em;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+
+    .info-card-body { font-size: 0.88rem; color: #cbd5e1; line-height: 1.55; font-weight: 450; }
+
+    .headline-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .headline-item {
+      background: rgba(255,255,255,0.03); border-left: 3px solid var(--color-accent);
+      padding: 0.5rem 0.75rem; border-radius: 4px; font-size: 0.85rem; font-weight: 500; color: #f1f5f9;
+    }
+
+    .action-bar {
+      display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1rem;
+    }
+
+    .btn-action {
+      background: var(--color-accent); color: var(--color-bg); font-family: 'JetBrains Mono', monospace;
+      font-weight: 800; font-size: 0.8rem; border: none; padding: 0.65rem 1.25rem; border-radius: 10px;
+      cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: all 0.25s;
+      box-shadow: 0 4px 14px var(--color-accent-glow);
+    }
+
+    .btn-action:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+    .toast {
+      position: fixed; bottom: 2rem; right: 2rem; background: var(--color-panel);
+      border: 1px solid var(--color-accent); color: #fff; padding: 0.75rem 1.25rem;
+      border-radius: 12px; font-size: 0.82rem; font-family: 'JetBrains Mono', monospace;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5); opacity: 0; transform: translateY(15px);
+      transition: all 0.3s ease; pointer-events: none; z-index: 100;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header-bar">
+    <div class="header-container">
+      <a href="../" class="brand-link">
+        <div class="logo-box">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M19 14.5l-2.47 2.47a2.25 2.25 0 01-1.591.659H9.061a2.25 2.25 0 01-1.591-.659L5 14.5m14 0V19.5a2.25 2.25 0 01-2.25 2.25H7.25A2.25 2.25 0 015 19.5V14.5" />
+          </svg>
+        </div>
+        <div>
+          <div class="header-title">Customer Mindset &amp; Intrinsic Values Decoder</div>
+          <div class="header-sub">SiliconResolve Product Positioning &amp; Generational Phase Engine</div>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../" class="btn-back">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          Back to Hub
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Layout -->
+  <main class="main-layout">
+
+    <!-- Left Controls Panel -->
+    <div class="panel-card">
+      <span class="section-tag">Target Audience Analysis</span>
+      <h1 class="panel-title">Customer Archetype &amp; Value Sliders</h1>
+      <p class="panel-desc">Select a Strauss-Howe generational turning cohort or adjust the 8 intrinsic value drivers to generate dynamic TRIZ positioning strategies.</p>
+
+      <!-- Strauss-Howe Generational Turning Section -->
+      <div class="turning-box">
+        <div class="turning-header">
+          <span>Generational Turning Phase Shift</span>
+          <span id="active-turning-lbl" style="color:var(--color-accent); font-weight:800;">4th Turning (Crisis)</span>
+        </div>
+
+        <div class="gen-grid">
+          <button class="gen-btn active" onclick="loadGenerationalCohort('genz', this)">
+            <div class="gen-title">Gen Z / Gen Alpha</div>
+            <div class="gen-sub">4th Turning Crisis</div>
+          </button>
+          <button class="gen-btn" onclick="loadGenerationalCohort('millennial', this)">
+            <div class="gen-title">Millennials</div>
+            <div class="gen-sub">3rd Turning Unraveling</div>
+          </button>
+          <button class="gen-btn" onclick="loadGenerationalCohort('genx', this)">
+            <div class="gen-title">Gen X</div>
+            <div class="gen-sub">2nd Turning Awakening</div>
+          </button>
+          <button class="gen-btn" onclick="loadGenerationalCohort('boomer', this)">
+            <div class="gen-title">Baby Boomers</div>
+            <div class="gen-sub">1st Turning High</div>
+          </button>
+        </div>
+
+        <!-- Wave Chart SVG -->
+        <div class="turning-chart-container">
+          <svg id="turning-wave-chart" class="turning-svg" viewBox="0 0 400 120"></svg>
+        </div>
+      </div>
+
+      <!-- Presets -->
+      <div class="archetype-presets">
+        <button class="preset-btn" onclick="loadPreset('innovator', this)">
+          <div class="preset-name">The Maverick Innovator</div>
+          <div class="preset-tag">Novelty &amp; Autonomy</div>
+        </button>
+        <button class="preset-btn" onclick="loadPreset('executive', this)">
+          <div class="preset-name">Executive Leader</div>
+          <div class="preset-tag">Status &amp; Efficiency</div>
+        </button>
+        <button class="preset-btn" onclick="loadPreset('guardian', this)">
+          <div class="preset-name">Risk-Averse Guardian</div>
+          <div class="preset-tag">Security &amp; Reliability</div>
+        </button>
+        <button class="preset-btn" onclick="loadPreset('pragmatist', this)">
+          <div class="preset-name">Pragmatic ROI Hunter</div>
+          <div class="preset-tag">Efficiency &amp; Simplicity</div>
+        </button>
+      </div>
+
+      <!-- Sliders -->
+      <div class="slider-group">
+        <div class="slider-item">
+          <div class="slider-header">
+            <span class="slider-title">1. Autonomy &amp; Control</span>
+            <span class="slider-val" id="val-autonomy">70%</span>
+          </div>
+          <input type="range" id="slide-autonomy" min="0" max="100" value="70" oninput="updateSliders()">
+        </div>
+
+        <div class="slider-item">
+          <div class="slider-header">
+            <span class="slider-title">2. Status &amp; Prestige</span>
+            <span class="slider-val" id="val-status">40%</span>
+          </div>
+          <input type="range" id="slide-status" min="0" max="100" value="40" oninput="updateSliders()">
+        </div>
+
+        <div class="slider-item">
+          <div class="slider-header">
+            <span class="slider-title">3. Security &amp; Risk Avoidance</span>
+            <span class="slider-val" id="val-security">90%</span>
+          </div>
+          <input type="range" id="slide-security" min="0" max="100" value="90" oninput="updateSliders()">
+        </div>
+
+        <div class="slider-item">
+          <div class="slider-header">
+            <span class="slider-title">4. Efficiency &amp; Speed</span>
+            <span class="slider-val" id="val-efficiency">75%</span>
+          </div>
+          <input type="range" id="slide-efficiency" min="0" max="100" value="75" oninput="updateSliders()">
+        </div>
+
+        <div class="slider-item">
+          <div class="slider-header">
+            <span class="slider-title">5. Social Belonging &amp; Community</span>
+            <span class="slider-val" id="val-belonging">70%</span>
+          </div>
+          <input type="range" id="slide-belonging" min="0" max="100" value="70" oninput="updateSliders()">
+        </div>
+
+        <div class="slider-item">
+          <div class="slider-header">
+            <span class="slider-title">6. Novelty &amp; Curiosity</span>
+            <span class="slider-val" id="val-novelty">80%</span>
+          </div>
+          <input type="range" id="slide-novelty" min="0" max="100" value="80" oninput="updateSliders()">
+        </div>
+
+        <div class="slider-item">
+          <div class="slider-header">
+            <span class="slider-title">7. Ethical Impact &amp; Purpose</span>
+            <span class="slider-val" id="val-ethics">95%</span>
+          </div>
+          <input type="range" id="slide-ethics" min="0" max="100" value="95" oninput="updateSliders()">
+        </div>
+
+        <div class="slider-item">
+          <div class="slider-header">
+            <span class="slider-title">8. Simplicity &amp; Peace of Mind</span>
+            <span class="slider-val" id="val-simplicity">85%</span>
+          </div>
+          <input type="range" id="slide-simplicity" min="0" max="100" value="85" oninput="updateSliders()">
+        </div>
+      </div>
+
+      <!-- Product Input -->
+      <div class="product-input-box">
+        <label for="product-name">Your Product / Service Name (Optional)</label>
+        <input type="text" id="product-name" placeholder="e.g. NextGen Semiconductor Failure Diagnostics Platform" value="SiliconResolve Innovation Platform" oninput="updateResults()">
+      </div>
+    </div>
+
+    <!-- Right Output Panel -->
+    <div class="output-container">
+
+      <!-- Radar Chart Card -->
+      <div class="panel-card chart-box">
+        <span class="section-tag">Intrinsic Value Radar Vector</span>
+        <svg id="radar-chart" class="radar-svg" viewBox="-220 -220 440 440"></svg>
+      </div>
+
+      <!-- Positioning Strategy Results -->
+      <div class="positioning-cards">
+
+        <!-- Core Value Proposition -->
+        <div class="info-card full-width">
+          <div class="info-card-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            Core Product Value Proposition
+          </div>
+          <div class="info-card-body" id="out-prop">
+            Loading positioning proposition...
+          </div>
+        </div>
+
+        <!-- Emotional vs Rational Hooks -->
+        <div class="info-card">
+          <div class="info-card-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            Emotional vs Rational Triggers
+          </div>
+          <div class="info-card-body" id="out-triggers">
+            Loading psychological drivers...
+          </div>
+        </div>
+
+        <!-- Dynamic TRIZ Contradiction Alignment -->
+        <div class="info-card">
+          <div class="info-card-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+            Dynamic TRIZ Contradiction Strategy
+          </div>
+          <div class="info-card-body" id="out-triz">
+            Loading dynamic TRIZ resolution...
+          </div>
+        </div>
+
+        <!-- High-Converting Headlines -->
+        <div class="info-card full-width">
+          <div class="info-card-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+            Target Audience Landing Page Headlines
+          </div>
+          <ul class="headline-list" id="out-headlines">
+            <!-- Populated via JS -->
+          </ul>
+        </div>
+
+        <!-- Feature Prioritization & Objection Handling -->
+        <div class="info-card full-width">
+          <div class="info-card-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Feature Focus &amp; Objection Handling
+          </div>
+          <div class="info-card-body" id="out-features">
+            Loading feature strategy...
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Button -->
+      <div class="action-bar">
+        <button class="btn-action" onclick="copyPositioningBrief()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          Copy Product Positioning Brief
+        </button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <div class="toast" id="toast-msg">Positioning Brief copied to clipboard!</div>
+
+  <script>
+    // Theme sync
+    const savedTheme = localStorage.getItem('si-hub-theme') || 'matrix';
+    if (savedTheme !== 'matrix') {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    }
+
+    var DIMENSIONS = [
+      { key: 'autonomy',   name: 'Autonomy & Control' },
+      { key: 'status',     name: 'Status & Prestige' },
+      { key: 'security',   name: 'Security & Risk Avoidance' },
+      { key: 'efficiency', name: 'Efficiency & Speed' },
+      { key: 'belonging',  name: 'Social Belonging' },
+      { key: 'novelty',    name: 'Novelty & Curiosity' },
+      { key: 'ethics',     name: 'Ethical Purpose' },
+      { key: 'simplicity', name: 'Simplicity & Peace' }
+    ];
+
+    var GENERATIONAL_COHORTS = {
+      genz: {
+        name: "Gen Z / Gen Alpha",
+        turning: "4th Turning (Crisis)",
+        desc: "Born in secular crisis. Values security, authentic ethical impact, radical transparency & low-effort simplicity.",
+        vals: { autonomy: 70, status: 40, security: 90, efficiency: 75, belonging: 70, novelty: 80, ethics: 95, simplicity: 85 }
+      },
+      millennial: {
+        name: "Millennials",
+        turning: "3rd Turning (Unraveling)",
+        desc: "Born in unraveling era. Driven by pragmatic productivity, personal branding, autonomy & measurable ROI.",
+        vals: { autonomy: 85, status: 65, security: 60, efficiency: 95, belonging: 55, novelty: 70, ethics: 65, simplicity: 80 }
+      },
+      genx: {
+        name: "Gen X",
+        turning: "2nd Turning (Awakening)",
+        desc: "Born during cultural rebellion. Highly self-reliant, skeptical of hype, values deep autonomy & risk management.",
+        vals: { autonomy: 95, status: 45, security: 75, efficiency: 85, belonging: 40, novelty: 50, ethics: 50, simplicity: 90 }
+      },
+      boomer: {
+        name: "Baby Boomers",
+        turning: "1st Turning (High)",
+        desc: "Born during post-war high. Values institutional stability, prestige, legacy & social belonging.",
+        vals: { autonomy: 60, status: 90, security: 85, efficiency: 60, belonging: 85, novelty: 30, ethics: 60, simplicity: 70 }
+      }
+    };
+
+    var PRESETS = {
+      innovator:  { autonomy: 85, status: 40, security: 30, efficiency: 75, belonging: 50, novelty: 95, ethics: 60, simplicity: 65 },
+      executive:  { autonomy: 80, status: 90, security: 60, efficiency: 95, belonging: 45, novelty: 60, ethics: 35, simplicity: 70 },
+      guardian:   { autonomy: 40, status: 30, security: 95, efficiency: 65, belonging: 70, novelty: 20, ethics: 65, simplicity: 90 },
+      pragmatist: { autonomy: 60, status: 35, security: 75, efficiency: 95, belonging: 40, novelty: 40, ethics: 40, simplicity: 85 }
+    };
+
+    var activeGenKey = 'genz';
+
+    function loadGenerationalCohort(genKey, btn) {
+      activeGenKey = genKey;
+      document.querySelectorAll('.gen-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      const cohort = GENERATIONAL_COHORTS[genKey];
+      document.getElementById('active-turning-lbl').innerText = cohort.turning;
+
+      DIMENSIONS.forEach(d => {
+        const slider = document.getElementById(`slide-${d.key}`);
+        if(slider) {
+          slider.value = cohort.vals[d.key];
+          document.getElementById(`val-${d.key}`).innerText = `${cohort.vals[d.key]}%`;
+        }
+      });
+
+      renderTurningWaveChart(genKey);
+      updateResults();
+    }
+
+    function loadPreset(presetKey, btn) {
+      document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.gen-btn').forEach(b => b.classList.remove('active'));
+      if(btn) btn.classList.add('active');
+
+      const vals = PRESETS[presetKey];
+      DIMENSIONS.forEach(d => {
+        const slider = document.getElementById(`slide-${d.key}`);
+        if(slider) {
+          slider.value = vals[d.key];
+          document.getElementById(`val-${d.key}`).innerText = `${vals[d.key]}%`;
+        }
+      });
+      updateResults();
+    }
+
+    function updateSliders() {
+      DIMENSIONS.forEach(d => {
+        const v = document.getElementById(`slide-${d.key}`).value;
+        document.getElementById(`val-${d.key}`).innerText = `${v}%`;
+      });
+      updateResults();
+    }
+
+    function getValues() {
+      const data = {};
+      DIMENSIONS.forEach(d => {
+        data[d.key] = parseInt(document.getElementById(`slide-${d.key}`).value, 10);
+      });
+      return data;
+    }
+
+    function renderTurningWaveChart(activeKey) {
+      const svg = document.getElementById('turning-wave-chart');
+      if(!svg) return;
+      const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--color-accent').trim() || '#00ff66';
+
+      const positions = { boomer: 50, genx: 150, millennial: 250, genz: 350 };
+      const curX = positions[activeKey] || 350;
+
+      let html = `
+        <defs>
+          <linearGradient id="waveGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="${accentColor}" stop-opacity="0.2"/>
+            <stop offset="50%" stop-color="${accentColor}" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="${accentColor}" stop-opacity="0.2"/>
+          </linearGradient>
+        </defs>
+        <!-- Background Grid -->
+        <line x1="0" y1="60" x2="400" y2="60" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="4"/>
+        <line x1="100" y1="10" x2="100" y2="110" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+        <line x1="200" y1="10" x2="200" y2="110" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+        <line x1="300" y1="10" x2="300" y2="110" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+
+        <!-- Phase Labels -->
+        <text x="50" y="22" fill="#94a3b8" font-size="9" font-weight="700" text-anchor="middle" font-family="JetBrains Mono">1st Turning (High)</text>
+        <text x="150" y="22" fill="#94a3b8" font-size="9" font-weight="700" text-anchor="middle" font-family="JetBrains Mono">2nd (Awakening)</text>
+        <text x="250" y="22" fill="#94a3b8" font-size="9" font-weight="700" text-anchor="middle" font-family="JetBrains Mono">3rd (Unraveling)</text>
+        <text x="350" y="22" fill="#94a3b8" font-size="9" font-weight="700" text-anchor="middle" font-family="JetBrains Mono">4th (Crisis)</text>
+
+        <!-- Sine Wave representing 80-Yr Saeculum Cycle -->
+        <path d="M 0 60 Q 50 15, 100 60 T 200 60 T 300 60 T 400 60" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+        <path d="M 0 60 Q 50 15, 100 60 T 200 60 T 300 60 T 400 60" fill="none" stroke="url(#waveGrad)" stroke-width="3.5"/>
+
+        <!-- Active Cohort Indicator -->
+        <line x1="${curX}" y1="28" x2="${curX}" y2="95" stroke="${accentColor}" stroke-width="1.5" stroke-dasharray="3"/>
+        <circle cx="${curX}" cy="60" r="6" fill="${accentColor}" stroke="#05070a" stroke-width="2"/>
+        <text x="${curX}" y="110" fill="${accentColor}" font-size="9" font-weight="800" text-anchor="middle" font-family="JetBrains Mono">${activeKey.toUpperCase()}</text>
+      `;
+
+      svg.innerHTML = html;
+    }
+
+    function renderRadarChart(data) {
+      const svg = document.getElementById('radar-chart');
+      const radius = 160;
+      const numAxes = DIMENSIONS.length;
+      const angleStep = (Math.PI * 2) / numAxes;
+      const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--color-accent').trim() || '#00ff66';
+
+      let html = '';
+
+      // Grid Rings
+      [0.2, 0.4, 0.6, 0.8, 1.0].forEach(r => {
+        let pts = [];
+        for (let i = 0; i < numAxes; i++) {
+          const angle = i * angleStep - Math.PI / 2;
+          pts.push(`${(Math.cos(angle)*radius*r).toFixed(1)},${(Math.sin(angle)*radius*r).toFixed(1)}`);
+        }
+        html += `<polygon points="${pts.join(' ')}" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.2"/>`;
+      });
+
+      // Axis lines & Labels
+      DIMENSIONS.forEach((d, i) => {
+        const angle = i * angleStep - Math.PI / 2;
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius;
+        html += `<line x1="0" y1="0" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>`;
+
+        const lx = Math.cos(angle) * (radius + 28);
+        const ly = Math.sin(angle) * (radius + 28);
+        let anchor = "middle";
+        if (Math.abs(lx) > 10) anchor = lx > 0 ? "start" : "end";
+        html += `<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" fill="#94a3b8" font-size="10.5" font-weight="600" text-anchor="${anchor}" dominant-baseline="central" font-family="Outfit, sans-serif">${d.name}</text>`;
+      });
+
+      // Value Polygon
+      let valPoints = [];
+      DIMENSIONS.forEach((d, i) => {
+        const valRatio = (data[d.key] || 0) / 100;
+        const angle = i * angleStep - Math.PI / 2;
+        valPoints.push(`${(Math.cos(angle)*radius*valRatio).toFixed(1)},${(Math.sin(angle)*radius*valRatio).toFixed(1)}`);
+      });
+
+      html += `<polygon points="${valPoints.join(' ')}" fill="${accentColor}" fill-opacity="0.25" stroke="${accentColor}" stroke-width="2.5" stroke-linejoin="round"/>`;
+      valPoints.forEach(pt => {
+        const [x, y] = pt.split(',');
+        html += `<circle cx="${x}" cy="${y}" r="4.5" fill="${accentColor}" stroke="#05070a" stroke-width="1.5"/>`;
+      });
+
+      svg.innerHTML = html;
+    }
+
+    function getDynamicTRIZStrategy(data, top1, top2, lowest) {
+      if (data.novelty > 60 && data.security > 60) {
+        return `<strong>Customer Conflict:</strong> High Desire for Innovation (${data.novelty}%) vs High Risk Avoidance (${data.security}%).<br>💡 <strong>TRIZ Principle 10 (Preliminary Action):</strong> Deploy non-disruptive sandbox pilots &amp; instant rollbacks so customers experience radical novelty with zero operational risk.`;
+      }
+      if (data.status > 60 && data.simplicity > 60) {
+        return `<strong>Customer Conflict:</strong> Executive Status &amp; Prestige (${data.status}%) vs Low Administrative Effort (${data.simplicity}%).<br>💡 <strong>TRIZ Principle 2 (Taking Out / Extraction):</strong> Strip away friction and complex setup while highlighting high-touch luxury visual cues and VIP onboarding.`;
+      }
+      if (data.efficiency > 60 && data.ethics > 60) {
+        return `<strong>Customer Conflict:</strong> Maximum Velocity &amp; ROI (${data.efficiency}%) vs Authentic Ethical Transparency (${data.ethics}%).<br>💡 <strong>TRIZ Principle 1 (Segmentation / Division):</strong> Modularize ESG audit tracking so environmental compliance occurs automatically in the background without slowing core execution.`;
+      }
+      if (data.autonomy > 60 && data.security > 60) {
+        return `<strong>Customer Conflict:</strong> Custom Control &amp; Autonomy (${data.autonomy}%) vs Strict Compliance (${data.security}%).<br>💡 <strong>TRIZ Principle 15 (Dynamicity):</strong> Progressive disclosure: default to zero-config safe presets out of the box while unlocking deep sandboxed parameters for power users.`;
+      }
+      if (data.belonging > 60 && data.autonomy > 60) {
+        return `<strong>Customer Conflict:</strong> Community Belonging (${data.belonging}%) vs Individual Identity Privacy (${data.autonomy}%).<br>💡 <strong>TRIZ Principle 3 (Local Quality):</strong> Create permission-based micro-communities and localized user forums where members collaborate while retaining full data ownership.`;
+      }
+      if (data.efficiency > 60 && data.novelty > 60) {
+        return `<strong>Customer Conflict:</strong> Bleeding-Edge Tech Adoption (${data.novelty}%) vs Zero Downtime Velocity (${data.efficiency}%).<br>💡 <strong>TRIZ Principle 35 (Parameter Changes):</strong> Offer dynamic execution modes: a 'Fast-Track Express ROI Mode' for immediate execution and an 'Experimental Sandbox Mode' for feature discovery.`;
+      }
+      if (data.status > 60 && data.ethics > 60) {
+        return `<strong>Customer Conflict:</strong> Social Prestige Signaling (${data.status}%) vs Genuine Purpose (${data.ethics}%).<br>💡 <strong>TRIZ Principle 22 (Turn Harm into Benefit):</strong> Convert verified ethical contributions (carbon offset, open-source code commits, sustainability benchmarks) into verified badges of prestige.`;
+      }
+
+      const strategyMap = {
+        autonomy: {
+          security: `<strong>Customer Conflict:</strong> Dominant Autonomy (${data.autonomy}%) vs Low Risk Tolerance (${data.security}%).<br>💡 <strong>TRIZ Principle 15 (Dynamicity):</strong> Provide self-directed administrative controls wrapped in immutable background security guardrails.`,
+          simplicity: `<strong>Customer Conflict:</strong> Dominant Autonomy (${data.autonomy}%) vs Demand for Simplicity (${data.simplicity}%).<br>💡 <strong>TRIZ Principle 13 (The Other Way Round):</strong> Invert complex configuration screens into 1-click intelligent presets with full manual override.`,
+          efficiency: `<strong>Customer Conflict:</strong> Dominant Autonomy (${data.autonomy}%) vs Demand for Speed (${data.efficiency}%).<br>💡 <strong>TRIZ Principle 23 (Feedback):</strong> Provide live visual feedback metrics during user customization so self-directed setup feels instantaneous.`,
+          default: `<strong>Customer Conflict:</strong> Dominant Autonomy (${data.autonomy}%) vs Conflicting ${lowest.name} (${data[lowest.key]}%).<br>💡 <strong>TRIZ Principle 3 (Local Quality):</strong> Tailor local user environments to grant granular permission controls while safeguarding system integrity.`
+        },
+        status: {
+          simplicity: `<strong>Customer Conflict:</strong> Dominant Status & Prestige (${data.status}%) vs Demand for Simplicity (${data.simplicity}%).<br>💡 <strong>TRIZ Principle 2 (Taking Out):</strong> Extract administrative overhead while emphasizing VIP executive onboarding and high-touch support.`,
+          ethics: `<strong>Customer Conflict:</strong> Dominant Status (${data.status}%) vs Ethical Alignment (${data.ethics}%).<br>💡 <strong>TRIZ Principle 22 (Turn Harm into Benefit):</strong> Turn verified sustainability and ESG contributions into verified badges of executive prestige.`,
+          security: `<strong>Customer Conflict:</strong> Dominant Status (${data.status}%) vs Risk Avoidance (${data.security}%).<br>💡 <strong>TRIZ Principle 11 (Beforehand Cushioning):</strong> Offer white-glove SLA guarantees and dedicated single-tenant infrastructure for high-status accounts.`,
+          default: `<strong>Customer Conflict:</strong> Dominant Status (${data.status}%) vs Conflicting ${lowest.name} (${data[lowest.key]}%).<br>💡 <strong>TRIZ Principle 17 (Another Dimension):</strong> Position the solution in an exclusive category tier that redefines industry benchmark standards.`
+        },
+        security: {
+          novelty: `<strong>Customer Conflict:</strong> Dominant Security & Risk Avoidance (${data.security}%) vs Desire for Innovation (${data.novelty}%).<br>💡 <strong>TRIZ Principle 10 (Preliminary Action):</strong> Deploy non-disruptive pilot sandboxes with automated 1-click fallback rollbacks so novelty carries 0 risk.`,
+          simplicity: `<strong>Customer Conflict:</strong> Dominant Security (${data.security}%) vs Demand for Simplicity (${data.simplicity}%).<br>💡 <strong>TRIZ Principle 24 (Mediator / Intermediary):</strong> Implement invisible passwordless authentication and background anomaly detection so compliance requires zero user effort.`,
+          autonomy: `<strong>Customer Conflict:</strong> Dominant Security (${data.security}%) vs User Autonomy (${data.autonomy}%).<br>💡 <strong>TRIZ Principle 27 (Cheap Short-Lived Objects):</strong> Provide ephemeral, single-use access tokens and isolated virtual environments for high-risk operations.`,
+          default: `<strong>Customer Conflict:</strong> Dominant Security (${data.security}%) vs Conflicting ${lowest.name} (${data[lowest.key]}%).<br>💡 <strong>TRIZ Principle 11 (Beforehand Cushioning):</strong> Implement automated snapshot backups and fail-safe redundancy prior to any major system change.`
+        },
+        efficiency: {
+          ethics: `<strong>Customer Conflict:</strong> Dominant Efficiency & Speed (${data.efficiency}%) vs Ethical Compliance (${data.ethics}%).<br>💡 <strong>TRIZ Principle 1 (Segmentation):</strong> Decouple compliance tracking into asynchronous background micro-services so execution velocity remains uninhibited.`,
+          novelty: `<strong>Customer Conflict:</strong> Dominant Efficiency (${data.efficiency}%) vs Technological Novelty (${data.novelty}%).<br>💡 <strong>TRIZ Principle 35 (Parameter Changes):</strong> Offer Express Execution mode for high-velocity routine tasks and Sandbox Mode for exploring new features.`,
+          status: `<strong>Customer Conflict:</strong> Dominant Efficiency (${data.efficiency}%) vs Status Signaling (${data.status}%).<br>💡 <strong>TRIZ Principle 19 (Periodic Action):</strong> Send automated executive ROI reports highlighting hours saved and cost efficiencies achieved.`,
+          default: `<strong>Customer Conflict:</strong> Dominant Efficiency (${data.efficiency}%) vs Conflicting ${lowest.name} (${data[lowest.key]}%).<br>💡 <strong>TRIZ Principle 5 (Merging):</strong> Consolidate multi-step workflows into a single streamlined dashboard interface.`
+        },
+        belonging: {
+          autonomy: `<strong>Customer Conflict:</strong> Dominant Social Belonging (${data.belonging}%) vs Individual Autonomy (${data.autonomy}%).<br>💡 <strong>TRIZ Principle 3 (Local Quality):</strong> Create permissioned sub-groups where team members collaborate closely while maintaining private workspace views.`,
+          security: `<strong>Customer Conflict:</strong> Dominant Belonging (${data.belonging}%) vs Security & Compliance (${data.security}%).<br>💡 <strong>TRIZ Principle 40 (Composite Materials):</strong> Leverage peer-to-peer verification and community governance to maintain high safety standards.`,
+          default: `<strong>Customer Conflict:</strong> Dominant Social Belonging (${data.belonging}%) vs Conflicting ${lowest.name} (${data[lowest.key]}%).<br>💡 <strong>TRIZ Principle 17 (Another Dimension):</strong> Build shared interactive forums and community knowledge-bases alongside core product features.`
+        },
+        novelty: {
+          security: `<strong>Customer Conflict:</strong> Dominant Novelty & Curiosity (${data.novelty}%) vs Risk Avoidance (${data.security}%).<br>💡 <strong>TRIZ Principle 10 (Preliminary Action):</strong> Provide non-disruptive feature preview flags and isolated test environments for zero-risk experimentation.`,
+          efficiency: `<strong>Customer Conflict:</strong> Dominant Novelty (${data.novelty}%) vs Efficiency & Speed (${data.efficiency}%).<br>💡 <strong>TRIZ Principle 14 (Spheroidality):</strong> Provide smooth, interactive guided tours that accelerate learning curves for cutting-edge tools.`,
+          default: `<strong>Customer Conflict:</strong> Dominant Novelty (${data.novelty}%) vs Conflicting ${lowest.name} (${data[lowest.key]}%).<br>💡 <strong>TRIZ Principle 35 (Parameter Changes):</strong> Transform complex underlying technology into an intuitive, gamified user interface.`
+        },
+        ethics: {
+          efficiency: `<strong>Customer Conflict:</strong> Dominant Ethical Purpose (${data.ethics}%) vs Execution Speed (${data.efficiency}%).<br>💡 <strong>TRIZ Principle 18 (Resonance):</strong> Synchronize real-time sustainability metrics directly with operational telemetry dashboards.`,
+          status: `<strong>Customer Conflict:</strong> Dominant Ethical Purpose (${data.ethics}%) vs Status Signaling (${data.status}%).<br>💡 <strong>TRIZ Principle 25 (Self-Service):</strong> Enable self-verified open-source contributions and ESG badges to highlight social responsibility.`,
+          default: `<strong>Customer Conflict:</strong> Dominant Ethical Purpose (${data.ethics}%) vs Conflicting ${lowest.name} (${data[lowest.key]}%).<br>💡 <strong>TRIZ Principle 22 (Turn Harm into Benefit):</strong> Offset operational trade-offs by donating a portion of computing overhead to open science projects.`
+        },
+        simplicity: {
+          autonomy: `<strong>Customer Conflict:</strong> Dominant Simplicity & Peace (${data.simplicity}%) vs User Autonomy (${data.autonomy}%).<br>💡 <strong>TRIZ Principle 16 (Partial or Excessive Actions):</strong> Ship curated, intelligent default configurations with 1-click advanced setup options.`,
+          security: `<strong>Customer Conflict:</strong> Dominant Simplicity (${data.simplicity}%) vs Enterprise Security (${data.security}%).<br>💡 <strong>TRIZ Principle 21 (Skipping):</strong> Bypass complex manual security steps using automated background encryption and zero-trust tokens.`,
+          default: `<strong>Customer Conflict:</strong> Dominant Simplicity (${data.simplicity}%) vs Conflicting ${lowest.name} (${data[lowest.key]}%).<br>💡 <strong>TRIZ Principle 2 (Taking Out):</strong> Eliminate all non-essential UI elements to present a distraction-free, zero-friction interface.`
+        }
+      };
+
+      const primaryObj = strategyMap[top1.key] || {};
+      return primaryObj[lowest.key] || primaryObj[top2.key] || primaryObj.default || `<strong>Customer Conflict:</strong> Dominant <em>${top1.name}</em> (${data[top1.key]}%) vs Conflicting <em>${lowest.name}</em> (${data[lowest.key]}%).<br>💡 <strong>TRIZ Principle 5 (Merging / Combination):</strong> Merge primary utility hooks directly with automated baseline defaults to eliminate customer hesitation.`;
+    }
+
+    function updateResults() {
+      const data = getValues();
+      renderRadarChart(data);
+      renderTurningWaveChart(activeGenKey);
+
+      const pName = document.getElementById('product-name').value.trim() || 'Your Product';
+
+      const sorted = [...DIMENSIONS].sort((a,b) => data[b.key] - data[a.key]);
+      const top1 = sorted[0];
+      const top2 = sorted[1];
+      const lowest = sorted[sorted.length - 1];
+
+      // 1. Core Proposition
+      let prop = "";
+      if (top1.key === 'efficiency' || top2.key === 'efficiency') {
+        prop = `Position <strong>${pName}</strong> as the high-output, zero-friction accelerator designed for high-velocity teams seeking immediate ROI without complexity.`;
+      } else if (top1.key === 'security' || top2.key === 'security') {
+        prop = `Position <strong>${pName}</strong> as the mission-critical, fail-safe gold standard built for risk-conscious leaders who prioritize stability and compliance above all else.`;
+      } else if (top1.key === 'status' || top2.key === 'status') {
+        prop = `Position <strong>${pName}</strong> as the elite, bespoke market-leading innovation that signals industry prestige and forward-thinking mastery.`;
+      } else if (top1.key === 'ethics' || top2.key === 'ethics') {
+        prop = `Position <strong>${pName}</strong> as the authentic, purpose-led breakthrough engineered for conscious consumers who demand radical transparency and positive impact.`;
+      } else {
+        prop = `Position <strong>${pName}</strong> as an autonomous, next-generation framework empowering curious innovators with total creative freedom and cutting-edge capability.`;
+      }
+      document.getElementById('out-prop').innerHTML = prop;
+
+      // 2. Emotional vs Rational Triggers
+      let emotional = "", rational = "";
+      if (top1.key === 'novelty' || top2.key === 'novelty') {
+        emotional = "Fear of missing out on the cutting edge &amp; thrill of pioneer status.";
+        rational = "Benchmarked speed improvements, technical superiority &amp; architectural adaptability.";
+      } else if (top1.key === 'security' || top2.key === 'security') {
+        emotional = "Relief from operational risk &amp; peace of mind against costly failures.";
+        rational = "SLA uptime guarantees, compliance certifications &amp; rigorous failure analysis history.";
+      } else if (top1.key === 'status' || top2.key === 'status') {
+        emotional = "Pride of association with industry-standard excellence &amp; executive authority.";
+        rational = "Exclusive access, custom SLA tiering &amp; enterprise-grade security protocol.";
+      } else {
+        emotional = "Desire for effortless mastery and elimination of tedious manual friction.";
+        rational = "Direct cost savings, automated workflow metrics &amp; quantifiable time-to-resolution.";
+      }
+
+      document.getElementById('out-triggers').innerHTML = `
+        <p style="margin-bottom:0.4rem;">❤️ <strong>Emotional Hook:</strong> ${emotional}</p>
+        <p>🧠 <strong>Rational Proof:</strong> ${rational}</p>
+      `;
+
+      // 3. Dynamic TRIZ Contradiction Strategy
+      document.getElementById('out-triz').innerHTML = getDynamicTRIZStrategy(data, top1, top2, lowest);
+
+      // 4. Landing Page Headlines
+      const headlines = [
+        `"The ${top1.name} Standard for Forward-Thinking Professionals."`,
+        `"Unlock Uncompromising ${top1.name} Without Sacrificing ${lowest.name}."`,
+        `"How ${pName} Delivers Proven ${top1.name} &amp; ${top2.name} in Minutes, Not Months."`
+      ];
+      document.getElementById('out-headlines').innerHTML = headlines.map(h => `<li class="headline-item">${h}</li>`).join('');
+
+      // 5. Feature Prioritization & Objection Handling
+      document.getElementById('out-features').innerHTML = `
+        <p style="margin-bottom:0.5rem;">⭐ <strong>Primary Hero Feature:</strong> Lead hero section with interactive demos proving high <strong>${top1.name}</strong> (${data[top1.key]}%) and <strong>${top2.name}</strong> (${data[top2.key]}%).</p>
+        <p style="margin-bottom:0.5rem;">⚠️ <strong>Anticipated Friction:</strong> Visitor hesitancy regarding low baseline priority in <em>${lowest.name}</em> (${data[lowest.key]}%).</p>
+        <p>🛡️ <strong>Objection Counter:</strong> Reassure visitors with direct social proof, transparent FAQs, and automated onboarding fallbacks.</p>
+      `;
+    }
+
+    function copyPositioningBrief() {
+      const data = getValues();
+      const pName = document.getElementById('product-name').value.trim() || 'Your Product';
+      const cohort = GENERATIONAL_COHORTS[activeGenKey] || GENERATIONAL_COHORTS.genz;
+
+      const brief = `=== SILICONRESOLVE PRODUCT POSITIONING BRIEF ===
+Product Name: ${pName}
+Generational Cohort: ${cohort.name} (${cohort.turning})
+
+Intrinsic Drivers Profile:
+- Autonomy & Control: ${data.autonomy}%
+- Status & Prestige: ${data.status}%
+- Security & Risk Avoidance: ${data.security}%
+- Efficiency & Speed: ${data.efficiency}%
+- Social Belonging: ${data.belonging}%
+- Novelty & Curiosity: ${data.novelty}%
+- Ethical Purpose: ${data.ethics}%
+- Simplicity & Peace: ${data.simplicity}%
+
+CORE VALUE PROPOSITION:
+${document.getElementById('out-prop').innerText}
+
+PSYCHOLOGICAL TRIGGERS:
+${document.getElementById('out-triggers').innerText}
+
+DYNAMIC TRIZ VALUE CONTRADICTION STRATEGY:
+${document.getElementById('out-triz').innerText}
+
+LANDING PAGE HEADLINES:
+${Array.from(document.querySelectorAll('.headline-item')).map(el => '- ' + el.innerText).join('\n')}
+
+================================================`;
+
+      navigator.clipboard.writeText(brief).then(() => {
+        const toast = document.getElementById('toast-msg');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+      });
+    }
+
+    // Initialize
+    loadGenerationalCohort('genz', document.querySelector('.gen-btn.active'));
+  </script>
+
+</body>
+</html>

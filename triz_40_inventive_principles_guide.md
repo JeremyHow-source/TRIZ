@@ -1293,12 +1293,84 @@ To apply these principles systematically:
 4. **Apply Recommended Principles:** The matrix will suggest 2 to 4 Inventive Principles that have historically resolved this specific conflict. Use the guidelines and examples in this document to brainstorm implementations.
 
 ### 3. Resolving Physical Contradictions
-A physical contradiction occurs when a single element needs to have opposite states at the same time (e.g., a software program must be complex to support features, but simple for user navigation; a bicycle helmet must be hard to resist impact, but soft to absorb shock).
-Physical contradictions are resolved by separating the conflicting requirements:
-- **Separation in Time:** (e.g., Principle 34: Discarding and Recovering — stitches that are solid during healing, but dissolve later).
-- **Separation in Space:** (e.g., Principle 3: Local Quality — smartphone screen is glass, body is aluminum).
-- **Separation between System Levels (Whole and Parts):** (e.g., Principle 1: Segmentation — microservices are simple individually, but make up a complex system).
-- **Separation by Condition:** (e.g., Principle 35: Parameter Change — shape memory alloys that are flexible when cold and rigid when hot).
+A physical contradiction occurs when a single element or parameter must exist in two mutually exclusive states at the same time (e.g., a wafer substrate must be thick for mechanical stability, but thin for infrared laser transmission; a software API must be open for customization, but locked down for security).
+
+Physical contradictions are resolved using **Oxford TRIZ Physical Separation Principles**:
+
+#### A. Separation in Time (16 Principles)
+*Separate conflicting requirements at different times/moments.*
+| Principle # | Principle Name | Practical Engineering Example |
+| :--- | :--- | :--- |
+| **Principle 1** | Segmentation | Pulsed laser voltage probing (LVP) firing short high-power pulses during switching and turning off during steady state. |
+| **Principle 7** | Nested doll | Telescopic antennae extending during signal transmission and collapsing during transport. |
+| **Principle 9** | Prior counteraction | Pre-stressing concrete or glass before mechanical loads are applied. |
+| **Principle 10** | Prior action | Pre-cut grooves on pill tablets or self-adhesive backings for fast installation. |
+| **Principle 11** | Cushion in advance | Airbags deploying milliseconds before crash impact. |
+| **Principle 15** | Dynamicity | Variable geometry turbochargers or dynamic software mode switching. |
+| **Principle 16** | Partial or excessive action | Over-painting an area then buffing off excess to ensure complete coverage. |
+| **Principle 18** | Mechanical vibration | Ultrasonic cleaning vibrating surfaces rapidly during maintenance cycles. |
+| **Principle 19** | Periodic action | Pulsed waterjet cutting or periodic clock cycles in synchronous microprocessors. |
+| **Principle 21** | Rushing through | Passing heat-sensitive materials rapidly through high-temperature furnaces without scorching. |
+| **Principle 24** | Intermediary | Temporary sacrificial photoresist masks used during semiconductor plasma etching. |
+| **Principle 26** | Copying | Using rapid optical strobe imaging during high-speed motion testing. |
+| **Principle 27** | Cheap short-living objects | Disposable single-use medical syringes or ephemeral cloud test environments. |
+| **Principle 29** | Pneumatics and hydraulics | Inflatable air seals expanding during high-pressure gas testing and deflating for loading. |
+| **Principle 34** | Discarding and recovering | Dissolvable bio-resorbable surgical sutures that degrade after tissue healing. |
+| **Principle 37** | Thermal expansion | Shrink-fit metal sleeves expanding with heat during assembly and tightening upon cooling. |
+
+#### B. Separation in Space (12 Principles)
+*Separate conflicting requirements in different locations/regions.*
+| Principle # | Principle Name | Practical Engineering Example |
+| :--- | :--- | :--- |
+| **Principle 1** | Segmentation | Multi-zone thermal gradient furnaces or segmented micro-channel heat sinks. |
+| **Principle 2** | Taking out | Removing heavy noisy air conditioner compressors and mounting them outdoors. |
+| **Principle 3** | Local quality | Localized FIB silicon trenching to thin only the active optical window while keeping a thick outer support ring. |
+| **Principle 4** | Asymmetry | Ergonomic asymmetrical computer mouse tailored for single-hand dominance. |
+| **Principle 7** | Nested doll | Coaxial cables with internal signal core shielded by outer grounded braid. |
+| **Principle 13** | The other way round | Turning the part upside down or rotating the tool around stationary workpieces. |
+| **Principle 14** | Spheroidality / Curvature | Using rounded corners on airplane windows to redistribute spatial stress concentrations. |
+| **Principle 17** | Another dimension | Multi-layer 3D stacked ICs (TSV) routing signals vertically to save horizontal footprint. |
+| **Principle 24** | Intermediary | Thermal interface paste placed between heat sink and CPU die to fill microscopic air voids. |
+| **Principle 26** | Copying | Using remote optical mirrors or fiber endoscopes to inspect enclosed engine chambers. |
+| **Principle 30** | Flexible membranes and thin films | Thin anti-reflective optical coatings on lenses that shield light reflection without adding bulk. |
+| **Principle 40** | Composite materials | Fiber-reinforced carbon composites offering high spatial tensile strength with low weight. |
+
+#### C. Separation on Condition (8 Principles)
+*Separate conflicting requirements depending on state, mode, load, or environment.*
+| Principle # | Principle Name | Practical Engineering Example |
+| :--- | :--- | :--- |
+| **Principle 28** | Replace mechanical system | Replacing mechanical relay switches with solid-state optical couplers or magnetic fields. |
+| **Principle 29** | Pneumatics and hydraulics | Air-cushion hover tables providing zero friction when gas flows, solid support when off. |
+| **Principle 31** | Porous materials | Porous ceramic filters allowing gas passage while blocking particulate contaminants. |
+| **Principle 32** | Colour changes | Thermo-chromic paint changing color when equipment exceeds safe operating temperatures. |
+| **Principle 35** | Parameter change | Shape memory alloys flexible at room temperature and rigid under electric heating. |
+| **Principle 36** | Phase transition | Heat pipes utilizing liquid-to-vapor phase change for high thermal transport efficiency. |
+| **Principle 38** | Accelerated oxidation | Using pure oxygen torches or ozone exposure only during high-speed chemical etching. |
+| **Principle 39** | Inert atmosphere | Flushing nitrogen or argon gas around molten metal welds to eliminate oxidation. |
+
+#### D. Separation by System / Scale (Scale Division)
+*Separate conflicting requirements across system levels (Super-system, Sub-system, Inverse, or Alternative systems).*
+- **Super-System (6 Principles):** `[5, 6, 12, 22, 33, 40]`
+  - *Principle 5 (Merging):* Combine multiple independent chips into a single System-in-Package (SiP).
+  - *Principle 6 (Universality):* Single multi-purpose sensor executing multiple diagnostic functions.
+  - *Principle 12 (Equipotentiality):* Equalize potential differences across high-voltage grid lines.
+  - *Principle 22 (Blessing in disguise):* Harness waste heat from GPU processing to warm facilities.
+  - *Principle 33 (Homogeneity):* Use identical material for host fixture and sample to eliminate thermal expansion mismatch.
+  - *Principle 40 (Composite materials):* Heterogeneous material integration across macro structures.
+- **Sub-System (4 Principles):** `[1, 3, 24, 27]`
+  - *Principle 1 (Segmentation):* Microservices architecture or MEMS cantilever tip arrays.
+  - *Principle 3 (Local Quality):* Localized doping gradients in semiconductor junction gates.
+  - *Principle 24 (Intermediary):* Nano-needle tips mounted on flexible cantilever beams.
+  - *Principle 27 (Cheap short-living objects):* Disposable micro-fluidic diagnostic cartridges.
+- **Inverse Systems (1 Principle):** `[13]`
+  - *Principle 13 (The other way round):* Invert static/moving roles (e.g. moving the camera instead of moving the wafer stage).
+- **Alternative Systems (6 Principles):** `[6, 8, 22, 25, 27, 40]`
+  - *Principle 6 (Universality):* Re-purposing existing hardware fields for secondary sensing.
+  - *Principle 8 (Anti-weight):* Buoyancy-assisted acoustic levitation positioning.
+  - *Principle 22 (Blessing in disguise):* Converting parasitic noise into a diagnostic clock signal.
+  - *Principle 25 (Self-service):* Self-healing polymers or self-calibrating ADC converters.
+  - *Principle 27 (Cheap short-living objects):* Ephemeral serverless cloud functions.
+  - *Principle 40 (Composite materials):* Multi-layer meta-materials with negative refractive index.
 
 ### 4. Integration into Modern Development (Agile & DevOps)
 - **Refactoring:** Principle 1 (Segmentation) and Principle 2 (Extraction) are the basis of software refactoring—isolating modules, decoupling classes, and extracting utilities.

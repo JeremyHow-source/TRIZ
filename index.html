@@ -138,23 +138,27 @@
       margin: 0 auto;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 1rem;
     }
 
-    .logo-container {
-      background: linear-gradient(135deg, var(--color-accent) 0%, rgba(var(--color-accent-rgb),0.5) 100%);
-      padding: 0.6rem;
-      border-radius: 12px;
-      box-shadow: 0 0 15px var(--color-accent-glow);
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.5s, box-shadow 0.5s;
-      flex-shrink: 0;
+    .header-brand-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
 
-    .logo-container svg { width: 24px; height: 24px; stroke: #05070a; }
-
-    .title-h1 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.025em; color: #fff; }
-    .subtitle  { font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.1rem; font-weight: 500; }
+    .header-decoder-btn {
+      font-size: 0.78rem; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+      color: var(--color-accent); border: 1px solid var(--color-border);
+      background: var(--color-card); padding: 0.5rem 1rem; border-radius: 10px;
+      cursor: pointer; display: flex; align-items: center; gap: 0.5rem;
+      backdrop-filter: blur(8px); transition: all 0.25s;
+    }
+    .header-decoder-btn:hover {
+      border-color: var(--color-accent); background: rgba(var(--color-accent-rgb),0.12);
+      box-shadow: 0 0 12px var(--color-accent-glow); transform: translateY(-1px);
+    }
 
     /* ─── Main ─── */
     .main-canvas {
@@ -188,13 +192,87 @@
       display: grid;
       grid-template-columns: 1fr;
       gap: 2rem;
-      max-width: 960px;
+      max-width: 1100px;
       margin: 0 auto;
     }
 
     @media (min-width: 768px) {
-      .cards-grid { grid-template-columns: 1fr 1fr; }
+      .cards-grid { grid-template-columns: repeat(3, 1fr); }
     }
+
+    /* ─── Sidebar Drawer ─── */
+    #sidebar-backdrop {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px); z-index: 190; opacity: 0; pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    #sidebar-backdrop.open { opacity: 1; pointer-events: auto; }
+
+    #customer-decoder-sidebar {
+      position: fixed; top: 0; right: 0; width: 440px; max-width: 90vw; height: 100vh;
+      background: var(--color-panel); border-left: 1px solid var(--color-border);
+      z-index: 200; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+      display: flex; flex-direction: column; box-shadow: -10px 0 35px rgba(0,0,0,0.6);
+      backdrop-filter: blur(20px);
+    }
+    #customer-decoder-sidebar.open { transform: translateX(0); }
+
+    .sidebar-header {
+      padding: 1.5rem; border-bottom: 1px solid var(--color-border);
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+    }
+    .sidebar-badge {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 800;
+      color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.1em;
+    }
+    .sidebar-title { font-size: 1.2rem; font-weight: 700; color: #fff; margin-top: 0.2rem; }
+
+    .sidebar-close-btn {
+      background: rgba(255,255,255,0.05); border: 1px solid var(--color-border);
+      color: var(--color-text-muted); border-radius: 8px; width: 32px; height: 32px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      font-weight: bold; font-size: 1.1rem; transition: all 0.2s;
+    }
+    .sidebar-close-btn:hover { color: #fff; border-color: var(--color-accent); background: rgba(var(--color-accent-rgb),0.1); }
+
+    .sidebar-content {
+      padding: 1.5rem; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 1.25rem;
+    }
+    .sidebar-desc { font-size: 0.82rem; color: var(--color-text-muted); line-height: 1.5; }
+
+    .sb-presets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; }
+    .sb-preset-btn {
+      background: var(--color-card); border: 1px solid var(--color-border); border-radius: 8px;
+      padding: 0.4rem 0.2rem; text-align: center; color: #cbd5e1; font-size: 0.72rem;
+      font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'Outfit', sans-serif;
+    }
+    .sb-preset-btn:hover { border-color: var(--color-accent); color: #fff; }
+    .sb-preset-btn.active { border-color: var(--color-accent); background: rgba(var(--color-accent-rgb),0.12); color: var(--color-accent); font-weight: 700; }
+
+    .sb-chart-card {
+      background: var(--color-card); border: 1px solid var(--color-border); border-radius: 14px;
+      padding: 1rem; text-align: center; display: flex; justify-content: center;
+    }
+    .sb-radar-svg { width: 100%; max-width: 280px; height: auto; overflow: visible; }
+
+    .sb-sliders { display: flex; flex-direction: column; gap: 0.75rem; }
+    .sb-slider-item { display: flex; flex-direction: column; gap: 0.2rem; }
+    .sb-slider-hdr { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 600; color: #cbd5e1; }
+    .sb-slider-hdr span:last-child { font-family: 'JetBrains Mono', monospace; color: var(--color-accent); }
+
+    .sb-out-box {
+      background: var(--color-card); border: 1px solid var(--color-border); border-radius: 12px;
+      padding: 1rem; font-size: 0.8rem; line-height: 1.5; color: #cbd5e1;
+    }
+    .sb-out-title { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 800; color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.3rem; }
+
+    .sb-launch-link {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background: var(--color-accent); color: var(--color-bg); font-family: 'JetBrains Mono', monospace;
+      font-weight: 800; font-size: 0.78rem; text-decoration: none; padding: 0.75rem; border-radius: 10px;
+      box-shadow: 0 4px 14px var(--color-accent-glow); margin-top: auto; transition: all 0.25s;
+    }
+    .sb-launch-link:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
     .nav-card {
       background-color: var(--color-panel);
@@ -585,17 +663,23 @@
   <!-- ─── Header ─── -->
   <header class="header-bar">
     <div class="header-container">
-      <div class="logo-container">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-          <rect x="4" y="4" width="16" height="16" rx="2"/>
-          <path d="M9 9h6v6H9z"/>
-          <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/>
-        </svg>
+      <div class="header-brand-group">
+        <div class="logo-container">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <rect x="4" y="4" width="16" height="16" rx="2"/>
+            <path d="M9 9h6v6H9z"/>
+            <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="title-h1">SiliconResolve Hub</h1>
+          <p class="subtitle">Systematic Innovation Workspace &amp; Semiconductor Reference Tools</p>
+        </div>
       </div>
-      <div>
-        <h1 class="title-h1">SiliconResolve Hub</h1>
-        <p class="subtitle">Systematic Innovation Workspace &amp; Semiconductor Reference Tools</p>
-      </div>
+      <button class="header-decoder-btn" onclick="toggleCustomerSidebar()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        Decode Customer Mindset
+      </button>
     </div>
   </header>
 
@@ -654,6 +738,29 @@
         </div>
         <div class="card-action-btn">
           <span>Launch Explorer</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Card 3: Customer Mindset & Intrinsic Values Decoder -->
+      <a href="./customer-mindset-decoder/" class="nav-card">
+        <div class="card-top">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M19 14.5l-2.47 2.47a2.25 2.25 0 01-1.591.659H9.061a2.25 2.25 0 01-1.591-.659L5 14.5m14 0V19.5a2.25 2.25 0 01-2.25 2.25H7.25A2.25 2.25 0 015 19.5V14.5" />
+            </svg>
+          </div>
+          <h3 class="card-title">Customer Mindset &amp; Intrinsic Values Decoder</h3>
+          <p class="card-desc">
+            Decode target audience mindsets and intrinsic values. Features interactive radar charts, messaging trigger generators, and TRIZ value positioning strategies.
+          </p>
+          <span class="card-badge">Interactive Radar &amp; Positioning Engine</span>
+        </div>
+        <div class="card-action-btn">
+          <span>Launch Decoder</span>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"></line>
             <polyline points="12 5 19 12 12 19"></polyline>
@@ -945,7 +1052,7 @@
   </footer>
 
   <!-- ══════════════════════════════════════════
-       FLOATING THEME SWITCHER
+       FLOATING THEME SWITCHER & SIDEBAR TRIGGER
   ══════════════════════════════════════════ -->
   <div id="theme-switcher">
     <!-- Theme panel (hidden by default) -->
@@ -988,9 +1095,167 @@
   </div>
 
   <!-- ══════════════════════════════════════════
+       SIDEBAR DRAWER: CUSTOMER MINDSET DECODER
+  ══════════════════════════════════════════ -->
+  <div id="sidebar-backdrop" onclick="toggleCustomerSidebar()"></div>
+  <aside id="customer-decoder-sidebar" role="dialog" aria-label="Customer Mindset Decoder Sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-title-group">
+        <span class="sidebar-badge">Customer Psychology Engine</span>
+        <h2 class="sidebar-title">Mindset &amp; Intrinsic Values</h2>
+      </div>
+      <button class="sidebar-close-btn" onclick="toggleCustomerSidebar()" aria-label="Close sidebar">✕</button>
+    </div>
+
+    <div class="sidebar-content">
+      <p class="sidebar-desc">Interactively adjust intrinsic value drivers to analyze target audience mindsets and generate instant product positioning strategies.</p>
+
+      <!-- Strauss-Howe Generational Turning Section in Sidebar -->
+      <div style="background:var(--color-card); border:1px solid var(--color-border); border-radius:14px; padding:0.9rem; margin-bottom:1.2rem;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:0.68rem; font-weight:800; color:var(--color-accent); text-transform:uppercase; margin-bottom:0.6rem; display:flex; justify-content:space-between;">
+          <span>Generational Turning Shift</span>
+          <span id="sb-active-turning-lbl">4th Turning (Crisis)</span>
+        </div>
+        <div class="sb-presets" style="margin-bottom:0.6rem;">
+          <button class="sb-preset-btn active" onclick="loadSbGenCohort('genz', this)">Gen Z</button>
+          <button class="sb-preset-btn" onclick="loadSbGenCohort('millennial', this)">Millennial</button>
+          <button class="sb-preset-btn" onclick="loadSbGenCohort('genx', this)">Gen X</button>
+          <button class="sb-preset-btn" onclick="loadSbGenCohort('boomer', this)">Boomer</button>
+        </div>
+        <div style="width:100%; height:95px;">
+          <svg id="sb-turning-wave-chart" style="width:100%; height:100%;" viewBox="0 0 400 110"></svg>
+        </div>
+      </div>
+
+      <!-- Radar SVG -->
+      <div class="sb-chart-card">
+        <svg id="sb-radar-chart" class="sb-radar-svg" viewBox="-220 -220 440 440"></svg>
+      </div>
+
+      <!-- Sliders -->
+      <div class="sb-sliders">
+        <div class="sb-slider-item">
+          <div class="sb-slider-hdr"><span>1. Autonomy &amp; Control</span><span id="sb-val-autonomy">70%</span></div>
+          <input type="range" id="sb-slide-autonomy" min="0" max="100" value="70" oninput="updateSbResults()">
+        </div>
+        <div class="sb-slider-item">
+          <div class="sb-slider-hdr"><span>2. Status &amp; Prestige</span><span id="sb-val-status">40%</span></div>
+          <input type="range" id="sb-slide-status" min="0" max="100" value="40" oninput="updateSbResults()">
+        </div>
+        <div class="sb-slider-item">
+          <div class="sb-slider-hdr"><span>3. Security &amp; Risk Avoidance</span><span id="sb-val-security">90%</span></div>
+          <input type="range" id="sb-slide-security" min="0" max="100" value="90" oninput="updateSbResults()">
+        </div>
+        <div class="sb-slider-item">
+          <div class="sb-slider-hdr"><span>4. Efficiency &amp; Speed</span><span id="sb-val-efficiency">75%</span></div>
+          <input type="range" id="sb-slide-efficiency" min="0" max="100" value="75" oninput="updateSbResults()">
+        </div>
+        <div class="sb-slider-item">
+          <div class="sb-slider-hdr"><span>5. Social Belonging</span><span id="sb-val-belonging">70%</span></div>
+          <input type="range" id="sb-slide-belonging" min="0" max="100" value="70" oninput="updateSbResults()">
+        </div>
+        <div class="sb-slider-item">
+          <div class="sb-slider-hdr"><span>6. Novelty &amp; Curiosity</span><span id="sb-val-novelty">80%</span></div>
+          <input type="range" id="sb-slide-novelty" min="0" max="100" value="80" oninput="updateSbResults()">
+        </div>
+        <div class="sb-slider-item">
+          <div class="sb-slider-hdr"><span>7. Ethical Purpose</span><span id="sb-val-ethics">95%</span></div>
+          <input type="range" id="sb-slide-ethics" min="0" max="100" value="95" oninput="updateSbResults()">
+        </div>
+        <div class="sb-slider-item">
+          <div class="sb-slider-hdr"><span>8. Simplicity &amp; Peace</span><span id="sb-val-simplicity">85%</span></div>
+          <input type="range" id="sb-slide-simplicity" min="0" max="100" value="85" oninput="updateSbResults()">
+        </div>
+      </div>
+
+      <!-- Positioning Output Box -->
+      <div class="sb-out-box">
+        <div class="sb-out-title">Core Product Positioning</div>
+        <div class="sb-out-body" id="sb-out-prop">...</div>
+
+        <div class="sb-out-title" style="margin-top:0.8rem;">Dynamic TRIZ Contradiction Alignment</div>
+        <div class="sb-out-body" id="sb-out-triz">...</div>
+      </div>
+
+      <a href="./customer-mindset-decoder/" class="sb-launch-link">
+        <span>Launch Full-Screen App</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ══════════════════════════════════════════
        SCRIPTS
   ══════════════════════════════════════════ -->
   <script>
+    /* ── Customer Mindset Decoder Data ── */
+    var SB_DIMENSIONS = [
+      { key: 'autonomy',   name: 'Autonomy' },
+      { key: 'status',     name: 'Status' },
+      { key: 'security',   name: 'Security' },
+      { key: 'efficiency', name: 'Efficiency' },
+      { key: 'belonging',  name: 'Belonging' },
+      { key: 'novelty',    name: 'Novelty' },
+      { key: 'ethics',     name: 'Ethics' },
+      { key: 'simplicity', name: 'Simplicity' }
+    ];
+
+    var SB_GENERATIONAL_COHORTS = {
+      genz:       { turning: "4th Turning (Crisis)", autonomy: 70, status: 40, security: 90, efficiency: 75, belonging: 70, novelty: 80, ethics: 95, simplicity: 85 },
+      millennial: { turning: "3rd Turning (Unraveling)", autonomy: 85, status: 65, security: 60, efficiency: 95, belonging: 55, novelty: 70, ethics: 65, simplicity: 80 },
+      genx:       { turning: "2nd Turning (Awakening)", autonomy: 95, status: 45, security: 75, efficiency: 85, belonging: 40, novelty: 50, ethics: 50, simplicity: 90 },
+      boomer:     { turning: "1st Turning (High)", autonomy: 60, status: 90, security: 85, efficiency: 60, belonging: 85, novelty: 30, ethics: 60, simplicity: 70 }
+    };
+
+    var sbActiveGenKey = 'genz';
+
+    function loadSbGenCohort(key, btn) {
+      sbActiveGenKey = key;
+      document.querySelectorAll('.sb-preset-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      const cohort = SB_GENERATIONAL_COHORTS[key];
+      const lbl = document.getElementById('sb-active-turning-lbl');
+      if (lbl) lbl.innerText = cohort.turning;
+
+      SB_DIMENSIONS.forEach(d => {
+        const slider = document.getElementById(`sb-slide-${d.key}`);
+        if (slider) {
+          slider.value = cohort[d.key];
+          document.getElementById(`sb-val-${d.key}`).innerText = `${cohort[d.key]}%`;
+        }
+      });
+      updateSbResults();
+    }
+
+    function renderSbTurningWaveChart(activeKey) {
+      const svg = document.getElementById('sb-turning-wave-chart');
+      if (!svg) return;
+      const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--color-accent').trim() || '#00ff66';
+      const positions = { boomer: 50, genx: 150, millennial: 250, genz: 350 };
+      const curX = positions[activeKey] || 350;
+
+      svg.innerHTML = `
+        <defs>
+          <linearGradient id="sbWaveGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="${accentColor}" stop-opacity="0.2"/>
+            <stop offset="50%" stop-color="${accentColor}" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="${accentColor}" stop-opacity="0.2"/>
+          </linearGradient>
+        </defs>
+        <line x1="0" y1="55" x2="400" y2="55" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="4"/>
+        <text x="50" y="18" fill="#94a3b8" font-size="8.5" font-weight="700" text-anchor="middle" font-family="JetBrains Mono">1st Turning</text>
+        <text x="150" y="18" fill="#94a3b8" font-size="8.5" font-weight="700" text-anchor="middle" font-family="JetBrains Mono">2nd Turning</text>
+        <text x="250" y="18" fill="#94a3b8" font-size="8.5" font-weight="700" text-anchor="middle" font-family="JetBrains Mono">3rd Turning</text>
+        <text x="350" y="18" fill="#94a3b8" font-size="8.5" font-weight="700" text-anchor="middle" font-family="JetBrains Mono">4th Turning</text>
+        <path d="M 0 55 Q 50 15, 100 55 T 200 55 T 300 55 T 400 55" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+        <path d="M 0 55 Q 50 15, 100 55 T 200 55 T 300 55 T 400 55" fill="none" stroke="url(#sbWaveGrad)" stroke-width="3"/>
+        <line x1="${curX}" y1="22" x2="${curX}" y2="88" stroke="${accentColor}" stroke-width="1.5" stroke-dasharray="3"/>
+        <circle cx="${curX}" cy="55" r="5" fill="${accentColor}" stroke="#05070a" stroke-width="1.5"/>
+        <text x="${curX}" y="100" fill="${accentColor}" font-size="8.5" font-weight="800" text-anchor="middle" font-family="JetBrains Mono">${activeKey.toUpperCase()}</text>
+      `;
+    }
+
     /* ── Matrix Rain ── */
     const canvas = document.getElementById('matrix-bg-canvas');
     const ctx    = canvas.getContext('2d');
@@ -1053,13 +1318,13 @@
       matrixColorB = THEME_COLORS[theme].b;
       localStorage.setItem('si-hub-theme', theme);
       currentTheme = theme;
+      if (typeof updateSbResults === 'function') updateSbResults();
     }
 
     function setTheme(theme, btn) {
       applyTheme(theme);
       document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      // brief close delay for UX feedback
       setTimeout(() => { document.getElementById('theme-panel').classList.remove('open'); }, 220);
     }
 
@@ -1070,7 +1335,9 @@
     // Close panel on outside click
     document.addEventListener('click', (e) => {
       const switcher = document.getElementById('theme-switcher');
-      if (!switcher.contains(e.target)) {
+      const sidebar = document.getElementById('customer-decoder-sidebar');
+      const openBtn = document.getElementById('btn-open-sidebar');
+      if (switcher && !switcher.contains(e.target)) {
         document.getElementById('theme-panel').classList.remove('open');
       }
     });
@@ -1096,7 +1363,163 @@
       });
     }, { threshold: 0.08 });
     reveals.forEach(el => observer.observe(el));
+
+    /* ── Customer Mindset Decoder Sidebar JS ── */
+    function toggleCustomerSidebar() {
+      const sidebar = document.getElementById('customer-decoder-sidebar');
+      const backdrop = document.getElementById('sidebar-backdrop');
+      if (sidebar) sidebar.classList.toggle('open');
+      if (backdrop) backdrop.classList.toggle('open');
+      if (sidebar && sidebar.classList.contains('open')) {
+        updateSbResults();
+      }
+    }
+
+    function loadSbPreset(key, btn) {
+      loadSbGenCohort(key, btn);
+    }
+
+    function renderSbRadar(data) {
+      const svg = document.getElementById('sb-radar-chart');
+      if (!svg) return;
+      const radius = 150;
+      const numAxes = SB_DIMENSIONS.length;
+      const angleStep = (Math.PI * 2) / numAxes;
+      const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--color-accent').trim() || '#00ff66';
+
+      let html = '';
+      [0.25, 0.5, 0.75, 1.0].forEach(r => {
+        let pts = [];
+        for (let i = 0; i < numAxes; i++) {
+          const angle = i * angleStep - Math.PI / 2;
+          pts.push(`${(Math.cos(angle)*radius*r).toFixed(1)},${(Math.sin(angle)*radius*r).toFixed(1)}`);
+        }
+        html += `<polygon points="${pts.join(' ')}" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.2"/>`;
+      });
+
+      SB_DIMENSIONS.forEach((d, i) => {
+        const angle = i * angleStep - Math.PI / 2;
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius;
+        html += `<line x1="0" y1="0" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>`;
+        const lx = Math.cos(angle) * (radius + 24);
+        const ly = Math.sin(angle) * (radius + 24);
+        let anchor = "middle";
+        if (Math.abs(lx) > 10) anchor = lx > 0 ? "start" : "end";
+        html += `<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" fill="#94a3b8" font-size="11" font-weight="600" text-anchor="${anchor}" dominant-baseline="central">${d.name}</text>`;
+      });
+
+      let valPoints = [];
+      SB_DIMENSIONS.forEach((d, i) => {
+        const valRatio = (data[d.key] || 0) / 100;
+        const angle = i * angleStep - Math.PI / 2;
+        valPoints.push(`${(Math.cos(angle)*radius*valRatio).toFixed(1)},${(Math.sin(angle)*radius*valRatio).toFixed(1)}`);
+      });
+
+      html += `<polygon points="${valPoints.join(' ')}" fill="${accentColor}" fill-opacity="0.25" stroke="${accentColor}" stroke-width="2.5" stroke-linejoin="round"/>`;
+      valPoints.forEach(pt => {
+        const [x, y] = pt.split(',');
+        html += `<circle cx="${x}" cy="${y}" r="4" fill="${accentColor}" stroke="#05070a" stroke-width="1.5"/>`;
+      });
+      svg.innerHTML = html;
+    }
+
+    function getSbDynamicTRIZStrategy(data, top1, top2, lowest) {
+      if (data.novelty > 60 && data.security > 60) {
+        return `<strong>TRIZ Principle 10 (Preliminary Action):</strong> Deploy non-disruptive sandbox pilots &amp; instant rollbacks so customers experience radical novelty with zero operational risk.`;
+      }
+      if (data.status > 60 && data.simplicity > 60) {
+        return `<strong>TRIZ Principle 2 (Taking Out / Extraction):</strong> Strip away friction and complex setup while highlighting high-touch luxury visual cues and VIP onboarding.`;
+      }
+      if (data.efficiency > 60 && data.ethics > 60) {
+        return `<strong>TRIZ Principle 1 (Segmentation / Division):</strong> Modularize ESG audit tracking so environmental compliance occurs automatically in the background without slowing core execution.`;
+      }
+      if (data.autonomy > 60 && data.security > 60) {
+        return `<strong>TRIZ Principle 15 (Dynamicity):</strong> Progressive disclosure: default to zero-config safe presets out of the box while unlocking deep sandboxed parameters for power users.`;
+      }
+      if (data.belonging > 60 && data.autonomy > 60) {
+        return `<strong>TRIZ Principle 3 (Local Quality):</strong> Create permission-based micro-communities and localized user forums where members collaborate while retaining full data ownership.`;
+      }
+
+      const strategyMap = {
+        autonomy: {
+          security: `<strong>TRIZ Principle 15 (Dynamicity):</strong> Provide self-directed administrative controls wrapped in immutable background security guardrails.`,
+          simplicity: `<strong>TRIZ Principle 13 (The Other Way Round):</strong> Invert complex configuration screens into 1-click intelligent presets with full manual override.`,
+          default: `<strong>TRIZ Principle 3 (Local Quality):</strong> Tailor local user environments to grant granular permission controls while safeguarding system integrity.`
+        },
+        status: {
+          simplicity: `<strong>TRIZ Principle 2 (Taking Out):</strong> Extract administrative overhead while emphasizing VIP executive onboarding and high-touch support.`,
+          ethics: `<strong>TRIZ Principle 22 (Turn Harm into Benefit):</strong> Turn verified sustainability and ESG contributions into verified badges of executive prestige.`,
+          default: `<strong>TRIZ Principle 17 (Another Dimension):</strong> Position the solution in an exclusive category tier that redefines industry benchmark standards.`
+        },
+        security: {
+          novelty: `<strong>TRIZ Principle 10 (Preliminary Action):</strong> Deploy non-disruptive pilot sandboxes with automated 1-click fallback rollbacks so novelty carries 0 risk.`,
+          simplicity: `<strong>TRIZ Principle 24 (Mediator / Intermediary):</strong> Implement invisible passwordless authentication and background anomaly detection so compliance requires zero user effort.`,
+          default: `<strong>TRIZ Principle 11 (Beforehand Cushioning):</strong> Implement automated snapshot backups and fail-safe redundancy prior to any major system change.`
+        },
+        efficiency: {
+          ethics: `<strong>TRIZ Principle 1 (Segmentation):</strong> Decouple compliance tracking into asynchronous background micro-services so execution velocity remains uninhibited.`,
+          novelty: `<strong>TRIZ Principle 35 (Parameter Changes):</strong> Offer Express Execution mode for high-velocity routine tasks and Sandbox Mode for exploring new features.`,
+          default: `<strong>TRIZ Principle 5 (Merging):</strong> Consolidate multi-step workflows into a single streamlined dashboard interface.`
+        },
+        belonging: {
+          autonomy: `<strong>TRIZ Principle 3 (Local Quality):</strong> Create permissioned sub-groups where team members collaborate closely while maintaining private workspace views.`,
+          default: `<strong>TRIZ Principle 17 (Another Dimension):</strong> Build shared interactive forums and community knowledge-bases alongside core product features.`
+        },
+        novelty: {
+          security: `<strong>TRIZ Principle 10 (Preliminary Action):</strong> Provide non-disruptive feature preview flags and isolated test environments for zero-risk experimentation.`,
+          default: `<strong>TRIZ Principle 35 (Parameter Changes):</strong> Transform complex underlying technology into an intuitive, gamified user interface.`
+        },
+        ethics: {
+          efficiency: `<strong>TRIZ Principle 18 (Resonance):</strong> Synchronize real-time sustainability metrics directly with operational telemetry dashboards.`,
+          default: `<strong>TRIZ Principle 22 (Turn Harm into Benefit):</strong> Offset operational trade-offs by donating a portion of computing overhead to open science projects.`
+        },
+        simplicity: {
+          autonomy: `<strong>TRIZ Principle 16 (Partial or Excessive Actions):</strong> Ship curated, intelligent default configurations with 1-click advanced setup options.`,
+          default: `<strong>TRIZ Principle 2 (Taking Out):</strong> Eliminate all non-essential UI elements to present a distraction-free, zero-friction interface.`
+        }
+      };
+
+      const primaryObj = strategyMap[top1.key] || {};
+      return primaryObj[lowest.key] || primaryObj[top2.key] || primaryObj.default || `<strong>TRIZ Principle 5 (Merging / Combination):</strong> Merge primary utility hooks directly with automated baseline defaults to eliminate customer hesitation.`;
+    }
+
+    function updateSbResults() {
+      const data = {};
+      SB_DIMENSIONS.forEach(d => {
+        const slider = document.getElementById(`sb-slide-${d.key}`);
+        const val = slider ? parseInt(slider.value, 10) : 50;
+        data[d.key] = val;
+        const txt = document.getElementById(`sb-val-${d.key}`);
+        if (txt) txt.innerText = `${val}%`;
+      });
+
+      renderSbRadar(data);
+      renderSbTurningWaveChart(sbActiveGenKey);
+
+      const sorted = [...SB_DIMENSIONS].sort((a,b) => data[b.key] - data[a.key]);
+      const top1 = sorted[0];
+      const top2 = sorted[1];
+      const lowest = sorted[sorted.length - 1];
+
+      let prop = "";
+      if (top1.key === 'efficiency') prop = "High-velocity productivity engine driving instant quantifiable ROI.";
+      else if (top1.key === 'security') prop = "Mission-critical, fail-safe gold standard for risk-conscious leaders.";
+      else if (top1.key === 'status') prop = "Bespoke executive solution signaling industry prestige & mastery.";
+      else if (top1.key === 'ethics') prop = "Authentic, purpose-led innovation focused on radical transparency.";
+      else prop = "Autonomous next-gen platform empowering total creative freedom & innovation.";
+
+      const propEl = document.getElementById('sb-out-prop');
+      if (propEl) propEl.innerHTML = prop;
+
+      const trizEl = document.getElementById('sb-out-triz');
+      if (trizEl) trizEl.innerHTML = getSbDynamicTRIZStrategy(data, top1, top2, lowest);
+    }
+
+    // Initialize sidebar radar on load
+    updateSbResults();
   </script>
 
 </body>
 </html>
+

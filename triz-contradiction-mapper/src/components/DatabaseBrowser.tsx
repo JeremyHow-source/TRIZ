@@ -15,6 +15,7 @@ import { parameters } from '../data/parameters';
 import { principles } from '../data/principles';
 import { standardSolutions } from '../data/solutions';
 import { translations } from '../data/translations';
+import { RubyText } from '../utils/pinyin';
 
 interface DatabaseBrowserProps {
   lang: TrizLanguage;
@@ -288,34 +289,34 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
           <div className="text-left">
             <h2 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
               <BookOpen className="h-5 w-5 text-matrix-green" />
-              {t.dbTitle}
+              <RubyText text={t.dbTitle} lang={lang} />
             </h2>
-            <p className="text-xs text-slate-400 mt-1 max-w-xl">
-              {t.dbSubtitle}
+            <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-xl">
+              <RubyText text={t.dbSubtitle} lang={lang} />
             </p>
           </div>
 
           <div className="flex bg-silicon-bg/95 p-1 rounded-xl border border-silicon-border">
             <button
               onClick={() => setDbMode('core')}
-              className={`px-4 py-2 text-xs font-bold rounded-lg cursor-pointer transition-all ${
+              className={`px-4 py-2 text-xs sm:text-sm font-bold rounded-lg cursor-pointer transition-all ${
                 dbMode === 'core' 
                   ? 'bg-matrix-green text-silicon-bg' 
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
-              {lang === 'en' ? "Core TRIZ Reference" : "经典 TRIZ 模型库"}
+              <RubyText text={lang === 'en' ? "Core TRIZ Reference" : "经典 TRIZ 模型库"} lang={lang} />
             </button>
             <button
               onClick={() => setDbMode('effects')}
-              className={`px-4 py-2 text-xs font-bold rounded-lg cursor-pointer transition-all flex items-center gap-2 ${
+              className={`px-4 py-2 text-xs sm:text-sm font-bold rounded-lg cursor-pointer transition-all flex items-center gap-2 ${
                 dbMode === 'effects' 
                   ? 'bg-matrix-green text-silicon-bg' 
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
-              <span>{lang === 'en' ? "Scientific Effects (26MB)" : "科学效应数据库"}</span>
-              {loadingEffects && <Loader className="h-3 w-3 animate-spin text-matrix-green" />}
+              <span><RubyText text={lang === 'en' ? "Scientific Effects (26MB)" : "科学效应数据库"} lang={lang} /></span>
+              {loadingEffects && <Loader className="h-3.5 w-3.5 animate-spin text-matrix-green" />}
             </button>
           </div>
         </div>
@@ -340,23 +341,23 @@ export default function DatabaseBrowser({ lang }: DatabaseBrowserProps) {
             <div className="lg:col-span-6 flex flex-wrap items-center gap-2 lg:justify-end" id="category-pills-row">
               <button
                 onClick={() => setSelectedCoreCategory('parameters')}
-                className={`px-4 py-2.5 text-xs font-bold rounded-lg transition-all cursor-pointer border ${
+                className={`px-4 py-2.5 text-xs sm:text-sm font-bold rounded-lg transition-all cursor-pointer border ${
                   selectedCoreCategory === 'parameters'
                     ? 'bg-matrix-green/15 text-matrix-green border-matrix-green'
                     : 'bg-silicon-card border-silicon-border text-slate-400 hover:text-white'
                 }`}
               >
-                {t.categoryParameters}
+                <RubyText text={t.categoryParameters} lang={lang} />
               </button>
               <button
                 onClick={() => setSelectedCoreCategory('principles')}
-                className={`px-4 py-2.5 text-xs font-bold rounded-lg transition-all cursor-pointer border ${
+                className={`px-4 py-2.5 text-xs sm:text-sm font-bold rounded-lg transition-all cursor-pointer border ${
                   selectedCoreCategory === 'principles'
                     ? 'bg-matrix-green/15 text-matrix-green border-matrix-green'
                     : 'bg-silicon-card border-silicon-border text-slate-400 hover:text-white'
                 }`}
               >
-                {t.categoryPrinciples}
+                <RubyText text={t.categoryPrinciples} lang={lang} />
               </button>
               <button
                 onClick={() => setSelectedCoreCategory('solutions')}
