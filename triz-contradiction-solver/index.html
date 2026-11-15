@@ -13,6 +13,17 @@
     <link rel="apple-touch-icon" href="./favicon.ico">
     <script type="module" crossorigin src="./assets/index-BvidJ77W.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-BO3v9wuJ.css">
+    <style>
+      /* Prevent MATRIX FA/FI ENGINE header badge from wrapping onto two lines */
+      header span.rounded-full.uppercase.tracking-widest.font-mono {
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      /* Give Physical Contradiction State & Reason inputs full row width so long text does not clip */
+      .grid.sm\:grid-cols-2:has(input[type="text"]) {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>

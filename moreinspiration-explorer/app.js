@@ -332,6 +332,15 @@
         // Update counts
         dom.showingCount.textContent = Math.min(state.displayCount, innovations.length).toLocaleString();
         dom.totalInnovations.textContent = innovations.length.toLocaleString();
+        if (dom.filteredCountEl) {
+            const isFiltered = Boolean(
+                state.searchQuery ||
+                Object.values(state.filters).some(set => set.size > 0)
+            );
+            const numEl = dom.filteredCountEl.querySelector('.stat-number');
+            if (numEl) numEl.textContent = innovations.length.toLocaleString();
+            dom.filteredCountEl.classList.toggle('hidden', !isFiltered);
+        }
 
         // Show/hide empty state
         const hasResults = innovations.length > 0;
